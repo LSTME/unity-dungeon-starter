@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ namespace Scripts
     {
 
         public bool IsOpen = true;
+
+        public Action<GameObject, bool> OnToggle;
 
         private Animator animator
         {
@@ -21,18 +24,25 @@ namespace Scripts
 
         public void Open()
         {
-            if (IsOpen) return;
-
-            IsOpen = true;
-            animator.Play("open");
+            Toggle(true);
         }
 
         public void Close()
         {
-            if (!IsOpen) return;
+            Toggle(false);
+        }
 
-            IsOpen = false;
-            animator.Play("close");
+        void Toggle(bool open)
+        {
+            if (IsOpen == open) return;
+
+            IsOpen = open;
+            animator.Play(open ? "open" : "close");
+
+            if (OnToggle != null)
+            {
+                OnToggle(gameObject, open);
+            }
         }
     }
 }

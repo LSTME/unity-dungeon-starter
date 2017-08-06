@@ -79,7 +79,6 @@ namespace Scripts
             {
 				AddObject(location, Direction.North, Prefabs["floor"]);
 				AddObject(location, Direction.North, Prefabs["ceiling"]);
-                Walkable.Add(location);
             }
 
             GameObject GO = null;
@@ -103,6 +102,10 @@ namespace Scripts
                 case 'l':
                     GO = Prefabs["wall_lever"];
                     ortientation = (Direction)"ijkl".IndexOf(c);
+                    Walkable.Add(location);
+                    break;
+                default:
+                    Walkable.Add(location);
                     break;
             }
 
@@ -120,6 +123,29 @@ namespace Scripts
             if (instance.tag == "Interactive")
             {
                 Interactives.Add(location, instance);
+            }
+
+            if (instance.tag == "Doors")
+            {
+                var dc = (DoorsController)instance.GetComponent(typeof(DoorsController));
+                dc.OnToggle += (GameObject doors, bool isOpen) => HandleDoorToggle(location, isOpen);
+                if (dc.IsOpen)
+                {
+                    Walkable.Add(location);
+                }
+            }
+        }
+
+        void HandleDoorToggle(Vector2 location, bool isOpen)
+        {
+            var includes = Walkable.Contains(location);
+            if (isOpen && !includes)
+            {
+                Walkable.Add(location);
+            }
+            else if (!isOpen && includes)
+            {
+                Walkable.Remove(location);
             }
         }
 

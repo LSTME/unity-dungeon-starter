@@ -38,17 +38,26 @@ namespace Scripts
             RotateTo(m_CurrentDirection, false);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
             if (!m_IsRotating && !m_IsMoving)
             {
-                float vertical = Input.GetAxis("Vertical");
-                float horizontal = Input.GetAxis("Horizontal");
-                
-                if (horizontal < 0) RotateLeft();
-                else if (horizontal > 0) RotateRight();
-                else if (vertical > 0) MoveForward();
-                else if (vertical < 0) MoveBackward();
+                if (Input.GetButtonDown("Vertical"))
+                {
+                    float vertical = Input.GetAxis("Vertical");
+                    if (vertical > 0) MoveForward();
+                    else if (vertical < 0) MoveBackward();
+                }
+                else if (Input.GetButtonDown("Horizontal"))
+                {
+                    float horizontal = Input.GetAxis("Horizontal");
+                    if (horizontal < 0) RotateLeft();
+                    else if (horizontal > 0) RotateRight();
+                }
+                else if(Input.GetButtonDown("Action"))
+                {
+                    Debug.Log("Action!");
+                }
             }
             else if (m_IsRotating)
             {

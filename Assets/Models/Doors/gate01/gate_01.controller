@@ -5,13 +5,13 @@ AnimatorController:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: doors
+  m_Name: gate_01
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
-    m_StateMachine: {fileID: 1107044198213542904}
+    m_StateMachine: {fileID: 1107405231050713586}
     m_Mask: {fileID: 0}
     m_Motions: []
     m_Behaviours: []
@@ -21,13 +21,13 @@ AnimatorController:
     m_IKPass: 0
     m_SyncedLayerAffectsTiming: 0
     m_Controller: {fileID: 9100000}
---- !u!1102 &1102205829010596646
+--- !u!1102 &1102565782967559522
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: doors_close
+  m_Name: close
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -39,18 +39,18 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 0c9ceb634b28c4e999e4d05a73f688b0, type: 2}
+  m_Motion: {fileID: 7400000, guid: 0e815b6dd4bcd4e47947ef031f2afc21, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
---- !u!1102 &1102269530267104626
+--- !u!1102 &1102926196390249118
 AnimatorState:
   serializedVersion: 5
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: doors_open
+  m_Name: open
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -62,12 +62,12 @@ AnimatorState:
   m_SpeedParameterActive: 0
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 606d8290fea13427091492d2dd259748, type: 2}
+  m_Motion: {fileID: 7400000, guid: 8dc8913a83421464b928423829171db3, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
---- !u!1107 &1107044198213542904
+--- !u!1107 &1107405231050713586
 AnimatorStateMachine:
   serializedVersion: 5
   m_ObjectHideFlags: 1
@@ -76,23 +76,23 @@ AnimatorStateMachine:
   m_Name: Base Layer
   m_ChildStates:
   - serializedVersion: 1
-    m_State: {fileID: 1102269530267104626}
-    m_Position: {x: 264, y: 132, z: 0}
+    m_State: {fileID: 1102926196390249118}
+    m_Position: {x: 372, y: 60, z: 0}
   - serializedVersion: 1
-    m_State: {fileID: 1102205829010596646}
-    m_Position: {x: 264, y: 240, z: 0}
+    m_State: {fileID: 1102565782967559522}
+    m_Position: {x: 372, y: 192, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions:
-  - {fileID: 1109458326671025518}
+  - {fileID: 1109379284402001238}
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 48, y: 24, z: 0}
-  m_EntryPosition: {x: 48, y: 180, z: 0}
-  m_ExitPosition: {x: 588, y: 180, z: 0}
+  m_AnyStatePosition: {x: 50, y: 20, z: 0}
+  m_EntryPosition: {x: 48, y: 120, z: 0}
+  m_ExitPosition: {x: 800, y: 120, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: 1102205829010596646}
---- !u!1109 &1109458326671025518
+  m_DefaultState: {fileID: 1102926196390249118}
+--- !u!1109 &1109379284402001238
 AnimatorTransition:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -100,7 +100,7 @@ AnimatorTransition:
   m_Name: 
   m_Conditions: []
   m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: 1102269530267104626}
+  m_DstState: {fileID: 1102565782967559522}
   m_Solo: 0
   m_Mute: 0
   m_IsExit: 0

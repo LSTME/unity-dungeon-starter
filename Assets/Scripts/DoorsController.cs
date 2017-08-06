@@ -29,7 +29,7 @@ public class DoorsController : MonoBehaviour {
 
 		IsOpen = true;
 		var animator = GetComponent<Animator>();
-		animator.Play("doors_open");
+		animator.Play("open");
 	}
 
 	void Close() {
@@ -37,6 +37,6 @@ public class DoorsController : MonoBehaviour {
 
 		IsOpen = false;
 		var animator = GetComponent<Animator>();
-		animator.Play("doors_close");
+		animator.Play("close");
 	}
 }

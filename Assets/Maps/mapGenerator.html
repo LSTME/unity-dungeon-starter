@@ -1,0 +1,146 @@
+<html>
+<body>
+
+<style>
+    pre {
+        float: left;
+        padding: 10;
+        background-color: lightblue;
+    }
+
+    .config {
+        clear: both;
+    }
+</style>
+
+<pre id="textPreview"></pre>
+
+<div class="config">
+    <label>Width:</label><input id=width type="text"/><br />
+    <label>Height:</label><input id=height type="text"/><br />
+    <label>Seed:</label><input id=seed type="text"/><br />
+    <input id=randomseed type="button" value="Random Seed"/><br />
+</div>
+
+<script>
+    size = 2
+    pathWidth = size       //Width of the Maze Path
+    wall = size             //Width of the Walls between Paths
+    outerWall = size        //Width of the Outer most wall
+    width = 10           //Number paths fitted horisontally
+    height = 10          //Number paths fitted vertically
+    delay = 0            //Delay between algorithm cycles
+    x = width / 2 | 0        //Horisontal starting position
+    y = height / 2 | 0       //Vertical starting position
+    seed = Math.random() * 100000 | 0
+
+    randomGen = function (seed) {
+        if (seed === undefined) var seed = performance.now()
+        return function () {
+            seed = (seed * 9301 + 49297) % 233280
+            return seed / 233280
+        }
+    }
+
+    init = function () {
+        offset = pathWidth / 2 + outerWall
+        map = []
+        random = randomGen(seed)
+        for (var i = 0; i < height * 2; i++) {
+            map[i] = []
+            for (var j = 0; j < width * 2; j++) {
+                map[i][j] = false
+            }
+        }
+        map[y * 2][x * 2] = true
+        route = [{x, y}]
+    }
+    init()
+
+    inputWidth = document.getElementById('width')
+    inputHeight = document.getElementById('height')
+    inputSeed = document.getElementById('seed')
+    buttonRandomSeed = document.getElementById('randomseed')
+    textVersion = document.getElementById('text')
+
+    settings = {
+        display: function () {
+            inputWidth.value = width
+            inputHeight.value = height
+            inputSeed.value = seed
+        },
+        check: function () {
+            if (inputWidth.value != width ||
+                inputHeight.value != height ||
+                inputSeed.value != seed) {
+                settings.update()
+            }
+        },
+        update: function () {
+            clearTimeout(timer)
+            width = parseFloat(inputWidth.value)
+            height = parseFloat(inputHeight.value)
+            seed = parseFloat(inputSeed.value)
+            x = width / 2 | 0
+            y = height / 2 | 0
+            init()
+            loop()
+        }
+    }
+
+    buttonRandomSeed.addEventListener('click', function () {
+        inputSeed.value = Math.random() * 100000 | 0
+    })
+
+    loop = function () {
+        const lastPoint = route[route.length - 1];
+        x = lastPoint.x | 0
+        y = lastPoint.y | 0
+
+        const directions = [
+            {x: 1, y: 0}, 
+            {x: -1, y: 0},
+            {x: 0, y: 1},
+            {x: 0, y: -1}
+        ];
+        const alternatives = [];
+
+        directions.forEach(dir => {
+            if (map[(dir.y + y) * 2] != undefined &&
+                map[(dir.y + y) * 2][(dir.x + x) * 2] === false) {
+                alternatives.push(dir)
+            }
+        })
+
+        if (alternatives.length === 0) {
+            route.pop()
+            if (route.length > 0) {
+                timer = setTimeout(loop, delay)
+            }
+            return;
+        }
+
+        direction = alternatives[random() * alternatives.length | 0]
+
+        // debugger;
+
+        route.push({x: direction.x + x, y: direction.y + y});
+
+        map[(direction.y + y) * 2][(direction.x + x) * 2] = true
+        map[direction.y + y * 2][direction.x + x * 2] = true
+
+        let str = '#';
+        map[0].forEach(c => str += '#');
+        str += '\n';
+        str += map.map(r => '#' + r.map(c => c ? ' ' : '#').join('')).join('\n');
+        window.textPreview.textContent = str;
+
+        timer = setTimeout(loop, delay)
+    }
+    settings.display()
+    loop()
+    setInterval(settings.check,400)
+</script>
+
+</body>
+</html>

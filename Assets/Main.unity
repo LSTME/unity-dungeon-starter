@@ -209,7 +209,7 @@ MonoBehaviour:
     type: 2}
   DoorPrefab: {fileID: 1921635258}
   MapObject: {fileID: 1324170934}
-  MapFile: {fileID: 4900000, guid: 7d5b80057f9994f1b82391a22d403d4b, type: 3}
+  MapFile: {fileID: 4900000, guid: 95489e666ed8f433aa4a84614d0dee11, type: 3}
 --- !u!4 &656584862
 Transform:
   m_ObjectHideFlags: 0

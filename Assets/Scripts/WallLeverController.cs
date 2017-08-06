@@ -23,6 +23,19 @@ namespace Scripts
 
             if (OnToggle != null) OnToggle(IsActive);
 
+            foreach (GameObject doors in GameObject.FindGameObjectsWithTag("Doors"))
+            {
+                var cont = (DoorsController)doors.GetComponent(typeof(DoorsController));
+                if (IsActive)
+                {
+                    cont.Open();
+                }
+                else
+                {
+                    cont.Close();
+                }
+            } 
+
             UpdateVisuals();
         }
 

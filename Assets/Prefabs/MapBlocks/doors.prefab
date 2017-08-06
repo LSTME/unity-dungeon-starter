@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 114332931722497884}
   m_Layer: 0
   m_Name: doors
-  m_TagString: Untagged
+  m_TagString: Doors
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -213,7 +213,7 @@ Transform:
   m_Children:
   - {fileID: 4383103256358852}
   m_Father: {fileID: 4361686805082368}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4271015473019950
 Transform:
@@ -242,8 +242,8 @@ Transform:
   - {fileID: 4271015473019950}
   - {fileID: 4650462128085056}
   - {fileID: 4547117015439256}
-  - {fileID: 4578080201691660}
   - {fileID: 4207551914128238}
+  - {fileID: 4578080201691660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -286,7 +286,7 @@ Transform:
   m_Children:
   - {fileID: 4118498324421904}
   m_Father: {fileID: 4361686805082368}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4650462128085056
 Transform:

@@ -19,22 +19,7 @@ namespace Scripts
             Close();
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-            var player = GameObject.FindGameObjectWithTag("Player");
-
-            if (Vector3.Distance(transform.position, player.transform.position) < 1.1)
-            {
-                Open();
-            }
-            else
-            {
-                Close();
-            }
-        }
-
-        void Open()
+        public void Open()
         {
             if (IsOpen) return;
 
@@ -42,7 +27,7 @@ namespace Scripts
             animator.Play("open");
         }
 
-        void Close()
+        public void Close()
         {
             if (!IsOpen) return;
 

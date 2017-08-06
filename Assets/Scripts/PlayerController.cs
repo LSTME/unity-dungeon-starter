@@ -21,18 +21,11 @@ namespace Scripts
         [SerializeField] private float m_MovementSpeed = 0.3f;
 
         
-        private Camera m_Camera;
-        private CharacterController m_CharacterController;
-        private Vector3 m_OriginalCameraPosition;
         private Vector2 m_CurrentLocation = new Vector2(0, 0);
         private Vector2 m_TargetLocation = new Vector2(0, 0);
         [SerializeField] private Direction m_CurrentDirection = Direction.North;
         [SerializeField] private Direction m_TargetDirection = Direction.North;
-        private float m_StepCycle;
-        private float m_NextStep;
-        private AudioSource m_AudioSource;
         private Vector2 m_Input;
-        private Vector3 m_MoveDir = Vector3.zero;
 
         private MapGenerator Map {
             get {
@@ -42,13 +35,6 @@ namespace Scripts
 
         private void Start()
         {
-            m_CharacterController = GetComponent<CharacterController>();
-            m_Camera = Camera.main;
-            m_OriginalCameraPosition = m_Camera.transform.localPosition;
-            m_StepCycle = 0f;
-            m_NextStep = m_StepCycle/2f;
-            m_AudioSource = GetComponent<AudioSource>();
-
             RotateTo(m_CurrentDirection, false);
         }
 
@@ -203,22 +189,6 @@ namespace Scripts
             {
                 m_Input.Normalize();
             }
-        }
-
-        private void OnControllerColliderHit(ControllerColliderHit hit)
-        {
-            // Rigidbody body = hit.collider.attachedRigidbody;
-            // //dont move the rigidbody if the character is on top of it
-            // if (m_CollisionFlags == CollisionFlags.Below)
-            // {
-            //     return;
-            // }
-
-            // if (body == null || body.isKinematic)
-            // {
-            //     return;
-            // }
-            // body.AddForceAtPosition(m_CharacterController.velocity*0.1f, hit.point, ForceMode.Impulse);
         }
     }
 }

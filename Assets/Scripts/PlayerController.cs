@@ -3,14 +3,6 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public enum Direction
-    {
-        North = 0,
-        East = 1,
-        South = 2,
-        West = 3
-    }
-
     [RequireComponent(typeof (Rigidbody))]
     [RequireComponent(typeof (CapsuleCollider))]
     public class PlayerController : MonoBehaviour
@@ -90,14 +82,14 @@ namespace Scripts
             }
             else
             {
-                transform.rotation = RotationForDirection(direction);
+                transform.rotation = direction.GetRotation();
                 m_CurrentDirection = direction;
             }
         }
 
         void Rotate()
         {
-            Quaternion target = RotationForDirection(m_TargetDirection);
+            Quaternion target = m_TargetDirection.GetRotation();
             if (Quaternion.Angle(transform.rotation, target) < 1)
             {
                 transform.rotation = target;
@@ -108,17 +100,6 @@ namespace Scripts
             {
                 var step = Time.fixedDeltaTime * m_RotationSpeed;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
-            }
-        }
-
-        Quaternion RotationForDirection(Direction direction)
-        {
-            switch (direction)
-            {
-                case Direction.North: return Quaternion.LookRotation(new Vector3(-1, 0, 0));
-                case Direction.East:  return Quaternion.LookRotation(new Vector3(0, 0, 1));
-                case Direction.South: return Quaternion.LookRotation(new Vector3(1, 0, 0));
-                default: /* West */   return Quaternion.LookRotation(new Vector3(0, 0, -1));
             }
         }
 

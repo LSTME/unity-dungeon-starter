@@ -2,43 +2,52 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorsController : MonoBehaviour {
+namespace Scripts
+{
+    public class DoorsController : MonoBehaviour
+    {
 
-	public bool IsOpen = true;
+        public bool IsOpen = true;
 
-	private Animator animator {
-		get { return GetComponent<Animator>(); }
-	}
+        private Animator animator
+        {
+            get { return GetComponent<Animator>(); }
+        }
 
-	void Start() {
-		Close();
-	}
+        void Start()
+        {
+            Close();
+        }
 
-	// Update is called once per frame
-	void Update () {
-		var player = GameObject.FindGameObjectWithTag("Player");
+        // Update is called once per frame
+        void Update()
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
 
-		if (Vector3.Distance(transform.position, player.transform.position) < 1.1)
-		{
-			Open();
-		}
-		else
-		{
-			Close();
-		}
-	}
+            if (Vector3.Distance(transform.position, player.transform.position) < 1.1)
+            {
+                Open();
+            }
+            else
+            {
+                Close();
+            }
+        }
 
-	void Open() {
-		if (IsOpen) return;
+        void Open()
+        {
+            if (IsOpen) return;
 
-		IsOpen = true;
-		animator.Play("open");
-	}
+            IsOpen = true;
+            animator.Play("open");
+        }
 
-	void Close() {
-		if (!IsOpen) return;
+        void Close()
+        {
+            if (!IsOpen) return;
 
-		IsOpen = false;
-		animator.Play("close");
-	}
+            IsOpen = false;
+            animator.Play("close");
+        }
+    }
 }

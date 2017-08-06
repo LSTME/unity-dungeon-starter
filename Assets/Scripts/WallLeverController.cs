@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,22 +7,21 @@ namespace Scripts
 {
     public class WallLeverController : MonoBehaviour
     {
-        public bool IsActive;
+        public bool IsActive = false;
+
+        public Action<bool> OnToggle;
 
         // Use this for initialization
         void Start()
         {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
+            UpdateVisuals();
         }
 
         public void Toggle()
         {
             IsActive = !IsActive;
+
+            if (OnToggle != null) OnToggle(IsActive);
 
             UpdateVisuals();
         }

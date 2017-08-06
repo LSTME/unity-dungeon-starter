@@ -21,6 +21,7 @@ namespace Scripts
         public GameObject MapObject;
         public TextAsset MapFile;
         private List<Vector2> Walkable;
+        private Dictionary<Vector2, GameObject> Interactives;
 
         // Use this for initialization
         void Start()
@@ -66,6 +67,8 @@ namespace Scripts
                 var obj = child.gameObject;
                 GameObject.Destroy(obj);
             }
+
+            Interactives = new Dictionary<Vector2, GameObject>();
         }
 
         void AddBlock(char c, int x, int y)
@@ -113,6 +116,11 @@ namespace Scripts
         {
 			var instance = Instantiate(prefab, new Vector3(location.x, 0, location.y), direction.GetRotation());
 			instance.transform.parent = MapObject.transform;
+
+            if (instance.tag == "Interactive")
+            {
+                Interactives.Add(location, instance);
+            }
         }
 
         public bool IsWalkable(Vector2 loc)
@@ -123,6 +131,18 @@ namespace Scripts
         public Vector3 PositionForLocation(Vector2 loc)
         {
             return new Vector3(loc.x, 0, loc.y);
+        }
+
+        public GameObject GetInteractive(Vector2 loc)
+        {
+            if (Interactives.ContainsKey(loc))
+            {
+                return Interactives[loc];
+            }
+            else
+            {
+                return null;
+            }
         }
 
         void MovePlayer(int x, int y)

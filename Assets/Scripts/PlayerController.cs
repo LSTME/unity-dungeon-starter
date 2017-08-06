@@ -48,7 +48,12 @@ namespace Scripts
                 }
                 else if(Input.GetButtonDown("Action"))
                 {
-                    Debug.Log("Action!");
+                    var GO = Map.GetInteractive(m_CurrentLocation);
+                    if (GO)
+                    {
+                        var cont = GO.GetComponent<WallLeverController>();
+                        cont.Toggle();
+                    }
                 }
             }
             else if (m_IsRotating)

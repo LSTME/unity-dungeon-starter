@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class DoorsController : MonoBehaviour {
 
-	public bool IsOpen = false;
+	public bool IsOpen = true;
+
+	private Animator animator {
+		get { return GetComponent<Animator>(); }
+	}
 
 	void Start() {
-		this.Close();
+		Close();
 	}
 
 	// Update is called once per frame
@@ -28,7 +32,6 @@ public class DoorsController : MonoBehaviour {
 		if (IsOpen) return;
 
 		IsOpen = true;
-		var animator = GetComponent<Animator>();
 		animator.Play("open");
 	}
 
@@ -36,7 +39,6 @@ public class DoorsController : MonoBehaviour {
 		if (!IsOpen) return;
 
 		IsOpen = false;
-		var animator = GetComponent<Animator>();
 		animator.Play("close");
 	}
 }

@@ -6,16 +6,26 @@ using Scripts;
 
 public class MapGenerator : MonoBehaviour {
 
-	public GameObject WallPrefab;
-	public GameObject FloorPrefab;
-	public GameObject CeilingPrefab;
-	public GameObject DoorPrefab;
+	[Serializable]
+	public struct NamedPrefab {
+		public string name;
+		public GameObject prefab;
+	}
+	public NamedPrefab[] prefabs;
+	private Dictionary<string, GameObject> Prefabs;
+
 	public GameObject MapObject;
 	public TextAsset MapFile;
 	private List<Vector2> Walkable;
 
 	// Use this for initialization
 	void Start () {
+		Prefabs = new Dictionary<string, GameObject>();
+		foreach (NamedPrefab pref in prefabs)
+		{
+			Prefabs.Add(pref.name, pref.prefab);
+		}
+
 		this.LoadMap(MapFile.text);
 	}
 
@@ -56,9 +66,9 @@ public class MapGenerator : MonoBehaviour {
 
 		if (c != '#') // put floor/ceiling under everything but wall
 		{
-			var floor = Instantiate(FloorPrefab, location, Quaternion.identity);
+			var floor = Instantiate(Prefabs["floor"], location, Quaternion.identity);
 			floor.transform.parent = MapObject.transform;
-			var ceiling = Instantiate(CeilingPrefab, location, Quaternion.identity);
+			var ceiling = Instantiate(Prefabs["ceiling"], location, Quaternion.identity);
 			ceiling.transform.parent = MapObject.transform;
 
 			Walkable.Add(new Vector2(x, y));
@@ -70,14 +80,21 @@ public class MapGenerator : MonoBehaviour {
 		switch (c)
 		{
 			case '#': 
-				GO = WallPrefab; 
+				GO = Prefabs["wall"]; 
 				break;
 			case '-':
-				GO = DoorPrefab;
+				GO = Prefabs["gate"];
 				ortientation = Quaternion.AngleAxis(90, Vector3.up);
 				break;
 			case '|':
-				GO = DoorPrefab;
+				GO = Prefabs["gate"];
+				break;
+			case 'i':
+			case 'j':
+			case 'k':
+			case 'l':
+				GO = Prefabs["wall_lever"];
+				ortientation = Quaternion.AngleAxis(90*"ijkl".IndexOf(c), Vector3.up);
 				break;
 		}
 		

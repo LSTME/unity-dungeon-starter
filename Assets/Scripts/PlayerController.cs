@@ -51,8 +51,8 @@ namespace Scripts
                     var GO = Map.GetInteractive(m_CurrentLocation);
                     if (GO)
                     {
-                        var cont = GO.GetComponent<WallLeverController>();
-                        cont.Toggle();
+                        var cont = GO.GetComponent<IInteractive>();
+                        cont.Activate();
                     }
                 }
             }

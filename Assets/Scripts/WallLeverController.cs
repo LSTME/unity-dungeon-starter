@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public class WallLeverController : MonoBehaviour
+    public class WallLeverController : MonoBehaviour, IInteractive
     {
         public bool IsActive = false;
 
@@ -17,7 +17,7 @@ namespace Scripts
             UpdateVisuals();
         }
 
-        public void Toggle()
+        public void Activate()
         {
             IsActive = !IsActive;
 

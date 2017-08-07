@@ -204,6 +204,10 @@ namespace Scripts
 
         private void PlayHeadBob()
         {
+            var sound = GetComponent<AudioSource>();
+            sound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
+            sound.Play();
+
             var anim = transform.Find("Camera").gameObject.GetComponent<Animator>();
             anim.Play("head_bob");
         }

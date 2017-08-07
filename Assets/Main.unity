@@ -442,6 +442,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 82268485214312224, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
   m_IsPrefabParent: 0
@@ -552,7 +557,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b6b99da3968db47f58aeb282d99eb0b6, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 671c148982e664c09b288076a8c2bcf2, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

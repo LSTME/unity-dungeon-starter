@@ -26,7 +26,7 @@ namespace Scripts
 
         private MapGenerator Map {
             get {
-                return (MapGenerator)GameObject.FindGameObjectWithTag("Map").GetComponent(typeof(MapGenerator));
+                return GameObject.FindGameObjectWithTag("Map").GetComponent<MapGenerator>();
             }
         }
 

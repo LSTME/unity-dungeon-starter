@@ -23,7 +23,7 @@ namespace Scripts
 						return false;
                     case "vgate":
                     case "hgate":
-                        return ((DoorsController)GameObject.GetComponent(typeof(DoorsController))).IsOpen;
+                        return GameObject.GetComponent<DoorsController>().IsOpen;
 					default:
 						return true;
 				}
@@ -193,7 +193,7 @@ namespace Scripts
             if (c != '#') // put floor/ceiling under everything but wall
             {
 				AddObject(location, Prefabs["floor"]);
-				// AddObject(location, Prefabs["ceiling"]);
+				AddObject(location, Prefabs["ceiling"]);
             }
 
             GameObject gameObjectTemplate = null; 
@@ -272,7 +272,7 @@ namespace Scripts
         void MovePlayer(int x, int y)
         {
             var player = GameObject.FindGameObjectWithTag("Player");
-            PlayerController controller = (PlayerController)player.GetComponent(typeof(PlayerController));
+            PlayerController controller = player.GetComponent<PlayerController>();
 
             controller.RotateTo(Direction.East, false);
             controller.MoveTo(new Vector2(x, y));

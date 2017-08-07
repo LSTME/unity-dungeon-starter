@@ -33,7 +33,7 @@ namespace Scripts
 
             foreach (var doors in GameObject.FindGameObjectsWithTag("Doors"))
             {
-                var component = (DoorsController)doors.GetComponent(typeof(DoorsController));
+                var component = doors.GetComponent<DoorsController>();
                 if (!component.Tag.Equals(DoorTag)) continue;
                 
                 if (IsActive)

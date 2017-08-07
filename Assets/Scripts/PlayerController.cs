@@ -9,7 +9,6 @@ namespace Scripts
     {
         [SerializeField] private bool m_IsMoving;
         [SerializeField] private bool m_IsRotating;
-        [SerializeField] private bool m_IsStrafing;
         [SerializeField] private int m_RotationSpeed = 5;
         [SerializeField] private float m_MovementSpeed = 0.3f;
 

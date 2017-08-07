@@ -9,6 +9,7 @@ namespace Scripts
     {
         [SerializeField] private bool m_IsMoving;
         [SerializeField] private bool m_IsRotating;
+        [SerializeField] private bool m_IsStrafing;
         [SerializeField] private int m_RotationSpeed = 5;
         [SerializeField] private float m_MovementSpeed = 0.3f;
 
@@ -36,13 +37,19 @@ namespace Scripts
             {
                 if (Input.GetButtonDown("Vertical"))
                 {
-                    float vertical = Input.GetAxis("Vertical");
+                    var vertical = Input.GetAxis("Vertical");
                     if (vertical > 0) MoveForward();
                     else if (vertical < 0) MoveBackward();
                 }
+                else if(Input.GetButtonDown("Strafe"))
+                {
+                    var strafe = Input.GetAxis("Strafe");
+                    if (strafe > 0) StrafeRight();
+                    else if (strafe < 0) StrafeLeft();
+                }
                 else if (Input.GetButtonDown("Horizontal"))
                 {
-                    float horizontal = Input.GetAxis("Horizontal");
+                    var horizontal = Input.GetAxis("Horizontal");
                     if (horizontal < 0) RotateLeft();
                     else if (horizontal > 0) RotateRight();
                 }
@@ -76,6 +83,18 @@ namespace Scripts
         {
             m_IsRotating = true;
             m_TargetDirection = (Direction)(((int)m_CurrentDirection + 1) % 4);
+        }
+        
+        void StrafeLeft() 
+        {
+            m_IsMoving = true;
+            m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 7) % 4));
+        }
+
+        void StrafeRight() 
+        {
+            m_IsMoving = true;
+            m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 1) % 4));
         }
 
         public void RotateTo(Direction direction, bool animate = true)
@@ -113,6 +132,7 @@ namespace Scripts
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection);
         }
+        
         void MoveBackward() 
         {
             m_IsMoving = true;

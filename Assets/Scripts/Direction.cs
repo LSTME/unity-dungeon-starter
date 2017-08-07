@@ -16,10 +16,10 @@ namespace Scripts
         {
             switch (direction)
             {
-                case Direction.North: return Quaternion.LookRotation(new Vector3(-1, 0, 0));
-                case Direction.East:  return Quaternion.LookRotation(new Vector3(0, 0, 1));
-                case Direction.South: return Quaternion.LookRotation(new Vector3(1, 0, 0));
-                default: /* West */   return Quaternion.LookRotation(new Vector3(0, 0, -1));
+                case Direction.North: return Quaternion.LookRotation(new Vector3(0, 0, 1));
+                case Direction.East:  return Quaternion.LookRotation(new Vector3(1, 0, 0));
+                case Direction.South: return Quaternion.LookRotation(new Vector3(0, 0, -1));
+                default: /* West */   return Quaternion.LookRotation(new Vector3(-1, 0, 0));
             }
         }
     }

@@ -144,10 +144,10 @@ namespace Scripts
         {
             switch (direction)
             {
-                case Direction.North: return new Vector2(m_CurrentLocation.x - step, m_CurrentLocation.y);
-                case Direction.South: return new Vector2(m_CurrentLocation.x + step, m_CurrentLocation.y);
-                case Direction.East:  return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y + step);
-                default: /* West */   return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y - step);
+                case Direction.North: return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y - step);
+                case Direction.South: return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y + step);
+                case Direction.East:  return new Vector2(m_CurrentLocation.x + step, m_CurrentLocation.y);
+                default: /* West */   return new Vector2(m_CurrentLocation.x - step, m_CurrentLocation.y);
             }
         }
 

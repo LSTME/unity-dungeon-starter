@@ -5,6 +5,32 @@ using UnityEngine;
 
 namespace Scripts
 {
+    public class MapBlock
+	{
+		public string Type { get; set; }
+		public Vector2 Location  { get; set; }
+		public GameObject GameObject { get; set; }
+		public string[] Attributes { get; set; }
+
+		public bool IsWalkable
+		{
+			get
+			{
+				switch (Type)
+				{
+					case "wall":
+						return false;
+					case "torch":
+						return false;
+                    case "vgate":
+                    case "hgate":
+                        return ((DoorsController)GameObject.GetComponent(typeof(DoorsController))).IsOpen;
+					default:
+						return true;
+				}
+			}
+		}
+	}
 
     public class MapGenerator : MonoBehaviour
     {
@@ -20,7 +46,7 @@ namespace Scripts
 
         public GameObject MapObject;
         public TextAsset MapFile;
-        private List<Vector2> Walkable;
+    	private Dictionary<Vector2, MapBlock> Blocks;
         private Dictionary<Vector2, GameObject> Interactives;
 
         // Use this for initialization
@@ -39,20 +65,54 @@ namespace Scripts
         {
             ClearMap();
 
-            Walkable = new List<Vector2>();
-            var x = 0;
-            foreach (string row in mapString.Split('\n'))
+            var y = 0;
+            foreach (var row in mapString.Split('\n'))
             {
                 if (row.Length == 0) continue;
+                if (row.StartsWith("//")) continue;
 
-                for (int y = 0; y < row.Length; y++)
+                if (row[0] == '#')
                 {
-                    this.AddBlock(row[y], x, y);
-
-                    if (row[y] == 'P') this.MovePlayer(x, y);
+                    for (int x = 0; x < row.Length; x++) 
+                    {
+                        AddBlock(row[x], x, y);
+                    }
+                    y++;
                 }
-                x++;
-            };
+                else
+                {
+                    var attrs = row.Split(' ');
+                    if (attrs.Length < 3) continue;
+
+                    var attrX = int.Parse(attrs[0]);
+                    var attrY = int.Parse(attrs[1]);
+                    var mapBlock = GetBlockAtLocation(new Vector2(attrX, attrY));
+                    if (mapBlock != null)
+                    {
+                        mapBlock.Attributes = new string[attrs.Length - 2];
+                        Array.Copy(attrs, 2, mapBlock.Attributes, 0, attrs.Length - 2);
+                    }
+                }
+            }
+
+            foreach (var mapBlock in Blocks.Values)
+            {
+                switch (mapBlock.Type)
+                {
+                    case "wall_lever":
+                    case "torch":
+                        Debug.Log(mapBlock.Attributes);
+                        if (mapBlock.Attributes.Length > 0)
+                        {
+                            var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
+                            mapBlock.GameObject.transform.rotation = direction.GetRotation();
+                        }
+                        break;
+                    case "vgate":
+                        mapBlock.GameObject.transform.rotation = Direction.East.GetRotation();
+                        break;
+                }
+            }
         }
 
         void ClearMap()
@@ -69,55 +129,70 @@ namespace Scripts
             }
 
             Interactives = new Dictionary<Vector2, GameObject>();
+    		Blocks = new Dictionary<Vector2, MapBlock>();
         }
 
         void AddBlock(char c, int x, int y)
         {
-            Vector2 location = new Vector3(x, y);
+            var location = new Vector2(x, y);
 
             if (c != '#') // put floor/ceiling under everything but wall
             {
-				AddObject(location, Direction.North, Prefabs["floor"]);
-				AddObject(location, Direction.North, Prefabs["ceiling"]);
+				AddObject(location, Prefabs["floor"]);
+				// AddObject(location, Prefabs["ceiling"]);
             }
 
-            GameObject GO = null;
-            var ortientation = Direction.North;
-
+            GameObject gameObjectTemplate = null; 
+            var orientation = Quaternion.identity;
+            
+            var mapBlock = new MapBlock();
             switch (c)
             {
-                case '#':
-                    GO = Prefabs["wall"];
+                case '#': 
+                    gameObjectTemplate = Prefabs["wall"];
+                    mapBlock.Type = "wall";
                     break;
                 case '-':
-                    GO = Prefabs["gate"];
+                    gameObjectTemplate = Prefabs["gate"];
+                    mapBlock.Type = "hgate";
                     break;
                 case '|':
-                    GO = Prefabs["gate"];
-                    ortientation = Direction.East;
+                    gameObjectTemplate = Prefabs["gate"];
+                    mapBlock.Type = "vgate";
                     break;
-                case 'i':
-                case 'j':
-                case 'k':
+                case 'P':
+                    MovePlayer(x, y);
+                    mapBlock.Type = "spawn";
+                    break;
                 case 'l':
-                    GO = Prefabs["wall_lever"];
-                    ortientation = (Direction)"ijkl".IndexOf(c);
-                    Walkable.Add(location);
+                    gameObjectTemplate = Prefabs["wall_lever"];
+                    mapBlock.Type = "wall_lever";
                     break;
-                default:
-                    Walkable.Add(location);
+                case 't':
+                    gameObjectTemplate = Prefabs["torch"];
+                    mapBlock.Type = "torch";
                     break;
             }
-
-            if (GO != null)
+            
+            if (gameObjectTemplate != null)
             {
-				AddObject(location, ortientation, GO);
+                mapBlock.GameObject = AddObject(location, gameObjectTemplate);
+                Blocks.Add(new Vector2(x, y), mapBlock);
             }
         }
 
-        void AddObject(Vector2 location, Direction direction, GameObject prefab)
+        public MapBlock GetBlockAtLocation(Vector2 loc)
         {
-			var instance = Instantiate(prefab, new Vector3(location.x, 0, location.y), direction.GetRotation());
+            if (Blocks.ContainsKey(loc))
+                return Blocks[loc];
+            
+            return null;
+        }
+
+        GameObject AddObject(Vector2 location, GameObject prefab)
+        {
+            var position = PositionForLocation(location);
+			var instance = Instantiate(prefab, position, Quaternion.identity);
 			instance.transform.parent = MapObject.transform;
 
             if (instance.tag == "Interactive")
@@ -125,38 +200,21 @@ namespace Scripts
                 Interactives.Add(location, instance);
             }
 
-            if (instance.tag == "Doors")
-            {
-                var dc = (DoorsController)instance.GetComponent(typeof(DoorsController));
-                dc.OnToggle += (GameObject doors, bool isOpen) => HandleDoorToggle(location, isOpen);
-                if (dc.IsOpen)
-                {
-                    Walkable.Add(location);
-                }
-            }
-        }
-
-        void HandleDoorToggle(Vector2 location, bool isOpen)
-        {
-            var includes = Walkable.Contains(location);
-            if (isOpen && !includes)
-            {
-                Walkable.Add(location);
-            }
-            else if (!isOpen && includes)
-            {
-                Walkable.Remove(location);
-            }
+            return instance;
         }
 
         public bool IsWalkable(Vector2 loc)
         {
-            return Walkable.Contains(loc);
+            var mapBlock = GetBlockAtLocation(loc);
+            if (mapBlock != null)
+                return mapBlock.IsWalkable;
+            
+            return true;
         }
 
         public Vector3 PositionForLocation(Vector2 loc)
         {
-            return new Vector3(loc.x, 0, loc.y);
+            return new Vector3(loc.x, 0, -loc.y);
         }
 
         public GameObject GetInteractive(Vector2 loc)
@@ -178,12 +236,6 @@ namespace Scripts
 
             controller.RotateTo(Direction.East, false);
             controller.MoveTo(new Vector2(x, y), false);
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
         }
     }
 }

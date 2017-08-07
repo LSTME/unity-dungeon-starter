@@ -21,8 +21,6 @@ namespace Scripts
 				{
 					case "wall":
 						return false;
-					case "torch":
-						return false;
                     case "vgate":
                     case "hgate":
                         return ((DoorsController)GameObject.GetComponent(typeof(DoorsController))).IsOpen;

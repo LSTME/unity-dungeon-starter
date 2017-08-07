@@ -200,6 +200,7 @@ namespace Scripts
             
             if (gameObjectTemplate != null)
             {
+                mapBlock.Location = location;
                 mapBlock.GameObject = AddObject(location, gameObjectTemplate);
                 mapBlock.Interactive = mapBlock.GameObject.CompareTag("Interactive");
                 Blocks.Add(new Vector2(x, y), mapBlock);

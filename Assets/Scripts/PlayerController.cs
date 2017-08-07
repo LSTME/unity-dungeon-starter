@@ -120,7 +120,7 @@ namespace Scripts
             } 
             else 
             {
-                var step = Time.fixedDeltaTime * m_RotationSpeed;
+                var step = Time.deltaTime * m_RotationSpeed;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
             }
         }
@@ -153,7 +153,7 @@ namespace Scripts
             } 
             else 
             {
-                var step = Time.fixedDeltaTime * m_MovementSpeed;
+                var step = Time.deltaTime * m_MovementSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, target, step);
             }
         }

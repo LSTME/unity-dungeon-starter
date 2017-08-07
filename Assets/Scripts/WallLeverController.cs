@@ -44,7 +44,7 @@ namespace Scripts
                 foreach (var interactiveGameObject in GameObject.FindGameObjectsWithTag("Interactive"))
                 {
                     var wallLeverController = interactiveGameObject.GetComponent<WallLeverController>();
-                    if (wallLeverController != null)
+                    if (wallLeverController != null && wallLeverController.DoorTag.Equals(DoorTag))
                         wallLeverController.IsActive = IsActive;
                 }
             } 

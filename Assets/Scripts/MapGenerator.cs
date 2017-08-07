@@ -11,6 +11,7 @@ namespace Scripts
 		public Vector2 Location  { get; set; }
 		public GameObject GameObject { get; set; }
 		public string[] Attributes { get; set; }
+		public bool Interactive { get; set; }
 
 		public bool IsWalkable
 		{
@@ -47,7 +48,6 @@ namespace Scripts
         public GameObject MapObject;
         public TextAsset MapFile;
     	private Dictionary<Vector2, MapBlock> Blocks;
-        private Dictionary<Vector2, GameObject> Interactives;
 
         // Use this for initialization
         void Start()
@@ -128,7 +128,6 @@ namespace Scripts
                 GameObject.Destroy(obj);
             }
 
-            Interactives = new Dictionary<Vector2, GameObject>();
     		Blocks = new Dictionary<Vector2, MapBlock>();
         }
 
@@ -177,6 +176,7 @@ namespace Scripts
             if (gameObjectTemplate != null)
             {
                 mapBlock.GameObject = AddObject(location, gameObjectTemplate);
+                mapBlock.Interactive = mapBlock.GameObject.CompareTag("Interactive");
                 Blocks.Add(new Vector2(x, y), mapBlock);
             }
         }
@@ -195,11 +195,6 @@ namespace Scripts
 			var instance = Instantiate(prefab, position, Quaternion.identity);
 			instance.transform.parent = MapObject.transform;
 
-            if (instance.tag == "Interactive")
-            {
-                Interactives.Add(location, instance);
-            }
-
             return instance;
         }
 
@@ -215,18 +210,6 @@ namespace Scripts
         public Vector3 PositionForLocation(Vector2 loc)
         {
             return new Vector3(loc.x, 0, -loc.y);
-        }
-
-        public GameObject GetInteractive(Vector2 loc)
-        {
-            if (Interactives.ContainsKey(loc))
-            {
-                return Interactives[loc];
-            }
-            else
-            {
-                return null;
-            }
         }
 
         void MovePlayer(int x, int y)

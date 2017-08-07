@@ -54,12 +54,11 @@ namespace Scripts
                 }
                 else if(Input.GetButtonDown("Action"))
                 {
-                    var GO = Map.GetInteractive(m_CurrentLocation);
-                    if (GO)
-                    {
-                        var cont = GO.GetComponent<IInteractive>();
-                        cont.Activate();
-                    }
+                    var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
+                    if (mapBlock == null || !mapBlock.Interactive) return;
+                    
+                    var component = mapBlock.GameObject.GetComponent<IInteractive>();
+                    component.Activate();
                 }
             }
             else if (m_IsRotating)

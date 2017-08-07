@@ -13,6 +13,8 @@ namespace Scripts
             set { _isActive = value; UpdateVisuals(); }
         }
 
+        public List<AudioClip> Clips = new List<AudioClip>();
+
         public string DoorTag;
 
         public Action<bool> OnToggle;
@@ -28,6 +30,8 @@ namespace Scripts
         public void Activate()
         {
             IsActive = !IsActive;
+
+            PlaySound();
 
             if (OnToggle != null) OnToggle(IsActive);
 
@@ -54,6 +58,17 @@ namespace Scripts
         {
             transform.Find("wall_lever-on").gameObject.SetActive(IsActive);
             transform.Find("wall_lever-off").gameObject.SetActive(!IsActive);
+        }
+
+        void PlaySound()
+        {
+            var audioSource = transform.Find("wall_lever_audio_source").GetComponent<AudioSource>();
+            audioSource.Stop();
+            if (Clips.Count > 0)
+            {
+                audioSource.clip = Clips[UnityEngine.Random.Range(0, Clips.Count)];
+            }
+            audioSource.Play();
         }
     }
 }

@@ -142,13 +142,12 @@ namespace Scripts
 
         void ClearMap()
         {
+            if (MapObject == null) return;
+
             while (MapObject.transform.childCount > 0)
             {
                 var child = MapObject.transform.GetChild(0);
-
-                var obj = child.gameObject;
-                GameObject.Destroy(obj);
-
+                GameObject.Destroy(child.gameObject);
                 child.parent = null;
             }
 

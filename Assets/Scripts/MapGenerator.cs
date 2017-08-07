@@ -74,6 +74,8 @@ namespace Scripts
         {
             ClearMap();
 
+            int rows = 0;
+            int columns = 0;
             var y = 0;
             foreach (var row in mapString.Split('\n'))
             {
@@ -82,6 +84,8 @@ namespace Scripts
 
                 if (row[0] == '#')
                 {
+                    columns = row.Length > columns ? row.Length : columns;
+                    
                     for (int x = 0; x < row.Length; x++) 
                     {
                         AddBlock(row[x], x, y);
@@ -103,9 +107,35 @@ namespace Scripts
                     }
                 }
             }
+            rows = y;
 
+            var miniMapController = MiniMapController.getInstance();
+            miniMapController.Rows = rows;
+            miniMapController.Columns = columns;
+            
             foreach (var mapBlock in Blocks.Values)
             {
+                Color color;
+                switch (mapBlock.Type)
+                {
+                    case "wall":
+                        color = new Color(0.545f, 0.271f, 0.075f);
+                        break;
+                    case "door":
+                        color = Color.cyan;
+                        break;
+                    case "torch":
+                        color = Color.yellow;
+                        break;
+                    case "wall_lever":
+                        color = Color.magenta;
+                        break;
+                    default:
+                        color = Color.white;
+                        break;
+                }
+                miniMapController.Cells[mapBlock.Location] = color;
+                
                 if (mapBlock.Type == "wall_lever" || mapBlock.Type == "torch")
                 {
                     if (mapBlock.Attributes.Length >= 1)

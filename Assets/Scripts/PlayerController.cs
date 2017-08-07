@@ -37,6 +37,8 @@ namespace Scripts
 
         private void Update()
         {
+            MiniMapController.getInstance().PlayerLocation = m_CurrentLocation;
+            
             if (!m_IsRotating && !m_IsMoving)
             {
                 if (Input.GetButtonDown("Vertical"))

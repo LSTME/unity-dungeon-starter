@@ -169,23 +169,10 @@ namespace Scripts
             }
         }
 
-        public void MoveTo(Vector2 location, bool animated = true)
+        public void MoveTo(Vector2 location)
         {
-            if (!Map.IsWalkable(location)) {
-                m_IsMoving = false;
-                return;
-            }
-
-            if (animated)
-            {
-                
-            }
-            else
-            {
-                m_CurrentLocation = location;
-                transform.position = Map.PositionForLocation(location);
-            }
-
+            m_CurrentLocation = location;
+            transform.position = Map.PositionForLocation(location);
             m_IsMoving = false;
         }
 

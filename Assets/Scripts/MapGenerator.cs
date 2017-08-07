@@ -47,9 +47,19 @@ namespace Scripts
         public TextAsset MapFile;
     	private Dictionary<Vector2, MapBlock> Blocks;
 
+        private bool Initialized = false;
+
         // Use this for initialization
         void Start()
         {
+            Initialize();
+        }
+
+        void Initialize()
+        {
+            
+            if (Initialized) return;
+
             Prefabs = new Dictionary<string, GameObject>();
             foreach (NamedPrefab pref in prefabs)
             {
@@ -57,6 +67,7 @@ namespace Scripts
             }
 
             this.LoadMap(MapFile.text);
+            Initialized = true;
         }
 
         void LoadMap(string mapString)
@@ -131,18 +142,19 @@ namespace Scripts
 
         void ClearMap()
         {
-            Debug.Log("Clearing map");
-
-            for (int i = 0; i < MapObject.transform.childCount; i++)
+            while (MapObject.transform.childCount > 0)
             {
                 var child = MapObject.transform.GetChild(0);
-                child.parent = null;
 
                 var obj = child.gameObject;
                 GameObject.Destroy(obj);
+
+                child.parent = null;
             }
 
     		Blocks = new Dictionary<Vector2, MapBlock>();
+
+            Initialized = false;
         }
 
         void AddBlock(char c, int x, int y)
@@ -197,7 +209,7 @@ namespace Scripts
 
         public MapBlock GetBlockAtLocation(Vector2 loc)
         {
-            if (Blocks.ContainsKey(loc))
+            if (Blocks != null && Blocks.ContainsKey(loc))
                 return Blocks[loc];
             
             return null;
@@ -208,6 +220,7 @@ namespace Scripts
             var position = PositionForLocation(location);
 			var instance = Instantiate(prefab, position, Quaternion.identity);
 			instance.transform.parent = MapObject.transform;
+            instance.name = prefab.name + "_" + location.x + "x" + location.y;
 
             return instance;
         }
@@ -232,7 +245,18 @@ namespace Scripts
             PlayerController controller = (PlayerController)player.GetComponent(typeof(PlayerController));
 
             controller.RotateTo(Direction.East, false);
-            controller.MoveTo(new Vector2(x, y), false);
+            controller.MoveTo(new Vector2(x, y));
+        }
+
+        public void OnEnable()
+        {
+            ClearMap();
+            Initialize();
+        }
+
+        public void OnDisable()
+        {
+            ClearMap();
         }
     }
 }

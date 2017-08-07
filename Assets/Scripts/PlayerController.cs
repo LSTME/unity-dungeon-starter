@@ -38,44 +38,44 @@ namespace Scripts
         private void Update()
         {
             MiniMapController.getInstance().PlayerLocation = m_CurrentLocation;
+
+            var action = GetAction();
+            if (action != null)
+            {
+                action();
+            }
+        }
+
+        Action GetAction()
+        {
+            if (m_IsRotating) return Rotate;
+            if (m_IsMoving) return Move;
+
+            var vertical = Input.GetAxis("Vertical");
+            if (vertical > 0) return MoveForward;
+            if (vertical < 0) return MoveBackward;
+
+            var strafe = Input.GetAxis("Strafe");
+            if (strafe > 0) return StrafeRight;
+            if (strafe < 0) return StrafeLeft;
+
+            var horizontal = Input.GetAxis("Horizontal");
+
+            if (horizontal < 0) return RotateLeft;
+            if (horizontal > 0) return RotateRight;
+
+            if(Input.GetButtonDown("Action")) return PerformAction;
+
+            return null;
+        }
+
+        void PerformAction()
+        {
+            var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
+            if (mapBlock == null || !mapBlock.Interactive) return;
             
-            if (!m_IsRotating && !m_IsMoving)
-            {
-                if (Input.GetButtonDown("Vertical"))
-                {
-                    var vertical = Input.GetAxis("Vertical");
-                    if (vertical > 0) MoveForward();
-                    else if (vertical < 0) MoveBackward();
-                }
-                else if(Input.GetButtonDown("Strafe"))
-                {
-                    var strafe = Input.GetAxis("Strafe");
-                    if (strafe > 0) StrafeRight();
-                    else if (strafe < 0) StrafeLeft();
-                }
-                else if (Input.GetButtonDown("Horizontal"))
-                {
-                    var horizontal = Input.GetAxis("Horizontal");
-                    if (horizontal < 0) RotateLeft();
-                    else if (horizontal > 0) RotateRight();
-                }
-                else if(Input.GetButtonDown("Action"))
-                {
-                    var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
-                    if (mapBlock == null || !mapBlock.Interactive) return;
-                    
-                    var component = mapBlock.GameObject.GetComponent<IInteractive>();
-                    component.Activate();
-                }
-            }
-            else if (m_IsRotating)
-            {
-                Rotate();
-            }
-            else if (m_IsMoving)
-            {
-                Move();
-            }
+            var component = mapBlock.GameObject.GetComponent<IInteractive>();
+            component.Activate();
         }
 
         void RotateLeft() 
@@ -121,7 +121,8 @@ namespace Scripts
         void Rotate()
         {
             Quaternion target = m_TargetDirection.GetRotation();
-            if (Quaternion.Angle(transform.rotation, target) < 1)
+            var step = Time.deltaTime * m_RotationSpeed;
+            if (Quaternion.Angle(transform.rotation, target) < step)
             {
                 transform.rotation = target;
                 m_IsRotating = false;
@@ -129,7 +130,6 @@ namespace Scripts
             } 
             else 
             {
-                var step = Time.deltaTime * m_RotationSpeed;
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
             }
         }

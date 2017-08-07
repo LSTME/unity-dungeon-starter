@@ -7,8 +7,8 @@ namespace Scripts
 {
     public class DoorsController : MonoBehaviour
     {
-
         public bool IsOpen = true;
+        public string Tag;
 
         public Action<GameObject, bool> OnToggle;
 

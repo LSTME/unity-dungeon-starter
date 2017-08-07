@@ -97,20 +97,36 @@ namespace Scripts
 
             foreach (var mapBlock in Blocks.Values)
             {
-                switch (mapBlock.Type)
+                if (mapBlock.Type == "wall_lever" || mapBlock.Type == "torch")
                 {
-                    case "wall_lever":
-                    case "torch":
-                        Debug.Log(mapBlock.Attributes);
-                        if (mapBlock.Attributes.Length > 0)
-                        {
-                            var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
-                            mapBlock.GameObject.transform.rotation = direction.GetRotation();
-                        }
-                        break;
-                    case "vgate":
-                        mapBlock.GameObject.transform.rotation = Direction.East.GetRotation();
-                        break;
+                    if (mapBlock.Attributes.Length >= 1)
+                    {
+                        var direction = (Direction) "NESW".IndexOf(mapBlock.Attributes[0]);
+                        mapBlock.GameObject.transform.rotation = direction.GetRotation();
+                    }
+                }
+                
+                if (mapBlock.Type == "wall_lever")
+                {
+                    if (mapBlock.Attributes.Length == 2)
+                    {
+                        var wallLeverController = mapBlock.GameObject.GetComponent<WallLeverController>();
+                        wallLeverController.DoorTag = mapBlock.Attributes[1];
+                    }
+                }
+                
+                if (mapBlock.Type == "vgate")
+                {
+                    mapBlock.GameObject.transform.rotation = Direction.East.GetRotation();
+                }
+                
+                if (mapBlock.Type == "vgate" || mapBlock.Type == "hgate")
+                {
+                    if (mapBlock.Attributes.Length == 1)
+                    {
+                        var doorsController = mapBlock.GameObject.GetComponent<DoorsController>();
+                        doorsController.Tag = mapBlock.Attributes[0];
+                    }
                 }
             }
         }

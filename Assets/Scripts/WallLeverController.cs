@@ -7,9 +7,17 @@ namespace Scripts
 {
     public class WallLeverController : MonoBehaviour, IInteractive
     {
-        public bool IsActive = false;
+        public bool IsActive
+        {
+            get { return _isActive;  }
+            set { _isActive = value; UpdateVisuals(); }
+        }
+
+        public string DoorTag;
 
         public Action<bool> OnToggle;
+
+        private bool _isActive;
 
         // Use this for initialization
         void Start()
@@ -23,20 +31,23 @@ namespace Scripts
 
             if (OnToggle != null) OnToggle(IsActive);
 
-            foreach (GameObject doors in GameObject.FindGameObjectsWithTag("Doors"))
+            foreach (var doors in GameObject.FindGameObjectsWithTag("Doors"))
             {
-                var cont = (DoorsController)doors.GetComponent(typeof(DoorsController));
+                var component = (DoorsController)doors.GetComponent(typeof(DoorsController));
+                if (!component.Tag.Equals(DoorTag)) continue;
+                
                 if (IsActive)
-                {
-                    cont.Open();
-                }
+                    component.Open();
                 else
+                    component.Close();
+
+                foreach (var interactiveGameObject in GameObject.FindGameObjectsWithTag("Interactive"))
                 {
-                    cont.Close();
+                    var wallLeverController = interactiveGameObject.GetComponent<WallLeverController>();
+                    if (wallLeverController != null)
+                        wallLeverController.IsActive = IsActive;
                 }
             } 
-
-            UpdateVisuals();
         }
 
         void UpdateVisuals()

@@ -7,6 +7,11 @@ namespace Scripts
     [RequireComponent(typeof (CapsuleCollider))]
     public class PlayerController : MonoBehaviour
     {
+        private Animator animator
+        {
+            get { return GetComponent<Animator>(); }
+        }
+
         [SerializeField] private bool m_IsMoving;
         [SerializeField] private bool m_IsRotating;
         [SerializeField] private int m_RotationSpeed = 5;
@@ -87,12 +92,14 @@ namespace Scripts
         {
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 7) % 4));
+            PlayHeadBob();
         }
 
         void StrafeRight() 
         {
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 1) % 4));
+            PlayHeadBob();
         }
 
         public void RotateTo(Direction direction, bool animate = true)
@@ -129,12 +136,14 @@ namespace Scripts
         {
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection);
+            PlayHeadBob();
         }
         
         void MoveBackward() 
         {
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection, -1);
+            PlayHeadBob();
         }
 
         void Move()
@@ -189,6 +198,12 @@ namespace Scripts
             {
                 m_Input.Normalize();
             }
+        }
+
+        private void PlayHeadBob()
+        {
+            var anim = transform.Find("Camera").gameObject.GetComponent<Animator>();
+            anim.Play("head_bob");
         }
     }
 }

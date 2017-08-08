@@ -10,11 +10,18 @@ namespace Scripts
         public bool IsOpen = true;
         public string Tag;
 
+        public AudioClip SoundOpen;
+        public AudioClip SoundClose;
+
         public Action<GameObject, bool> OnToggle;
 
         private Animator animator
         {
             get { return GetComponent<Animator>(); }
+        }
+        private AudioSource audioSource
+        {
+            get { return GetComponent<AudioSource>(); }
         }
 
         void Start()
@@ -35,14 +42,29 @@ namespace Scripts
         void Toggle(bool open)
         {
             if (IsOpen == open) return;
+            audioSource.Stop();
 
             IsOpen = open;
             animator.Play(open ? "open" : "close");
-
+            
             if (OnToggle != null)
             {
                 OnToggle(gameObject, open);
             }
+        }
+
+        // This is called from animation
+        public void PlayCloseSound()
+        {
+            audioSource.clip = SoundClose;
+            audioSource.Play();
+        }
+
+        // This is called from animation
+        public void PlayOpenSound()
+        {
+            audioSource.clip = SoundOpen;
+            audioSource.Play();
         }
     }
 }

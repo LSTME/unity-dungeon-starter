@@ -122,12 +122,6 @@ AnimationClip:
         outSlope: Infinity
         tangentMode: 103
       - serializedVersion: 2
-        time: 0.033333335
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      - serializedVersion: 2
         time: 0.05
         value: 1
         inSlope: Infinity
@@ -556,12 +550,6 @@ AnimationClip:
         outSlope: Infinity
         tangentMode: 103
       - serializedVersion: 2
-        time: 0.033333335
-        value: 0
-        inSlope: Infinity
-        outSlope: Infinity
-        tangentMode: 103
-      - serializedVersion: 2
         time: 0.05
         value: 1
         inSlope: Infinity
@@ -789,7 +777,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_GenerateMotionCurves: 0
   m_Events:
-  - time: 0
+  - time: 0.016666668
     functionName: PlayOpenSound
     data: 
     objectReferenceParameter: {fileID: 0}

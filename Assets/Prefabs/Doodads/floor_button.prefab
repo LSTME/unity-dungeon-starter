@@ -83,9 +83,10 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4280407205620946}
+  - component: {fileID: 114920850885870834}
   m_Layer: 0
   m_Name: floor_button
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -237,3 +238,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1449603145554696}
   m_Mesh: {fileID: 4300000, guid: 89f05ac9932c3c743b2f0aea268df685, type: 3}
+--- !u!114 &114920850885870834
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1751900264480110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c07f91bfc6173e14291071dfae876037, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Clips: []
+  DoorTag: 

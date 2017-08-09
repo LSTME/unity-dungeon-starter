@@ -16,9 +16,11 @@ namespace Scripts
         [SerializeField] private bool m_IsRotating;
         [SerializeField] private int m_RotationSpeed = 5;
         [SerializeField] private float m_MovementSpeed = 0.3f;
+        [SerializeField] private bool m_TogglePressables;
 
         
         private Vector2 m_CurrentLocation = new Vector2(0, 0);
+        private Vector2 m_LastLocation = new Vector2(0, 0);
         private Vector2 m_TargetLocation = new Vector2(0, 0);
         [SerializeField] private Direction m_CurrentDirection = Direction.North;
         [SerializeField] private Direction m_TargetDirection = Direction.North;
@@ -66,7 +68,7 @@ namespace Scripts
 
             if(Input.GetButtonDown("Action")) return PerformAction;
 
-            return null;
+            return PerformPressablesAction;
         }
 
         void PerformAction()
@@ -75,7 +77,30 @@ namespace Scripts
             if (mapBlock == null || !mapBlock.Interactive) return;
             
             var component = mapBlock.GameObject.GetComponent<IInteractive>();
+            if (component == null) return;
             component.Activate();
+        }
+
+        void PerformPressablesAction()
+        {
+            // Press floor button under feets
+            PressPressableAtLocation(m_CurrentLocation);
+
+            // Unpress floor button on the leaved square
+            PressPressableAtLocation(m_LastLocation, false);
+
+            m_TogglePressables = false;
+        }
+
+        void PressPressableAtLocation(Vector2 location, bool state = true)
+        {
+            if (!m_TogglePressables) return;
+
+            var mapBlock = Map.GetBlockAtLocation(location);
+            if (mapBlock == null || !mapBlock.Interactive) return;
+            
+            var component = mapBlock.GameObject.GetComponent<IPressable>();
+            if (component != null) component.Press(state);
         }
 
         void RotateLeft() 
@@ -160,7 +185,9 @@ namespace Scripts
             {
                 transform.position = target;
                 m_IsMoving = false;
+                m_LastLocation = m_CurrentLocation;
                 m_CurrentLocation = m_TargetLocation;
+                m_TogglePressables = true;
             } 
             else 
             {

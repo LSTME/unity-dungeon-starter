@@ -130,12 +130,24 @@ namespace Scripts
                     case "wall_lever":
                         color = Color.magenta;
                         break;
+                    case "floor_button":
+                        color = Color.blue;
+                        break;
                     default:
                         color = Color.white;
                         break;
                 }
                 miniMapController.Cells[mapBlock.Location] = color;
                 
+                if (mapBlock.Type == "floor_button")
+                {
+                    if (mapBlock.Attributes.Length >= 1)
+                    {
+                        var floorButtonController = mapBlock.GameObject.GetComponent<FloorButtonController>();
+                        floorButtonController.DoorTag = mapBlock.Attributes[0];
+                    }
+                }
+
                 if (mapBlock.Type == "wall_lever" || mapBlock.Type == "torch")
                 {
                     if (mapBlock.Attributes.Length >= 1)
@@ -190,9 +202,13 @@ namespace Scripts
         {
             var location = new Vector2(x, y);
 
+            if (c != '#' && c != 'b')
+            {
+                AddObject(location, Prefabs["floor"]);
+            }
+
             if (c != '#') // put floor/ceiling under everything but wall
             {
-				AddObject(location, Prefabs["floor"]);
 				AddObject(location, Prefabs["ceiling"]);
             }
 
@@ -225,6 +241,10 @@ namespace Scripts
                 case 't':
                     gameObjectTemplate = Prefabs["torch"];
                     mapBlock.Type = "torch";
+                    break;
+                case 'b':
+                    gameObjectTemplate = Prefabs["floor_button"];
+                    mapBlock.Type = "floor_button";
                     break;
             }
             

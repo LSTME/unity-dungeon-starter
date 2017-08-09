@@ -8,6 +8,7 @@ TagManager:
   - Interactive
   - Doors
   - GUI
+  - Teleport
   layers:
   - Default
   - TransparentFX

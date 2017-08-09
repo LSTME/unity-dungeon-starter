@@ -301,6 +301,48 @@ MonoBehaviour:
   Columns: 0
   Rows: 0
   PlayerLocation: {x: 0, y: 0}
+--- !u!1001 &563729709
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1324170935}
+    m_Modifications:
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1.311
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.944
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &656584860
 GameObject:
   m_ObjectHideFlags: 0
@@ -343,6 +385,8 @@ MonoBehaviour:
     prefab: {fileID: 1337666340364912, guid: 37173376b9b1144a6ae65930d459348d, type: 2}
   - name: floor_button
     prefab: {fileID: 1751900264480110, guid: 669e8a6bd0ee17548a356cd18445caf0, type: 2}
+  - name: teleport
+    prefab: {fileID: 1882739226750260, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
   MapObject: {fileID: 1324170934}
   MapFile: {fileID: 4900000, guid: 95489e666ed8f433aa4a84614d0dee11, type: 3}
 --- !u!4 &656584862
@@ -527,6 +571,7 @@ Transform:
   - {fileID: 1921635257}
   - {fileID: 1953561543}
   - {fileID: 475727427}
+  - {fileID: 1954023531}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -738,6 +783,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4855853628538838, guid: d05845d1d09764ad9bf5d0cd9be8e0ee,
     type: 2}
   m_PrefabInternal: {fileID: 257095083}
+--- !u!4 &1954023531 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d,
+    type: 2}
+  m_PrefabInternal: {fileID: 563729709}
 --- !u!1001 &2093923370
 Prefab:
   m_ObjectHideFlags: 0

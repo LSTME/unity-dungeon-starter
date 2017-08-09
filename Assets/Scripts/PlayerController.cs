@@ -17,11 +17,11 @@ namespace Scripts
         [SerializeField] private int m_RotationSpeed = 5;
         [SerializeField] private float m_MovementSpeed = 0.3f;
         [SerializeField] private bool m_TogglePressables;
-
+        [SerializeField] private bool m_WalkActionFired = false;
         
         private Vector2 m_CurrentLocation = new Vector2(0, 0);
-        private Vector2 m_LastLocation = new Vector2(0, 0);
         private Vector2 m_TargetLocation = new Vector2(0, 0);
+        private Vector2 m_LastLocation = new Vector2(0, 0);
         [SerializeField] private Direction m_CurrentDirection = Direction.North;
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
@@ -50,6 +50,13 @@ namespace Scripts
 
         Action GetAction()
         {
+            Action action;
+            if ((action = PerformWalkOnAction()) != null)
+            {
+                m_WalkActionFired = true;
+                return action;
+            }
+
             if (m_IsRotating) return Rotate;
             if (m_IsMoving) return Move;
 
@@ -68,7 +75,7 @@ namespace Scripts
 
             if(Input.GetButtonDown("Action")) return PerformAction;
 
-            return PerformPressablesAction;
+            return null;
         }
 
         void PerformAction()
@@ -81,26 +88,56 @@ namespace Scripts
             component.Activate();
         }
 
-        void PerformPressablesAction()
+        Action PerformWalkOnAction()
         {
-            // Press floor button under feets
-            PressPressableAtLocation(m_CurrentLocation);
+            if (m_WalkActionFired) return null;
 
-            // Unpress floor button on the leaved square
-            PressPressableAtLocation(m_LastLocation, false);
+            Action action;
+            if ((action = TeleportAction()) != null) return action;
 
-            m_TogglePressables = false;
+            if ((action = PressFloorButtonAction()) != null) return action;
+            
+            return null;
         }
 
-        void PressPressableAtLocation(Vector2 location, bool state = true)
+        Action TeleportAction()
         {
-            if (!m_TogglePressables) return;
+            var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
+            if (mapBlock == null || mapBlock.Type != "teleport") return null;
+
+            var component = mapBlock.GameObject.GetComponent<ITeleport>();
+            if (component == null) return null;
+
+            var targetLocation = component.Teleport();
+            return () => { MovePlayer(targetLocation); };
+        }
+
+        Action PressFloorButtonAction()
+        {
+            Action press = PressPressableAtLocation(m_CurrentLocation);
+            Action unpress = PressPressableAtLocation(m_LastLocation, false);
+
+            m_TogglePressables = false;
+
+            if (press == null && unpress == null) return null;
+
+            return () =>
+            {
+                if (press != null) press();
+                if (unpress != null) unpress();
+            };
+        }
+
+        Action PressPressableAtLocation(Vector2 location, bool state = true)
+        {
+            if (!m_TogglePressables) return null;
 
             var mapBlock = Map.GetBlockAtLocation(location);
-            if (mapBlock == null || !mapBlock.Interactive) return;
+            if (mapBlock == null || !mapBlock.Interactive) return null;
             
             var component = mapBlock.GameObject.GetComponent<IPressable>();
-            if (component != null) component.Press(state);
+            if (component == null) return null;
+            return () => { component.Press(state); };
         }
 
         void RotateLeft() 
@@ -120,6 +157,7 @@ namespace Scripts
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 7) % 4));
             PlayHeadBob();
+            m_WalkActionFired = false;
         }
 
         void StrafeRight() 
@@ -127,6 +165,7 @@ namespace Scripts
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 1) % 4));
             PlayHeadBob();
+            m_WalkActionFired = false;
         }
 
         public void RotateTo(Direction direction, bool animate = true)
@@ -164,6 +203,7 @@ namespace Scripts
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection);
             PlayHeadBob();
+            m_WalkActionFired = false;
         }
         
         void MoveBackward() 
@@ -171,6 +211,7 @@ namespace Scripts
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection, -1);
             PlayHeadBob();
+            m_WalkActionFired = false;
         }
 
         void Move()
@@ -237,6 +278,18 @@ namespace Scripts
 
             var anim = transform.Find("Camera").gameObject.GetComponent<Animator>();
             anim.Play("head_bob");
+        }
+
+        void MovePlayer(Vector2 location)
+        {
+            var player = GameObject.FindGameObjectWithTag("Player");
+            PlayerController controller = player.GetComponent<PlayerController>();
+            
+            controller.MoveTo(location);
+            m_LastLocation = m_CurrentLocation;
+            m_CurrentLocation = location;
+            transform.position = Map.PositionForLocation(location);
+            m_TogglePressables = true;
         }
     }
 }

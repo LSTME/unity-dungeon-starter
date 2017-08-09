@@ -138,6 +138,9 @@ namespace Scripts
                     case "floor_button":
                         color = Color.blue;
                         break;
+                    case "teleport":
+                        color = new Color(0.5f, 0.5f, 1f);
+                        break;
                     default:
                         color = Color.white;
                         break;
@@ -182,6 +185,16 @@ namespace Scripts
                     {
                         var doorsController = mapBlock.GameObject.GetComponent<DoorsController>();
                         doorsController.Tag = mapBlock.Attributes[0];
+                    }
+                }
+
+                if (mapBlock.Type == "teleport")
+                {
+                    if (mapBlock.Attributes.Length >= 2)
+                    {
+                        var teleportController = mapBlock.GameObject.GetComponent<TeleportController>();
+                        teleportController.TargetColumn = int.Parse(mapBlock.Attributes[0]);
+                        teleportController.TargetRow = int.Parse(mapBlock.Attributes[1]);
                     }
                 }
             }
@@ -246,6 +259,10 @@ namespace Scripts
                 case 't':
                     gameObjectTemplate = Prefabs["torch"];
                     mapBlock.Type = "torch";
+                    break;
+                case 'T':
+                    gameObjectTemplate = Prefabs["teleport"];
+                    mapBlock.Type = "teleport";
                     break;
                 case 'b':
                     gameObjectTemplate = Prefabs["floor_button"];

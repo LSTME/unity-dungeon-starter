@@ -13,7 +13,12 @@ namespace Scripts
 		public string[] Attributes { get; set; }
 		public bool Interactive { get; set; }
 
-		public bool IsWalkable
+	    public MapBlock()
+	    {
+	        Attributes = new string[0];
+	    }
+
+	    public bool IsWalkable
 		{
 			get
 			{

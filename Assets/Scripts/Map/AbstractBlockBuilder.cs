@@ -51,5 +51,32 @@ namespace Scripts.Map
 
             return instance;
         }
+
+        protected void AttachToWall(ref GameObject gameObject)
+        {
+            if (north != null && north.MapSymbol == '#')
+            {
+                gameObject.transform.rotation = Direction.North.GetRotation();
+                return;
+            }
+
+            if (south != null && south.MapSymbol == '#')
+            {
+                gameObject.transform.rotation = Direction.South.GetRotation();
+                return;
+            }
+
+            if (west != null && west.MapSymbol == '#')
+            {
+                gameObject.transform.rotation = Direction.West.GetRotation();
+                return;
+            }
+
+            if (east != null && east.MapSymbol == '#')
+            {
+                gameObject.transform.rotation = Direction.East.GetRotation();
+                return;
+            }
+        }
     }
 }

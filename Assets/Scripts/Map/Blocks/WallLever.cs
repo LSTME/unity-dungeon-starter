@@ -21,6 +21,10 @@ namespace Scripts.Map.Blocks
                 var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
                 lever.transform.rotation = direction.GetRotation();
             }
+            else
+            {
+                AttachToWall(ref lever);
+            }
 
             if (mapBlock.Attributes.Length == 2)
             {

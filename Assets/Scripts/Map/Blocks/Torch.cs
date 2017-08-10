@@ -20,6 +20,9 @@ namespace Scripts.Map.Blocks
             {
                 var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
                 torch.transform.rotation = direction.GetRotation();
+            } else
+            {
+                AttachToWall(ref torch);
             }
 
             mapBlock.addGameObject(torch);

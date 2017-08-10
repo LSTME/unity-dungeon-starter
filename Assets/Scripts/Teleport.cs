@@ -4,6 +4,6 @@ namespace Scripts
 {
     interface ITeleport
     {
-        Vector2 Teleport();
+        void Teleport();
     }
 }

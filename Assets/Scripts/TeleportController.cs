@@ -22,9 +22,12 @@ namespace Scripts
             get { return GetComponent<Animator>(); }
         }
 
-        public Vector2 Teleport()
+        public void Teleport()
         {
-            return new Vector2(TargetColumn, TargetRow);
+            var player = GameObject.FindGameObjectWithTag("Player");
+            var playerController = player.GetComponent<PlayerController>();
+
+            playerController.MovePlayer(new Vector2(TargetColumn, TargetRow));
         }
 
         // Use this for initialization

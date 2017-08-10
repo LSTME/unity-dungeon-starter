@@ -108,8 +108,7 @@ namespace Scripts
             var component = mapBlock.GameObject.GetComponent<ITeleport>();
             if (component == null) return null;
 
-            var targetLocation = component.Teleport();
-            return () => { MovePlayer(targetLocation); };
+            return () => { component.Teleport(); };
         }
 
         Action PressFloorButtonAction()
@@ -280,7 +279,7 @@ namespace Scripts
             anim.Play("head_bob");
         }
 
-        void MovePlayer(Vector2 location)
+        public void MovePlayer(Vector2 location)
         {
             var player = GameObject.FindGameObjectWithTag("Player");
             PlayerController controller = player.GetComponent<PlayerController>();

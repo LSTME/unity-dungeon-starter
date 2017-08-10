@@ -56,6 +56,8 @@ namespace Scripts.Map
             }
 
             rows = y;
+
+            deleteUnaccessibleBlocks();
         }
 
         private void loadMapChar(string row, ref int y, ref int columns)
@@ -106,6 +108,103 @@ namespace Scripts.Map
             Array.Copy(attributes, 2, inputAttributes, 0, attributes.Length - 2);
 
             mapBlock.updateInputAttributes(inputAttributes);
+        }
+
+        private void deleteUnaccessibleBlocks()
+        {
+            var start = findStartLocation();
+            HashSet<Vector2> accessible = new HashSet<Vector2>();
+            markMapCorridors(start, accessible);
+            addWallsToAccessible(accessible);
+            Debug.Log(accessible.Count);
+            clearUnaccessibleBlocks(accessible);
+        }
+
+        private Vector2 findStartLocation()
+        {
+            foreach (var mapBlock in MapBlocks.Values)
+            {
+                if (mapBlock.MapSymbol == 'P')
+                {
+                    return mapBlock.Location;
+                }
+            }
+
+            return new Vector2(-1,-1);
+        }
+
+        private void markMapCorridors(Vector2 start, HashSet<Vector2> accessible)
+        {
+            Queue<Vector2> searchQueue = new Queue<Vector2>();
+            searchQueue.Enqueue(start);
+
+            Vector2[] directions = { new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0) };
+
+            while (searchQueue.Count > 0)
+            {
+                Vector2 current = searchQueue.Dequeue();
+                if (accessible.Contains(current)) continue;
+                accessible.Add(current);
+                
+                foreach (var direction in directions)
+                {
+                    var nextDirection = direction + current;
+                    if (MapBlocks.ContainsKey(nextDirection) && MapBlocks[nextDirection].MapSymbol != '#')
+                    {
+                        searchQueue.Enqueue(nextDirection);
+                    }
+                }
+
+                if (MapBlocks[current].MapSymbol == 'T' && mapBlocks[current].Attributes.Length >= 2)
+                {
+                    Vector2 nextDirection = new Vector2(int.Parse(mapBlocks[current].Attributes[0]), int.Parse(mapBlocks[current].Attributes[1]));
+                    if (mapBlocks.ContainsKey(nextDirection) && MapBlocks[nextDirection].MapSymbol != '#')
+                    {
+                        searchQueue.Enqueue(nextDirection);
+                    }
+                }
+            }
+        }
+
+        private void addWallsToAccessible(HashSet<Vector2> accessible)
+        {
+            Vector2[] directions = { new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0), new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, 1), new Vector2(-1, -1) };
+
+            HashSet<Vector2> toAdd = new HashSet<Vector2>();
+
+            foreach (var current in accessible)
+            {
+                foreach (var direction in directions)
+                {
+                    var location = current + direction;
+                    if (mapBlocks.ContainsKey(location) && mapBlocks[location].MapSymbol == '#' && !toAdd.Contains(location))
+                    {
+                        toAdd.Add(location);
+                    }
+                }
+            }
+
+            accessible.UnionWith(toAdd);
+        }
+
+        private void clearUnaccessibleBlocks(HashSet<Vector2> accessible)
+        {
+            List<Vector2> toRemove = new List<Vector2>();
+            foreach (var location in mapBlocks.Keys)
+            {
+                if (!accessible.Contains(location))
+                {
+                    toRemove.Add(location);
+                }
+            }
+
+            foreach (var location in toRemove)
+            {
+                if (mapBlocks.ContainsKey(location))
+                {
+                    mapBlocks.Remove(location);
+                }
+            }
         }
     }
 }

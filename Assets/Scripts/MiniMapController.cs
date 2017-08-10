@@ -21,6 +21,7 @@ namespace Scripts
         private Texture2D _backgroundQuad;
         private Texture2D _playerQuad;
         private Dictionary<Vector2, Texture2D> _quads;
+        private HashSet<Vector2> visited = new HashSet<Vector2>();
 
         public static MiniMapController getInstance()
         {
@@ -57,6 +58,7 @@ namespace Scripts
 
             foreach (var cell in Cells)
             {
+                if (!visited.Contains(cell.Key)) continue;
                 var quad = _quads[cell.Key];
                 quad.SetPixel(0, 0, cell.Value);
                 quad.Apply();
@@ -78,6 +80,19 @@ namespace Scripts
             var rect = new Rect(_frameRect.xMin + position.x * _cellSize, _frameRect.yMin + position.y * _cellSize,
                 _cellSize, _cellSize);
             DrawQuad(rect, quad);
+        }
+
+        public void visit(Vector2 location)
+        {
+            Vector2[] directions = { new Vector2(0,0), new Vector2(0, 1), new Vector2(0, -1), new Vector2(1, 0), new Vector2(-1, 0), new Vector2(1, 1), new Vector2(1, -1), new Vector2(-1, 1), new Vector2(-1, -1) };
+
+            foreach (var direction in directions)
+            {
+                var locationToAdd = location + direction;
+                if (!Cells.ContainsKey(locationToAdd)) continue;
+                if (visited.Contains(locationToAdd)) continue;
+                visited.Add(locationToAdd);
+            }
         }
     }
 }

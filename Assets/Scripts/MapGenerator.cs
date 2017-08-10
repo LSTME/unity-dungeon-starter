@@ -25,6 +25,8 @@ namespace Scripts
 
         private bool Initialized = false;
 
+        private Vector2 startLocation;
+
         // Use this for initialization
         void Start()
         {
@@ -64,6 +66,8 @@ namespace Scripts
             {
                 miniMapController.Cells[mapBlock.Location] = mapBlock.MinimapColor;
             }
+
+            if (startLocation != null) miniMapController.visit(startLocation);
         }
 
         void ClearMap()
@@ -119,6 +123,7 @@ namespace Scripts
 
             controller.RotateTo(Direction.East, false);
             controller.MoveTo(new Vector2(x, y));
+            startLocation = new Vector2(x, y);
         }
 
         public void OnEnable()

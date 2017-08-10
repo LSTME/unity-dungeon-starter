@@ -116,7 +116,6 @@ namespace Scripts.Map
             HashSet<Vector2> accessible = new HashSet<Vector2>();
             markMapCorridors(start, accessible);
             addWallsToAccessible(accessible);
-            Debug.Log(accessible.Count);
             clearUnaccessibleBlocks(accessible);
         }
 

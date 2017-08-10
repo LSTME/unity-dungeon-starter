@@ -41,11 +41,20 @@ namespace Scripts
         private void Update()
         {
             MiniMapController.getInstance().PlayerLocation = m_CurrentLocation;
+            visitCurrentLocationOnMinimap();
 
             var action = GetAction();
             if (action != null)
             {
                 action();
+            }
+        }
+
+        public Vector2 CurrentLocation
+        {
+            get
+            {
+                return m_CurrentLocation;
             }
         }
 
@@ -303,6 +312,13 @@ namespace Scripts
             m_CurrentLocation = location;
             transform.position = Map.PositionForLocation(location);
             m_TogglePressables = true;
+            visitCurrentLocationOnMinimap();
+        }
+
+        private void visitCurrentLocationOnMinimap()
+        {
+            var miniMapController = MiniMapController.getInstance();
+            miniMapController.visit(m_CurrentLocation);
         }
     }
 }

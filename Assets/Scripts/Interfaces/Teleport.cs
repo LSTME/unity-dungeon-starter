@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Scripts
+﻿namespace Scripts.Interfaces
 {
     interface ITeleport
     {

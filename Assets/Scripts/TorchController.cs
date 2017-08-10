@@ -2,33 +2,38 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TorchController : MonoBehaviour
+namespace Scripts
 {
-    public Light LeftLight;
-    public Light RightLight;
-
-    public float BaseIntensity = 3f;
-    public float MaxReduction = 0.75f;
-    public float MaxIncrease = 0.3f;
-    public float RateDamping = 0.05f;
-    public float Strength = 20.0f;
-
-    void Start()
+    public class TorchController : MonoBehaviour
     {
-        StartCoroutine(FlickerIntensity());
-    }
+        public Light LeftLight;
+        public Light RightLight;
 
-    IEnumerator FlickerIntensity()
-    {
-        while (true)
+        public float BaseIntensity = 3f;
+        public float MaxReduction = 0.75f;
+        public float MaxIncrease = 0.3f;
+        public float RateDamping = 0.05f;
+        public float Strength = 20.0f;
+
+        void Start()
         {
-            var intensityL = Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
-            var intensityR = Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
+            StartCoroutine(FlickerIntensity());
+        }
 
-            LeftLight.intensity = Mathf.Lerp(LeftLight.intensity, intensityL, Strength * Time.deltaTime);
-            RightLight.intensity = Mathf.Lerp(RightLight.intensity, intensityR, Strength * Time.deltaTime);
+        IEnumerator FlickerIntensity()
+        {
+            while (true)
+            {
+                var intensityL = Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
+                var intensityR = Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
 
-            yield return new WaitForSeconds(RateDamping);
+                LeftLight.intensity = Mathf.Lerp(LeftLight.intensity, intensityL, Strength * Time.deltaTime);
+                RightLight.intensity = Mathf.Lerp(RightLight.intensity, intensityR, Strength * Time.deltaTime);
+
+                yield return new WaitForSeconds(RateDamping);
+            }
         }
     }
 }
+
+

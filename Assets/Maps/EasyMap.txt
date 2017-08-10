@@ -1,10 +1,10 @@
 ﻿##########
-#Pl | t  #
-#ltb|bt l#
+#Pl | tdd#
+#ltb|btdl#
 #-##### ##
-#t#   #  #
-# #   # t#
-#T#   #  #
+#t#   #dd#
+# #   #dt#
+#T#   #dd#
 ###   ####
 // Doors
 4 1 A
@@ -20,3 +20,7 @@
 // Floor Buttons
 3 2 C
 5 2 C
+// Decorations
+7 1 table
+8 1 chair W
+7 2 chair N

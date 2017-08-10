@@ -11,11 +11,49 @@ namespace Scripts.Map.Blocks
 
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
-            GameObject template = prefabList["wall"];
+            if (north != null && north.MapSymbol != '#')
+            {
+                GameObject template = prefabList["wall_one_side"];
 
-            GameObject wall = AddObject(mapBlock.Location, template, ref MapObject);
+                GameObject wall = AddObject(mapBlock.Location, template, ref MapObject, "_N");
 
-            mapBlock.addGameObject(wall);
+                wall.transform.rotation = Direction.North.GetRotation();
+
+                mapBlock.addGameObject(wall);
+            }
+
+            if (south != null && south.MapSymbol != '#')
+            {
+                GameObject template = prefabList["wall_one_side"];
+
+                GameObject wall = AddObject(mapBlock.Location, template, ref MapObject, "_S");
+
+                wall.transform.rotation = Direction.South.GetRotation();
+
+                mapBlock.addGameObject(wall);
+            }
+
+            if (west != null && west.MapSymbol != '#')
+            {
+                GameObject template = prefabList["wall_one_side"];
+
+                GameObject wall = AddObject(mapBlock.Location, template, ref MapObject, "_W");
+
+                wall.transform.rotation = Direction.West.GetRotation();
+
+                mapBlock.addGameObject(wall);
+            }
+
+            if (east != null && east.MapSymbol != '#')
+            {
+                GameObject template = prefabList["wall_one_side"];
+
+                GameObject wall = AddObject(mapBlock.Location, template, ref MapObject, "_E");
+
+                wall.transform.rotation = Direction.East.GetRotation();
+
+                mapBlock.addGameObject(wall);
+            }
 
             mapBlock.Type = "wall";
             mapBlock.Interactive = false;

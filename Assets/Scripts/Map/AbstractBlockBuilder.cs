@@ -42,12 +42,12 @@ namespace Scripts.Map
             return new Vector3(loc.x, 0, -loc.y);
         }
 
-        protected GameObject AddObject(Vector2 location, GameObject prefab, ref GameObject MapObject)
+        protected GameObject AddObject(Vector2 location, GameObject prefab, ref GameObject MapObject, string suffix = "")
         {
             var position = PositionForLocation(location);
             var instance = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity);
             instance.transform.parent = MapObject.transform;
-            instance.name = prefab.name + "_" + location.x + "x" + location.y;
+            instance.name = prefab.name + "_" + location.x + "x" + location.y + suffix;
 
             return instance;
         }

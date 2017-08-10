@@ -155,6 +155,48 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2fe92726a2e5d8a4da821a3beb5c65e1, type: 2}
   m_IsPrefabParent: 0
+--- !u!1001 &63800084
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1324170935}
+    m_Modifications:
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+      propertyPath: m_RootOrder
+      value: 12
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &103172706
 Prefab:
   m_ObjectHideFlags: 0
@@ -482,6 +524,8 @@ MonoBehaviour:
     prefab: {fileID: 1425860373469636, guid: 705ff3891f01b5c44adcda225f34d421, type: 2}
   - name: decoration_chair
     prefab: {fileID: 1554550385547602, guid: a8bfaeb0eb85bae44a09abba0e80f3dd, type: 2}
+  - name: wall_one_side
+    prefab: {fileID: 1403691528260052, guid: ee374f74ddde88c479ceaec5cebf4294, type: 2}
   MapObject: {fileID: 1324170934}
   MapFile: {fileID: 4900000, guid: c11494bfb637a1d40a5baa6901f40feb, type: 3}
 --- !u!4 &656584862
@@ -596,6 +640,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4178441965373820, guid: ec854a33426b7432192b35dd1973ca5e,
     type: 2}
   m_PrefabInternal: {fileID: 958489454}
+--- !u!4 &1158045708 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4396445121464902, guid: ee374f74ddde88c479ceaec5cebf4294,
+    type: 2}
+  m_PrefabInternal: {fileID: 63800084}
 --- !u!1001 &1180989147
 Prefab:
   m_ObjectHideFlags: 0
@@ -722,6 +771,7 @@ Transform:
   - {fileID: 9063073}
   - {fileID: 948843051}
   - {fileID: 1303131599}
+  - {fileID: 1158045708}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

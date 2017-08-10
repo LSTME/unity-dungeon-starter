@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using UnityEngine;
+
+namespace Scripts.Map
+{
+    abstract class AbstractBlockBuilder: Interfaces.BlockBuilder.IBlockBuilder
+    {
+        protected MapBlock north;
+        protected MapBlock south;
+        protected MapBlock west;
+        protected MapBlock east;
+
+        public void assignSurroundingBlocks(MapBlock north, MapBlock south, MapBlock west, MapBlock east)
+        {
+            this.north = copyIfNotNull(north);
+            this.south = copyIfNotNull(south);
+            this.west = copyIfNotNull(west);
+            this.east = copyIfNotNull(east);
+        }
+
+        private MapBlock copyIfNotNull(MapBlock mapBlock)
+        {
+            if (mapBlock == null) return null;
+
+            return mapBlock.getUnbuildedCopy();
+        }
+
+        abstract public void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject);
+
+        abstract public char forMapChar();
+        
+        GameObject AddBlockByPrefab(GameObject prefab)
+        {
+            return prefab;
+        }
+
+        protected Vector3 PositionForLocation(Vector2 loc)
+        {
+            return new Vector3(loc.x, 0, -loc.y);
+        }
+
+        protected GameObject AddObject(Vector2 location, GameObject prefab, ref GameObject MapObject)
+        {
+            var position = PositionForLocation(location);
+            var instance = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity);
+            instance.transform.parent = MapObject.transform;
+            instance.name = prefab.name + "_" + location.x + "x" + location.y;
+
+            return instance;
+        }
+    }
+}

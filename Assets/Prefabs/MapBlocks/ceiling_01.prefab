@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4178441965373820}
+  - component: {fileID: 114164872213274138}
   m_Layer: 0
   m_Name: ceiling_01
   m_TagString: Untagged
@@ -50,7 +51,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1535804776725334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.433722, y: 1.0414028, z: -1.8590695}
+  m_LocalPosition: {x: -2.76, y: 1.0414028, z: 0.06}
   m_LocalScale: {x: 0.042, y: 0.042, z: 0.042}
   m_Children:
   - {fileID: 4985223731040494}
@@ -109,3 +110,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793270563350356}
   m_Mesh: {fileID: 4300000, guid: f7590c7ee41e84aee9f84002e0f79b5b, type: 3}
+--- !u!114 &114164872213274138
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1535804776725334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4a346a0d4f8b1747969b0ef03e65f20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

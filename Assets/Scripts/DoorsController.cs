@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Scripts
 {
-    public class DoorsController : MonoBehaviour
+    public class DoorsController : MonoBehaviour, Interfaces.IWalkable
     {
         public bool IsOpen = true;
         public string Tag;
@@ -65,6 +65,11 @@ namespace Scripts
         {
             audioSource.clip = SoundOpen;
             audioSource.Play();
+        }
+
+        public bool IsWalkable()
+        {
+            return IsOpen;
         }
     }
 }

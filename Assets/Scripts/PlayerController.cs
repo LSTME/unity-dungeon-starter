@@ -84,9 +84,12 @@ namespace Scripts
             var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
             if (mapBlock == null || !mapBlock.Interactive) return;
             
-            var component = mapBlock.GameObject.GetComponent<IInteractive>();
-            if (component == null) return;
-            component.Activate();
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<IInteractive>();
+                if (component == null) continue;
+                component.Activate();
+            }
         }
 
         Action PerformWalkOnAction()
@@ -106,10 +109,15 @@ namespace Scripts
             var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
             if (mapBlock == null || mapBlock.Type != "teleport") return null;
 
-            var component = mapBlock.GameObject.GetComponent<ITeleport>();
-            if (component == null) return null;
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<ITeleport>();
+                if (component == null) continue;
 
-            return () => { component.Teleport(); };
+                return () => { component.Teleport(); };
+            }
+
+            return null;
         }
 
         Action PressFloorButtonAction()
@@ -135,9 +143,14 @@ namespace Scripts
             var mapBlock = Map.GetBlockAtLocation(location);
             if (mapBlock == null || !mapBlock.Interactive) return null;
             
-            var component = mapBlock.GameObject.GetComponent<IPressable>();
-            if (component == null) return null;
-            return () => { component.Press(state); };
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<IPressable>();
+                if (component == null) continue;
+                return () => { component.Press(state); };
+            }
+
+            return null;
         }
 
         void RotateLeft() 

@@ -388,7 +388,7 @@ MonoBehaviour:
   - name: teleport
     prefab: {fileID: 1882739226750260, guid: 25663c70f04ecbc44acb54970de8193d, type: 2}
   MapObject: {fileID: 1324170934}
-  MapFile: {fileID: 4900000, guid: 95489e666ed8f433aa4a84614d0dee11, type: 3}
+  MapFile: {fileID: 4900000, guid: c11494bfb637a1d40a5baa6901f40feb, type: 3}
 --- !u!4 &656584862
 Transform:
   m_ObjectHideFlags: 0

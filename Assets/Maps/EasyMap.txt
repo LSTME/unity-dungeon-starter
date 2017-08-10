@@ -1,0 +1,21 @@
+﻿##########
+#Pl |    #
+#ltb|    #
+#-########
+# #
+# #
+#T#
+###
+// Doors
+4 1 A
+1 3 B
+4 2 C
+// Levers
+2 1 N A
+1 2 W B
+// Teleporter
+1 6 1 2
+// Torch
+2 2 S
+// Floor Buttons
+3 2 C

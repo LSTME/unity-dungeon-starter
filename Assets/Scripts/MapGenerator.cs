@@ -27,6 +27,11 @@ namespace Scripts
 
         private Vector2 startLocation;
 
+        public static MapGenerator getInstance()
+        {
+            return GameObject.FindGameObjectWithTag("Map").GetComponent<MapGenerator>();
+        }
+
         // Use this for initialization
         void Start()
         {

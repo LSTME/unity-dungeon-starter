@@ -65,6 +65,7 @@ namespace Scripts.Map.Blocks
             switch (type)
             {
                 case "table":
+                case "pillar":
                     return new Color(0.595f, 0.331f, 0.135f);
                 default:
                     return new Color(0.645f, 0.371f, 0.175f);

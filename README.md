@@ -24,6 +24,7 @@ Syntax
      * __library__ - stojan s knihami
      * __table__ - stol (nada sa cez neho chodit)
      * __chair__ - stolicka
+     * __pillar__ - pilier (neda sa cez neho chodit)
  
 Vsetky **x y** a **tx ty** suradnice su pocitane od nuly!
 Suradnice **x y** oznacuju polohu konfigurovaneho objektu v mape.

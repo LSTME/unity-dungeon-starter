@@ -2,7 +2,7 @@
 #Pl | tdd#  ### #######
 #ltb|btdl#  # # #t   t#
 #-##### ## ##d###     #
-#t#   #dd# #t t   # # #
+#t#   #dd# #t t   d d #
 # #   #dt# ##T###     #
 #T#   #dd#  ### #t   t#
 ###   ####      #######
@@ -25,3 +25,5 @@
 7 1 table
 8 1 chair W
 7 2 chair N
+18 4 pillar
+20 4 pillar

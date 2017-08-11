@@ -46,6 +46,8 @@ namespace Scripts.Map.Blocks
 
             switch (type)
             {
+                case "pillar":
+                    return "decoration_pillar";
                 case "chair":
                     return "decoration_chair";
                 case "table":

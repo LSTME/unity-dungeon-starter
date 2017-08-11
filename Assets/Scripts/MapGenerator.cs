@@ -136,10 +136,5 @@ namespace Scripts
             ClearMap();
             Initialize();
         }
-
-        public void OnDisable()
-        {
-            ClearMap();
-        }
     }
 }

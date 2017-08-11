@@ -26,6 +26,11 @@ namespace Scripts
         [SerializeField] private Direction m_CurrentDirection = Direction.North;
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
+        
+        public static PlayerController getInstance()
+        {
+            return GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        }
 
         private MapGenerator Map {
             get {
@@ -55,6 +60,14 @@ namespace Scripts
             get
             {
                 return m_CurrentLocation;
+            }
+        }
+        
+        public Direction CurrentDirection
+        {
+            get
+            {
+                return m_CurrentDirection;
             }
         }
 
@@ -88,7 +101,7 @@ namespace Scripts
             return null;
         }
 
-        void PerformAction()
+        public void PerformAction()
         {
             var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
             if (mapBlock == null || !mapBlock.Interactive) return;
@@ -162,28 +175,34 @@ namespace Scripts
             return null;
         }
 
-        void RotateLeft() 
+        public void RotateLeft()
         {
+            if (m_IsRotating) return;
+            
             m_IsRotating = true;
             m_TargetDirection = (Direction)(((int)m_CurrentDirection + 7) % 4);
         }
 
-        void RotateRight() 
+        public void RotateRight() 
         {
+            if (m_IsRotating) return;
+            
             m_IsRotating = true;
             m_TargetDirection = (Direction)(((int)m_CurrentDirection + 1) % 4);
         }
         
-        void StrafeLeft() 
+        public void StrafeLeft() 
         {
+            if (m_IsMoving) return;
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 7) % 4));
             PlayHeadBob();
             m_WalkActionFired = false;
         }
 
-        void StrafeRight() 
+        public void StrafeRight() 
         {
+            if (m_IsMoving) return;
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 1) % 4));
             PlayHeadBob();
@@ -220,16 +239,18 @@ namespace Scripts
             }
         }
 
-        void MoveForward() 
+        public void MoveForward() 
         {
+            if (m_IsMoving) return;
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection);
             PlayHeadBob();
             m_WalkActionFired = false;
         }
         
-        void MoveBackward() 
+        public void MoveBackward() 
         {
+            if (m_IsMoving) return;
             m_IsMoving = true;
             m_TargetLocation = LocationForDirection(m_CurrentDirection, -1);
             PlayHeadBob();

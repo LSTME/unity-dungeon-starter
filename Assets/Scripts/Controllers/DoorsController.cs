@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Controllers
 {
     public class DoorsController : MonoBehaviour, Interfaces.IWalkable
     {

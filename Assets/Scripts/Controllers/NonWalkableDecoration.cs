@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Controllers
 {
-
-    public class FloorController : MonoBehaviour, Scripts.Interfaces.IWalkable
+    public class NonWalkableDecoration : MonoBehaviour, Interfaces.IWalkable
     {
         public bool IsWalkable()
         {
-            return true;
+            return false;
         }
     }
 

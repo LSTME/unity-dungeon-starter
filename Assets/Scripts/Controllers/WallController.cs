@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Scripts
+namespace Scripts.Controllers
 {
     public class WallController : MonoBehaviour, Scripts.Interfaces.IWalkable
     {

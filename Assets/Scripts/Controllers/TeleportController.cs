@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
 
-namespace Scripts
+namespace Scripts.Controllers
 {
     public class TeleportController : MonoBehaviour, ITeleport
     {

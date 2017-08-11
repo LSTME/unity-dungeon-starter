@@ -17,6 +17,7 @@ namespace Scripts.Controllers
 
         public int TargetColumn;
         public int TargetRow;
+        public char RotationDirection = ' ';
 
         private Animator animator
         {
@@ -25,10 +26,18 @@ namespace Scripts.Controllers
 
         public void Teleport()
         {
+            if (TargetColumn <= 0 || TargetRow <= 0) return;
+
             var player = GameObject.FindGameObjectWithTag("Player");
             var playerController = player.GetComponent<PlayerController>();
 
             playerController.MovePlayer(new Vector2(TargetColumn, TargetRow));
+
+            var directions = getDirections();
+
+            if (!directions.ContainsKey(RotationDirection)) return;
+
+            playerController.RotateTo(directions[RotationDirection], false);
         }
 
         // Use this for initialization
@@ -47,6 +56,18 @@ namespace Scripts.Controllers
 
                 yield return new WaitForSeconds(RateDamping);
             }
+        }
+
+        Dictionary<char, Direction> getDirections()
+        {
+            var result = new Dictionary<char, Direction>();
+
+            result.Add('N', Direction.North);
+            result.Add('S', Direction.South);
+            result.Add('W', Direction.West);
+            result.Add('E', Direction.East);
+
+            return result;
         }
     }
 }

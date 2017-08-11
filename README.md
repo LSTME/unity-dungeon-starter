@@ -18,7 +18,7 @@ Syntax
  * **b** - podlazne tlacidlo
    * mozna konfiguracia: **x y tagDveri** kde **tagDveri** je meno dveri, ktore tlacidlo otvara
  * **T** - teleport
-   * mozna konfiguracia: **x y tx ty** kde **tx ty** su suradnice kam sa ma hrac presunut po vstupe do teleportu
+   * mozna konfiguracia: **x y tx ty smer** kde **tx ty** su suradnice kam sa ma hrac presunut po vstupe do teleportu a **smer** je rotacia hraca po prechode teleportom
  * **d** - dekoracia
    * mozna konfiguracia: **x y typ smer** kde **smer** je N, S, W alebo E otocenie objektu a **typ** je:
      * __library__ - stojan s knihami

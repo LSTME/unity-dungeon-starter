@@ -24,6 +24,12 @@ namespace Scripts.Map.Blocks
                 teleportController.TargetRow = int.Parse(mapBlock.Attributes[1]);
             }
 
+            if (mapBlock.Attributes.Length >= 3)
+            {
+                var teleportController = teleport.GetComponent<TeleportController>();
+                teleportController.RotationDirection = mapBlock.Attributes[2][0];
+            }
+
             mapBlock.addGameObject(teleport);
 
             mapBlock.Type = "teleport";

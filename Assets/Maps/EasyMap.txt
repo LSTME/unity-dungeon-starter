@@ -14,7 +14,7 @@
 2 1 N A
 1 2 W B
 // Teleporter
-13 5 1 2
+13 5 1 2 E
 1 6 13 2
 // Torch
 2 2 S

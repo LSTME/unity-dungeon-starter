@@ -27,50 +27,38 @@ namespace Scripts.Map
             this.MapObject = MapObject;
         }
 
-        public void build()
+        public void Build()
         {
             foreach (var mapBlock in mapBlocks.Values)
             {
-                var Builder = BlockBuilderFactory.getBlockBuilder(mapBlock.MapSymbol);
-                if (Builder == null) continue;
-                Builder.assignSurroundingBlocks(getNorthBlock(mapBlock), getSouthBlock(mapBlock), getWestBlock(mapBlock), getEastBlock(mapBlock));
-                Builder.createGameObject(mapBlock, prefabList, ref MapObject);
+                var builder = BlockBuilderFactory.getBlockBuilder(mapBlock.MapSymbol);
+                if (builder == null) continue;
+                builder.assignSurroundingBlocks(GetNorthBlock(mapBlock), GetSouthBlock(mapBlock), GetWestBlock(mapBlock), GetEastBlock(mapBlock));
+                builder.createGameObject(mapBlock, prefabList, ref MapObject);
             }
         }
 
-        private MapBlock getNorthBlock(MapBlock mapBlock)
+        private MapBlock GetNorthBlock(MapBlock mapBlock)
         {
-            var location = mapBlock.Location;
-            var diff = new Vector2(0, -1);
-            diff = diff + location;
-            return getBlockAtLocation(diff);
+            return GetBlockAtLocation(MapUtils.GetNorthLocation(mapBlock.Location));
         }
 
-        private MapBlock getSouthBlock(MapBlock mapBlock)
+        private MapBlock GetSouthBlock(MapBlock mapBlock)
         {
-            var location = mapBlock.Location;
-            var diff = new Vector2(0, 1);
-            diff = diff + location;
-            return getBlockAtLocation(diff);
+            return GetBlockAtLocation(MapUtils.GetSouthLocation(mapBlock.Location));
         }
 
-        private MapBlock getWestBlock(MapBlock mapBlock)
+        private MapBlock GetWestBlock(MapBlock mapBlock)
         {
-            var location = mapBlock.Location;
-            var diff = new Vector2(-1, 0);
-            diff = diff + location;
-            return getBlockAtLocation(diff);
+            return GetBlockAtLocation(MapUtils.GetWestLocation(mapBlock.Location));
         }
 
-        private MapBlock getEastBlock(MapBlock mapBlock)
+        private MapBlock GetEastBlock(MapBlock mapBlock)
         {
-            var location = mapBlock.Location;
-            var diff = new Vector2(1, 0);
-            diff = diff + location;
-            return getBlockAtLocation(diff);
+            return GetBlockAtLocation(MapUtils.GetEastLocation(mapBlock.Location));
         }
 
-        private MapBlock getBlockAtLocation(Vector2 location)
+        private MapBlock GetBlockAtLocation(Vector2 location)
         {
             if (mapBlocks.ContainsKey(location)) return mapBlocks[location];
             return null;

@@ -56,7 +56,7 @@ namespace Scripts
             mapLoader.loadMap(mapString);
             Blocks = mapLoader.MapBlocks;
             var mapBuilder = new MapBlockBuilder(Blocks, Prefabs, ref MapObject);
-            mapBuilder.build();
+            mapBuilder.Build();
 
             var miniMapController = MiniMapController.getInstance();
             miniMapController.Rows = mapLoader.Rows;

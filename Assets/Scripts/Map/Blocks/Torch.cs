@@ -10,20 +10,26 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
             GameObject template = prefabList["torch"];
 
             GameObject torch = AddObject(mapBlock.Location, template, ref MapObject);
 
-            if (mapBlock.Attributes.Length >= 1)
+            var torchConfig = mapBlock.getObjectConfigForType("torch");
+            if (torchConfig != null && torchConfig.Rotation != null && torchConfig.Rotation.Length == 1)
             {
-                var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
+                var direction = (Direction)"NESW".IndexOf(torchConfig.Rotation[0]);
                 torch.transform.rotation = direction.GetRotation();
-            } else
+            }
+            else
             {
                 AttachToWall(ref torch);
             }
+
+            AssignObjectConfigByType(torch, "lever", mapBlock);
 
             mapBlock.addGameObject(torch);
 

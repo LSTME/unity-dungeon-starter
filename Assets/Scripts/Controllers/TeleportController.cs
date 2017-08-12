@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class TeleportController : MonoBehaviour, ITeleport
+    public class TeleportController : AbstractGameObjectController, ITeleport
     {
         public Light TeleportLight;
 

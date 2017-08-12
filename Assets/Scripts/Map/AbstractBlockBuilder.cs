@@ -78,5 +78,14 @@ namespace Scripts.Map
                 return;
             }
         }
+
+        protected void AssignObjectConfigByType(GameObject gameObject, string type, MapBlock mapBlock)
+        {
+            mapBlock.Initialize();
+
+            var component = gameObject.GetComponent<AbstractGameObjectController>();
+            if (component == null) return;
+            component.ObjectConfig = mapBlock.getObjectConfigForType(type);
+        }
     }
 }

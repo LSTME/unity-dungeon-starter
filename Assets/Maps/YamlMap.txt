@@ -1,0 +1,101 @@
+﻿#####    #########
+#t t#    # d d d #
+# Pl#    #D ddd D#
+#tbt#    #  tdt  #
+##-##### ###### ##
+#lt   T# # b|b  T#
+######## #########
+mapBlocks:
+ - position: [4, 3]
+   objects:
+    - type: lever
+      name: door1lever
+      actions:
+       onActivate:
+        - open: door1
+        - switchOn: door1lever
+       onDeactivate:
+        - close: door1
+        - switchOff: door1lever
+ - position: [3, 5]
+   objects:
+    - type: door
+      name: door1
+ - position: [2, 6]
+   objects:
+    - type: lever
+      name: door1lever
+      actions:
+       onActivate:
+        - open: door1
+        - switchOn: door1lever
+       onDeactivate:
+        - close: door1
+        - switchOff: door1lever
+ - position: [2, 4]
+   objects:
+    - type: torch
+      rotation: W
+ - position: [4, 4]
+   objects:
+    - type: torch
+      rotation: E
+ - position: [7, 6]
+   objects:
+    - type: teleport
+      teleport:
+       target: [11, 6]
+       rotation: E
+ - position: [17, 6]
+   objects:
+    - type: teleport
+      teleport:
+       target: [3, 3]
+       rotation: S
+ - position: [3, 4]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - open: door1
+        - switchOn: door1lever
+ - position: [12, 6]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - open: door2
+ - position: [13, 6]
+   objects:
+    - type: door
+      name: door2
+ - position: [14, 6]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - close: door2
+ - position: [14, 3]
+   objects:
+    - type: decoration
+      model: table
+ - position: [14, 4]
+   objects:
+    - type: decoration
+      model: chair
+      rotation: N
+ - position: [14, 2]
+   objects:
+    - type: decoration
+      model: chair
+      rotation: S
+ - position: [13, 3]
+   objects:
+    - type: decoration
+      model: chair
+      rotation: E
+ - position: [15, 3]
+   objects:
+    - type: decoration
+      model: chair
+      rotation: W

@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class WallLeverController : MonoBehaviour, IInteractive
+    public class WallLeverController : AbstractGameObjectController, IInteractive, ISwitchable
     {
         public bool IsActive
         {
@@ -36,23 +37,13 @@ namespace Scripts.Controllers
 
             if (OnToggle != null) OnToggle(IsActive);
 
-            foreach (var doors in GameObject.FindGameObjectsWithTag("Doors"))
+            if (IsActive)
             {
-                var component = doors.GetComponent<DoorsController>();
-                if (!component.Tag.Equals(DoorTag)) continue;
-                
-                if (IsActive)
-                    component.Open();
-                else
-                    component.Close();
-
-                foreach (var interactiveGameObject in GameObject.FindGameObjectsWithTag("Interactive"))
-                {
-                    var wallLeverController = interactiveGameObject.GetComponent<WallLeverController>();
-                    if (wallLeverController != null && wallLeverController.DoorTag.Equals(DoorTag))
-                        wallLeverController.IsActive = IsActive;
-                }
-            } 
+                PerformActions(Map.Config.Action.ACTION_ACTIVATE);
+            } else
+            {
+                PerformActions(Map.Config.Action.ACTION_DEACTIVATE);
+            }
         }
 
         void UpdateVisuals()
@@ -70,6 +61,22 @@ namespace Scripts.Controllers
                 audioSource.clip = Clips[UnityEngine.Random.Range(0, Clips.Count)];
             }
             audioSource.Play();
+        }
+
+        public void ActionSwitchOn(string target)
+        {
+            if (ObjectConfig == null) return;
+            if (!ObjectConfig.Name.Equals(target)) return;
+
+            IsActive = true;
+        }
+
+        public void ActionSwitchOff(string target)
+        {
+            if (ObjectConfig == null) return;
+            if (!ObjectConfig.Name.Equals(target)) return;
+
+            IsActive = false;
         }
     }
 }

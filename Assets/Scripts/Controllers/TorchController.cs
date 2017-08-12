@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class TorchController : MonoBehaviour
+    public class TorchController : AbstractGameObjectController
     {
         public Light LeftLight;
         public Light RightLight;

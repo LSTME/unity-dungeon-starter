@@ -46,15 +46,19 @@ namespace Scripts.Map
 
             int y = 0;
 
+            StringBuilder yamlConfig = new StringBuilder();
+
             foreach (var row in mapString.Split('\n'))
             {
                 if (row.Length == 0) continue;
                 if (row.StartsWith("//")) continue;
 
                 loadMapChar(row, ref y, ref columns);
-                loadBlockAttributes(row);
+                loadYamlConfig(row, yamlConfig);
             }
 
+            YamlConfigParser.Parse(yamlConfig.ToString(), mapBlocks);
+            
             rows = y;
 
             deleteUnaccessibleBlocks();
@@ -85,6 +89,18 @@ namespace Scripts.Map
             var attrY = int.Parse(attrs[1]);
 
             updateMapBlockAt(attrX, attrY, attrs);
+        }
+
+        private void loadYamlConfig(string row, StringBuilder yamlConfig)
+        {
+            if (row[0] == '#') return;
+
+            string trimRow = row.Trim('\n').Trim('\r');
+
+            if (trimRow.Length > 0)
+            {
+                yamlConfig.AppendLine(trimRow);
+            }
         }
 
         private void updateMapBlockAt(int x, int y, char mapChar)
@@ -154,9 +170,13 @@ namespace Scripts.Map
                     }
                 }
 
-                if (MapBlocks[current].MapSymbol == 'T' && mapBlocks[current].Attributes.Length >= 2)
+                MapBlocks[current].Initialize();
+
+                var teleportConfig = MapBlocks[current].getObjectConfigForType("teleport");
+
+                if (teleportConfig != null && teleportConfig.Teleport != null && teleportConfig.Teleport.Target != null && teleportConfig.Teleport.Target.Length == 2)
                 {
-                    Vector2 nextDirection = new Vector2(int.Parse(mapBlocks[current].Attributes[0]), int.Parse(mapBlocks[current].Attributes[1]));
+                    Vector2 nextDirection = new Vector2(teleportConfig.Teleport.Target[0] - 1, teleportConfig.Teleport.Target[1] - 1);
                     if (mapBlocks.ContainsKey(nextDirection) && MapBlocks[nextDirection].MapSymbol != '#')
                     {
                         searchQueue.Enqueue(nextDirection);

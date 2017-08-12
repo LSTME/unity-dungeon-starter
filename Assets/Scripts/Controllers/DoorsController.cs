@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class DoorsController : MonoBehaviour, Interfaces.IWalkable
+    public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable
     {
         public bool IsOpen = true;
         public string Tag;
@@ -70,6 +71,22 @@ namespace Scripts.Controllers
         public bool IsWalkable()
         {
             return IsOpen;
+        }
+
+        public void ActionOpen(string target)
+        {
+            if (ObjectConfig == null) return;
+            if (!ObjectConfig.Name.Equals(target)) return;
+
+            Open();
+        }
+
+        public void ActionClose(string target)
+        {
+            if (ObjectConfig == null) return;
+            if (!ObjectConfig.Name.Equals(target)) return;
+
+            Close();
         }
     }
 }

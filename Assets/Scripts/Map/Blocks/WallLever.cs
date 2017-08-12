@@ -11,15 +11,18 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
             GameObject template = prefabList["wall_lever"];
 
             GameObject lever = AddObject(mapBlock.Location, template, ref MapObject);
 
-            if (mapBlock.Attributes.Length >= 1)
+            var leverConfig = mapBlock.getObjectConfigForType("lever");
+            if (leverConfig != null && leverConfig.Rotation != null && leverConfig.Rotation.Length == 1)
             {
-                var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[0]);
+                var direction = (Direction)"NESW".IndexOf(leverConfig.Rotation[0]);
                 lever.transform.rotation = direction.GetRotation();
             }
             else
@@ -27,11 +30,7 @@ namespace Scripts.Map.Blocks
                 AttachToWall(ref lever);
             }
 
-            if (mapBlock.Attributes.Length == 2)
-            {
-                var wallLeverController = lever.GetComponent<WallLeverController>();
-                wallLeverController.DoorTag = mapBlock.Attributes[1];
-            }
+            AssignObjectConfigByType(lever, "lever", mapBlock);
 
             mapBlock.addGameObject(lever);
 

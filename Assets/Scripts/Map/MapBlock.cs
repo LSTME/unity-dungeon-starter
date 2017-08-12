@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using UnityEngine;
 
 namespace Scripts.Map
@@ -12,6 +10,7 @@ namespace Scripts.Map
         private string[] inputAttributes;
         private List<GameObject> gameObjects;
         private Vector2 location;
+        private bool initialized = false;
 
         private Color minimapColor = Color.black;
 
@@ -38,6 +37,8 @@ namespace Scripts.Map
                 return location;
             }
         }
+
+        public List<Config.ObjectConfig> ObjectsConfig { get; set; }
 
         public string Type { get; set; }
 
@@ -80,6 +81,8 @@ namespace Scripts.Map
             }
         }
 
+        protected Dictionary<string, Config.ObjectConfig> NamedObjectsConfig;
+
         public MapBlock(char mapSymbol, int x, int y)
         {
             this.mapSymbol = mapSymbol;
@@ -106,8 +109,33 @@ namespace Scripts.Map
             Array.Copy(Attributes, 0, inputAttributes, 0, Attributes.Length);
 
             result.updateInputAttributes(inputAttributes);
+            result.ObjectsConfig = ObjectsConfig;
 
             return result;
+        }
+
+        public void Initialize()
+        {
+            if (initialized) return;
+
+            NamedObjectsConfig = new Dictionary<string, Config.ObjectConfig>();
+
+            if (ObjectsConfig != null)
+            {
+                foreach (var objectConfig in ObjectsConfig)
+                {
+                    NamedObjectsConfig.Add(objectConfig.Type, objectConfig);
+                }
+            }
+
+            initialized = true;
+        }
+
+        public Config.ObjectConfig getObjectConfigForType(string type)
+        {
+            if (!NamedObjectsConfig.ContainsKey(type)) return null;
+
+            return NamedObjectsConfig[type];
         }
     }
 }

@@ -11,6 +11,8 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
             GameObject template = prefabList["gate"];
@@ -22,6 +24,8 @@ namespace Scripts.Map.Blocks
                 var doorsController = gate.GetComponent<DoorsController>();
                 doorsController.Tag = mapBlock.Attributes[0];
             }
+
+            AssignObjectConfigByType(gate, "door", mapBlock);
 
             mapBlock.addGameObject(gate);
 

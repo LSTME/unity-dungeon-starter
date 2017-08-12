@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class DucatController : MonoBehaviour
+    public class DucatController : AbstractGameObjectController
     {
         public float RotationSpeed = 350.0f;
         public float BouncingSpeed = 150.0f;

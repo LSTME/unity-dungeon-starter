@@ -10,6 +10,8 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
             string prefab = selectDecoration(mapBlock);
@@ -18,9 +20,10 @@ namespace Scripts.Map.Blocks
 
             GameObject decoration = AddObject(mapBlock.Location, template, ref MapObject);
 
-            if (mapBlock.Attributes.Length >= 2)
+            var decorationConfig = mapBlock.getObjectConfigForType("decoration");
+            if (decorationConfig != null && decorationConfig.Rotation != null && decorationConfig.Rotation.Length == 1)
             {
-                var direction = (Direction)"NESW".IndexOf(mapBlock.Attributes[1]);
+                var direction = (Direction)"NESW".IndexOf(decorationConfig.Rotation[0]);
                 decoration.transform.rotation = direction.GetRotation();
             }
             else
@@ -74,11 +77,13 @@ namespace Scripts.Map.Blocks
 
         protected string getDecorationType(MapBlock mapBlock)
         {
+            var decorationConfig = mapBlock.getObjectConfigForType("decoration");
+
             var type = "";
 
-            if (mapBlock.Attributes.Length >= 1)
+            if (decorationConfig != null && decorationConfig.Model != null)
             {
-                type = mapBlock.Attributes[0];
+                type = decorationConfig.Model;
             }
 
             return type;

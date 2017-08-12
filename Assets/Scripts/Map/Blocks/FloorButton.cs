@@ -12,6 +12,8 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             GameObject templateCeiling = prefabList["ceiling"];
 
             GameObject ceiling = AddObject(mapBlock.Location, templateCeiling, ref MapObject);
@@ -22,11 +24,7 @@ namespace Scripts.Map.Blocks
 
             GameObject floorButton = AddObject(mapBlock.Location, templateFloorButton, ref MapObject);
 
-            if (mapBlock.Attributes.Length >= 1)
-            {
-                var floorButtonController = floorButton.GetComponent<FloorButtonController>();
-                floorButtonController.DoorTag = mapBlock.Attributes[0];
-            }
+            AssignObjectConfigByType(floorButton, "floor_button", mapBlock);
 
             mapBlock.addGameObject(floorButton);
 

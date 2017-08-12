@@ -11,6 +11,8 @@ namespace Scripts.Map.Blocks
 
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             if (north != null && north.MapSymbol != '#')
             {
                 GameObject template = prefabList["wall_one_side"];

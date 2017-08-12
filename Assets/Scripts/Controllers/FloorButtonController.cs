@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class FloorButtonController : MonoBehaviour, IPressable
+    public class FloorButtonController : AbstractGameObjectController, IPressable
     {
         public bool IsActive
         {
@@ -34,15 +35,13 @@ namespace Scripts.Controllers
 
             if (OnToggle != null) OnToggle(IsActive);
 
-            foreach (var doors in GameObject.FindGameObjectsWithTag("Doors"))
+            if (IsActive)
             {
-                var component = doors.GetComponent<DoorsController>();
-                if (!component.Tag.Equals(DoorTag)) continue;
-
-                if (IsActive)
-                    component.Open();
-                else
-                    component.Close();
+                PerformActions(Map.Config.Action.ACTION_ACTIVATE);
+            }
+            else
+            {
+                PerformActions(Map.Config.Action.ACTION_DEACTIVATE);
             }
         }
 

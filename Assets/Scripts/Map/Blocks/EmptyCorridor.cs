@@ -10,6 +10,8 @@ namespace Scripts.Map.Blocks
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
+            mapBlock.Initialize();
+
             GameObject templateFloor = prefabList["floor"];
 
             GameObject floor = AddObject(mapBlock.Location, templateFloor, ref MapObject);

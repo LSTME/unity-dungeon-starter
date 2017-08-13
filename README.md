@@ -37,6 +37,19 @@ gameLogic:
       - "meno akcie": meno objektu
      onFalse:
       - "meno akcie": meno objektu
+ counters:
+  - name: nazov
+    min: cislo
+    max: cislo
+    start: cislo
+    fireAlways: true/false
+    actions:
+     onMax:
+      - "meno akcie": meno objektu
+     onMin:
+      - "meno akcie": meno objektu
+     onElse:
+      - "meno akcie": meno objektu
 ```
 
 V `mapBlocks` sa definuje zoznam pozicii na mape, pricom vsetky pozicie `[x, y]` sa pocitaju od 1.
@@ -83,6 +96,8 @@ Typy objektov (musi zodpovedat znaku na mape):
        - switchOff: nazov
        - setTrue: nazov
        - setFalse: nazov
+       - increment: nazov
+       - decrement: nazov
       onDeactivate:
        - open: nazov
        - close: nazov
@@ -90,6 +105,8 @@ Typy objektov (musi zodpovedat znaku na mape):
        - switchOff: nazov  
        - setTrue: nazov
        - setFalze: nazov
+       - increment: nazov
+       - decrement: nazov
      ```
    * Nastavenie `meno` je nazov paky. Nie je nutne aby bol unikatny.
    * Nastavenie `smer` rotacie je `N`, `S`, `W`, `E`.
@@ -100,6 +117,8 @@ Typy objektov (musi zodpovedat znaku na mape):
      * `switchOff` prepne stav prepnutelneho objektu na vypnuty
      * `setTrue` nastavi stav logickej premennej na true
      * `setFalse` nastavi stav logickej premennej na false
+     * `increment` zvysi stav pocitadla o 1
+     * `decrement` znizi stav pocitadla o 1
    * Akcie `onDeactivate` sa spusia, ak je paka vypnuta. Typy akcii su rovnake.
  * **b** - podlazne tlacidlo, nastavenia su nasledovne:
    * ```yaml
@@ -111,14 +130,18 @@ Typy objektov (musi zodpovedat znaku na mape):
        - switchOn: nazov
        - switchOff: nazov
        - setTrue: nazov
-       - setFalse: nazov       
+       - setFalse: nazov    
+       - increment: nazov
+       - decrement: nazov
       onDeactivate:
        - open: nazov
        - close: nazov
        - switchOn: nazov
        - switchOff: nazov 
        - setTrue: nazov
-       - setFalse: nazov       
+       - setFalse: nazov
+       - increment: nazov
+       - decrement: nazov
      ```
    * Akcie a typy akcii ako pri pake.
  * **d** - dekoracia, ma nasledujuce nastavenia:
@@ -135,9 +158,10 @@ Typy objektov (musi zodpovedat znaku na mape):
      * `pillar` - pilier, nepriechodne
      * `broken_path` - zavalena chodba
 
-Objekt `gameLogic` obsahuje dve vlastnosti:
+Objekt `gameLogic` obsahuje tri vlastnosti:
  * `variables` zoznam premennych a ich vychodzich hodnot
  * `logic` zoznam logickych hradiel
+ * `counters` zoznam pocitadiel
  
 Objekt `variables` je zoznam premennych s vlastnostami:
  * `name` je meno premennej
@@ -153,3 +177,14 @@ Objekt `logic' je zoznam logickych hradiel s tymito vlasnostami:
  * `actions` dva druhy akcii:
    * `onTrue` odpali akcie ak je hradlo v stave `true`, vsetky typy akcii su povolene
    * `onFalse` odpali akcie ak je hradlo v stave `false`, vsetky typy akcii su povolene
+
+Objekt `counters` je zoznam pocitadiel s tymito vlastnostami:
+ * `name` meno pocitadla
+ * `min` minimalna hodnota pre pocitadlo
+ * `max` maximalna hodnota pre pocitadlo
+ * `start` startovna hodnota pocitadla
+ * `fireAlways` prepinac, ktory pocitadlu dovoluje aktivovat svoje akcie vzdy (ak je `true`) alebo iba ak sa prvy krat dostane do stavu aktivacie danych akcie (pre `false`)
+ * `actions` akcie (vsetky typy akcii povolene):
+   * `onMax` zoznam akcii, ktore sa vykonaju, ked pocitadlo dosiahne maximum (iba raz ak `fireAlways' je `false`)
+   * `onMin` zoznam akcii, ktore sa vykonaju, ked pocitadlo dosiahne minimum (iba raz ak `fireAlways` je `false`)
+   * `onElse` zoznam akcii, ktore sa vykonaju, ked pocitadlo dosiahne hodnotu medzi minimom a maximom (iba raz ak `fireAlways` je `false`)

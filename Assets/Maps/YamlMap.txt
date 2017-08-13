@@ -128,13 +128,20 @@ mapBlocks:
        onDeactivate:
         - setFalse: logicDoorV3
 gameLogic:
+ variables:
+  - name: logicDoorV1
+    state: false
+  - name: logicDoorV2
+    state: false
+  - name: logicDoorV3
+    state: false
+  - name: logicDoorV2V3Or
+    state: false
  logic:
   - variables:
      - name: logicDoorV1
-       state: false
        negate: true
      - name: logicDoorV2V3Or
-       state: false
     actions:
      onTrue:
       - open: logicDoor
@@ -144,9 +151,7 @@ gameLogic:
     andLogic: true
   - variables:
       - name: logicDoorV2
-        state: false
       - name: logicDoorV3
-        state: false
     andLogic: false
     fireAlways: true
     actions:

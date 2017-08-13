@@ -27,6 +27,6 @@ namespace Scripts.Map.Config
 
         abstract public bool Fire();
 
-        abstract public void SetVariable(string Variable, bool Value);
+        abstract public void SignalVariableUpdate(string Variable);
     }
 }

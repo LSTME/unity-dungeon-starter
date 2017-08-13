@@ -5,16 +5,16 @@ using System.Text;
 
 namespace Scripts.Map.Config
 {
-    public class Logic : AbstractLogic, Interfaces.Logic.ILogical
+    public class Logic : AbstractLogic
     {
         private bool Initialized = false;
         private bool LastState = false;
 
-        public List<Variable> Variables { get; set; }
+        public List<VariableMapping> Variables { get; set; }
         public bool FireAlways { get; set; }
         public bool AndLogic { get; set; }
 
-        private Dictionary<string, Variable> NamedVariables;
+        private Dictionary<string, VariableMapping> NamedVariables;
 
         private void Initialize()
         {
@@ -40,7 +40,7 @@ namespace Scripts.Map.Config
 
         private void InitializeNamedVariables()
         {
-            NamedVariables = new Dictionary<string, Variable>();
+            NamedVariables = new Dictionary<string, VariableMapping>();
 
             foreach (var Variable in Variables)
             {
@@ -86,13 +86,11 @@ namespace Scripts.Map.Config
             return true;
         }
 
-        override public void SetVariable(string Variable, bool Value)
+        public override void SignalVariableUpdate(string Variable)
         {
             Initialize();
 
             if (!NamedVariables.ContainsKey(Variable)) return;
-
-            NamedVariables[Variable].State = Value;
 
             Fireable = true;
         }

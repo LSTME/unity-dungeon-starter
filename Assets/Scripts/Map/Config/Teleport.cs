@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Scripts.Map.Config
+﻿namespace Scripts.Map.Config
 {
     public class Teleport
     {

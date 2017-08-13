@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Controllers;
 
 namespace Scripts.Map.Blocks
 {
@@ -18,12 +14,6 @@ namespace Scripts.Map.Blocks
             GameObject template = prefabList["gate"];
 
             GameObject gate = AddObject(mapBlock.Location, template, ref MapObject);
-
-            if (mapBlock.Attributes.Length >= 1)
-            {
-                var doorsController = gate.GetComponent<DoorsController>();
-                doorsController.Tag = mapBlock.Attributes[0];
-            }
 
             AssignObjectConfigByType(gate, "door", mapBlock);
 

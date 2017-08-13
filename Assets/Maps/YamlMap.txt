@@ -1,5 +1,5 @@
 #####    ####################
-#t t#    # d d d #T        d#
+#t t#    # d d d #T d d d dd#
 # Pl#    #D ddd D#########-##
 #tbt#    #  tdt    ltltl t d#
 ##-##### ###### #############
@@ -7,9 +7,9 @@
 ######## #########
 #
 ############
-#  t l#    #
+#ddtdl#dddd#
 #t    | T t#
-#  t l#    #
+#ddtdl#dddd#
 ############
 mapBlocks:
  - position: [4, 3]

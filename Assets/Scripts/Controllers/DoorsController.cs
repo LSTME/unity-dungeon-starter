@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Map;
 
@@ -9,7 +7,6 @@ namespace Scripts.Controllers
     public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable
     {
         public bool IsOpen = true;
-        public string Tag;
 
         private bool DoorWalkable = false;
 

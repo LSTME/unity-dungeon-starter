@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using Scripts.Map;
+﻿using Scripts.Map;
 using UnityEngine;
 
 namespace Scripts.AI

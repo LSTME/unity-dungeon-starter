@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Scripts.Map;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Scripts.Controllers;
 
 namespace Scripts.Map.Blocks
 {

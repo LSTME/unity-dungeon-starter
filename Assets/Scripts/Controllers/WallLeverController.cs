@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
@@ -16,8 +15,6 @@ namespace Scripts.Controllers
         }
 
         public List<AudioClip> Clips = new List<AudioClip>();
-
-        public string DoorTag;
 
         public Action<bool> OnToggle;
 

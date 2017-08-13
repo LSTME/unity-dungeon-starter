@@ -27,7 +27,7 @@ namespace Scripts
 
         private bool Initialized = false;
 
-        private Vector2 startLocation;
+        private Vector2 startLocation = new Vector2(0, 0);
 
         public static MapGenerator getInstance()
         {
@@ -75,7 +75,7 @@ namespace Scripts
                 miniMapController.Cells[mapBlock.Location] = mapBlock.MinimapColor;
             }
 
-            if (startLocation != null) miniMapController.visit(startLocation);
+            miniMapController.visit(startLocation);
         }
 
         void ClearMap()

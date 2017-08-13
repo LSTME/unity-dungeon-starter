@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace Scripts.Map.Config
 {
-    public class GameLogic : Interfaces.Logic.ILogical
+    public class GameLogic : Interfaces.Logic.ILogical, Interfaces.Logic.ICounter
     {
         private bool initialized = false;
 
         private Dictionary<string, Variable> NamedVariables;
 
+        private Dictionary<string, Counter> NamedCounters;
+
         public List<Logic> Logic { get; set; }
 
         public List<Variable> Variables { get; set; }
+
+        public List<Counter> Counters { get; set; }
 
         public void SetVariable(string Variable, bool Value)
         {
@@ -59,6 +60,28 @@ namespace Scripts.Map.Config
         {
             if (initialized) return;
 
+            InitializeNamedVariables();
+
+            InitializeNamedCounters();
+
+            initialized = true;
+        }
+
+        private void InitializeNamedCounters()
+        {
+            NamedCounters = new Dictionary<string, Counter>();
+
+            foreach (var Counter in Counters)
+            {
+                if (!NamedCounters.ContainsKey(Counter.Name))
+                {
+                    NamedCounters.Add(Counter.Name, Counter);
+                }
+            }
+        }
+
+        private void InitializeNamedVariables()
+        {
             NamedVariables = new Dictionary<string, Variable>();
 
             foreach (var Variable in Variables)
@@ -68,8 +91,6 @@ namespace Scripts.Map.Config
                     NamedVariables.Add(Variable.Name, Variable);
                 }
             }
-
-            initialized = true;
         }
 
         public bool GetVariable(string Variable)
@@ -79,6 +100,24 @@ namespace Scripts.Map.Config
             if (!NamedVariables.ContainsKey(Variable)) return false;
 
             return NamedVariables[Variable].State;
+        }
+
+        public void IncrementCounter(string Name)
+        {
+            Initialize();
+
+            if (!NamedCounters.ContainsKey(Name)) return;
+
+            NamedCounters[Name].Increment();
+        }
+
+        public void DecrementCounter(string Name)
+        {
+            Initialize();
+
+            if (!NamedCounters.ContainsKey(Name)) return;
+
+            NamedCounters[Name].Decrement();
         }
     }
 }

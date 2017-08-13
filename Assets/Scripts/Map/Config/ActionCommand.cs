@@ -10,6 +10,8 @@ namespace Scripts.Map.Config
         public string SwitchOff { get; set; }
         public string SetTrue { get; set; }
         public string SetFalse { get; set; }
+        public string Increment { get; set; }
+        public string Decrement { get; set; }
 
         public void PerformAction()
         {
@@ -19,6 +21,8 @@ namespace Scripts.Map.Config
             PerformSwitchOffAction();
             PerformSetTrueAction();
             PerformSetFalseAction();
+            PerformIncrementAction();
+            PerformDecrementAction();
         }
 
         private void PerformOpenAction()
@@ -83,6 +87,26 @@ namespace Scripts.Map.Config
             if (GameLogic == null) return;
 
             GameLogic.SetVariable(SetFalse, false);
+        }
+
+        private void PerformIncrementAction()
+        {
+            if (Increment == null || Increment.Trim().Equals("")) return;
+
+            var GameLogic = getGameLogic();
+            if (GameLogic == null) return;
+
+            GameLogic.IncrementCounter(Increment);
+        }
+
+        private void PerformDecrementAction()
+        {
+            if (Decrement == null || Decrement.Trim().Equals("")) return;
+
+            var GameLogic = getGameLogic();
+            if (GameLogic == null) return;
+
+            GameLogic.DecrementCounter(Decrement);
         }
 
         private GameObject[] getAllControlledGameObjects()

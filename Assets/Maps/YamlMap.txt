@@ -1,10 +1,16 @@
 #####    ####################
-#t t#    # d d d #         d#
+#t t#    # d d d #T        d#
 # Pl#    #D ddd D#########-##
 #tbt#    #  tdt    ltltl t d#
 ##-##### ###### #############
 #lt   T# # b|b  T#
 ######## #########
+#
+############
+#  t l#    #
+#t    | T t#
+#  t l#    #
+############
 mapBlocks:
  - position: [4, 3]
    objects:
@@ -137,6 +143,34 @@ mapBlocks:
     - type: decoration
       model: broken_path
       rotation: E
+ - position: [19, 2]
+   objects:
+    - type: teleport
+      teleport:
+       target: [4, 11]      
+       rotation: E
+ - position: [7, 11]
+   objects:
+    - type: door
+      name: countedDoor
+ - position: [9, 11]
+   objects:
+    - type: teleport
+      teleport:
+       target: [27, 2]
+       rotation: W
+ - position: [6, 10]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - increment: counter1
+ - position: [6, 12]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - decrement: counter1
 gameLogic:
  variables:
   - name: logicDoorV1
@@ -169,3 +203,16 @@ gameLogic:
       - setTrue: logicDoorV2V3Or
      onFalse:
       - setFalse: logicDoorV2V3Or
+ counters:
+  - name: counter1
+    min: 0
+    max: 6
+    start: 3
+    fireAlways: true
+    actions:
+     onMax:
+      - open: countedDoor
+     onMin:
+      - open: countedDoor
+     onElse:  
+      - close: countedDoor  

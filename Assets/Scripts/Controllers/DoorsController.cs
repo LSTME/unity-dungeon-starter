@@ -11,6 +11,8 @@ namespace Scripts.Controllers
         public bool IsOpen = true;
         public string Tag;
 
+        private bool DoorWalkable = false;
+
         public AudioClip SoundOpen;
         public AudioClip SoundClose;
 
@@ -70,7 +72,7 @@ namespace Scripts.Controllers
 
         public bool IsWalkable()
         {
-            return IsOpen;
+            return DoorWalkable;
         }
 
         public void ActionOpen(string target)
@@ -87,6 +89,16 @@ namespace Scripts.Controllers
             if (!ObjectConfig.Name.Equals(target)) return;
 
             Close();
+        }
+
+        public void SetDoorWalkable()
+        {
+            DoorWalkable = true;
+        }
+
+        public void SetDoorNonWalkable()
+        {
+            DoorWalkable = false;
         }
     }
 }

@@ -96,7 +96,12 @@ namespace Scripts
             if (horizontal < 0) return RotateLeft;
             if (horizontal > 0) return RotateRight;
 
-            if(Input.GetButtonDown("Action")) return PerformAction;
+            if (Input.GetButtonDown("Action")) return PerformAction;
+
+            if (Input.GetButtonDown("LargeMap"))
+            {
+                MiniMapController.getInstance().SwitchLarge();
+            }
 
             return null;
         }

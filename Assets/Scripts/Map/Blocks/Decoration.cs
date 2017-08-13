@@ -70,6 +70,7 @@ namespace Scripts.Map.Blocks
             switch (type)
             {
                 case "broken_path":
+                    return new Color(0.545f, 0.271f, 0.075f);
                 case "table":
                 case "pillar":
                     return new Color(0.595f, 0.331f, 0.135f);

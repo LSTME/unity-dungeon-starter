@@ -469,8 +469,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1295a1a45507344d18193c8321609956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Width: 240
-  Height: 140
+  SmallSize: 20
+  LargeSize: 80
   Columns: 0
   Rows: 0
   PlayerLocation: {x: 0, y: 0}

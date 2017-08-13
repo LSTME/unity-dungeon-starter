@@ -23,12 +23,14 @@ mapBlocks:
        target: [x, y]
        rotation: rotacia po presune
 gameLogic:
+ variables:
+  - name: meno
+    state: true/false
  logic:
   - andLogic: true/false
     fireAlways: true/false
     variables:
      - name: meno
-       state: true/false
        negate: true/false
     actions:
      onTrue:
@@ -132,15 +134,20 @@ Typy objektov (musi zodpovedat znaku na mape):
      * `table` - stol, nepriechodne
      * `pillar` - pilier, nepriechodne
 
-Pre objekt `gameLogic` zatial existuje iba vlastnost `logic`, ktora popisuje boolovske logicke hradla.
+Objekt `gameLogic` obsahuje dve vlastnosti:
+ * `variables` zoznam premennych a ich vychodzich hodnot
+ * `logic` zoznam logickych hradiel
+ 
+Objekt `variables` je zoznam premennych s vlastnostami:
+ * `name` je meno premennej
+ * `state` je stav premennej na zaciatku mapy, bud je to `false` alebo `true`
 
 Objekt `logic' je zoznam logickych hradiel s tymito vlasnostami:
 
  * `andLogic` ak je `true` vyhodnocuje sa ako logicke hradlo **AND**, ak je `false` vyhodnocuje sa ako logicke hradlo **OR**
  * `fireAlways` ak je `true` hradlo odpali akcie, aj ked sa zmenou stavu premennej nezmenil celkovy stav hradla, pri `false` odpali akcie iba ak sa zmenil celkovy stav hradla
- * `variables` zoznam premennych, kazda ma vlastnost
+ * `variables` zoznam premennych, mapovany na `gameObject.variables`, ma tieto vlastnosti:
    * `name` je meno premennej
-   * `state` je zaciatocny stav premennej
    * `negate` ak je `true` tak stav premennej sa do hradla dostane v negacii, ak je `false` do hradla pride stav, ktory premenna prave ma
  * `actions` dva druhy akcii:
    * `onTrue` odpali akcie ak je hradlo v stave `true`, vsetky typy akcii su povolene

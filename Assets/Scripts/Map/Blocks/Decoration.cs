@@ -49,6 +49,8 @@ namespace Scripts.Map.Blocks
 
             switch (type)
             {
+                case "broken_path":
+                    return "decoration_broken_path";
                 case "pillar":
                     return "decoration_pillar";
                 case "chair":
@@ -67,6 +69,7 @@ namespace Scripts.Map.Blocks
 
             switch (type)
             {
+                case "broken_path":
                 case "table":
                 case "pillar":
                     return new Color(0.595f, 0.331f, 0.135f);

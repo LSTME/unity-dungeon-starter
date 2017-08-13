@@ -133,6 +133,7 @@ Typy objektov (musi zodpovedat znaku na mape):
      * `chair` - stolicka priechodne
      * `table` - stol, nepriechodne
      * `pillar` - pilier, nepriechodne
+     * `broken_path` - zavalena chodba
 
 Objekt `gameLogic` obsahuje dve vlastnosti:
  * `variables` zoznam premennych a ich vychodzich hodnot

@@ -1,7 +1,7 @@
 #####    ####################
-#t t#    # d d d #          #
+#t t#    # d d d #         d#
 # Pl#    #D ddd D#########-##
-#tbt#    #  tdt    ltltl t t#
+#tbt#    #  tdt    ltltl t d#
 ##-##### ###### #############
 #lt   T# # b|b  T#
 ######## #########
@@ -127,6 +127,16 @@ mapBlocks:
         - setTrue: logicDoorV3
        onDeactivate:
         - setFalse: logicDoorV3
+ - position: [28, 4]
+   objects:
+    - type: decoration
+      model: broken_path
+      rotation: E
+ - position: [28, 2]
+   objects:
+    - type: decoration
+      model: broken_path
+      rotation: E
 gameLogic:
  variables:
   - name: logicDoorV1

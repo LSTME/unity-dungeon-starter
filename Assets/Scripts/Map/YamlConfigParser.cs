@@ -21,9 +21,11 @@ namespace Scripts.Map
         {
             var stream = new StringReader(config);
 
-            var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
+            var DeserializeBuilderObject = new DeserializerBuilder();
+            DeserializeBuilderObject.WithNamingConvention(new CamelCaseNamingConvention());
+            var Deserializer = DeserializeBuilderObject.Build();
 
-            Configuration = deserializer.Deserialize<Config.Config>(stream);
+            Configuration = Deserializer.Deserialize<Config.Config>(stream);
 
             assignConfiguration(Configuration, mapBlocks);
         }

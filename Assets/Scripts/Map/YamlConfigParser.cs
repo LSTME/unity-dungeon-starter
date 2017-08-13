@@ -11,13 +11,22 @@ namespace Scripts.Map
 {
     class YamlConfigParser
     {
+        private static Config.Config Configuration;
+        public static Config.GameLogic GameLogic
+        {
+            get
+            {
+                return Configuration.GameLogic;
+            }
+        }
+
         public static void Parse(string config, Dictionary<Vector2, MapBlock> mapBlocks)
         {
             var stream = new StringReader(config);
 
             var deserializer = new Deserializer(namingConvention: new CamelCaseNamingConvention());
 
-            var Configuration = deserializer.Deserialize<Config.Config>(stream);
+            Configuration = deserializer.Deserialize<Config.Config>(stream);
 
             assignConfiguration(Configuration, mapBlocks);
         }

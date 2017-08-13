@@ -66,7 +66,7 @@ namespace Scripts.Controllers
         public void ActionSwitchOn(string target)
         {
             if (ObjectConfig == null) return;
-            if (!ObjectConfig.Name.Equals(target)) return;
+            if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
             IsActive = true;
         }
@@ -74,7 +74,7 @@ namespace Scripts.Controllers
         public void ActionSwitchOff(string target)
         {
             if (ObjectConfig == null) return;
-            if (!ObjectConfig.Name.Equals(target)) return;
+            if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
             IsActive = false;
         }

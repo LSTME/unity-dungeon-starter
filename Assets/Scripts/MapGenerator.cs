@@ -22,6 +22,8 @@ namespace Scripts
         public GameObject MapObject;
         public TextAsset MapFile;
     	private Dictionary<Vector2, Scripts.Map.MapBlock> Blocks;
+        
+        public Map.Config.GameLogic GameLogic { get; set; }
 
         private bool Initialized = false;
 
@@ -60,6 +62,7 @@ namespace Scripts
             var mapLoader = new MapLoader();
             mapLoader.loadMap(mapString);
             Blocks = mapLoader.MapBlocks;
+            GameLogic = YamlConfigParser.GameLogic;
             var mapBuilder = new MapBlockBuilder(Blocks, Prefabs, ref MapObject);
             mapBuilder.Build();
 

@@ -78,22 +78,13 @@ namespace Scripts.Map
             columns = Math.Max(columns, row.Length);
         }
 
-        private void loadBlockAttributes(string row)
-        {
-            if (row[0] == '#') return;
-
-            var attrs = row.Trim().Split(' ');
-            if (attrs.Length < 3) return;
-
-            var attrX = int.Parse(attrs[0]);
-            var attrY = int.Parse(attrs[1]);
-
-            updateMapBlockAt(attrX, attrY, attrs);
-        }
-
         private void loadYamlConfig(string row, StringBuilder yamlConfig)
         {
-            if (row[0] == '#') return;
+            if (row[0] == '#')
+            {
+                yamlConfig.AppendLine("");
+                return;
+            }
 
             string trimRow = row.Trim('\n').Trim('\r');
 

@@ -685,3 +685,4 @@ MonoBehaviour:
   Strength: 20
   TargetColumn: 0
   TargetRow: 0
+  RotationDirection: 32

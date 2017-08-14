@@ -20,8 +20,6 @@ namespace Scripts.Controllers
 
         private bool _isActive;
 
-        private bool _scriptBypass = false;
-
         // Use this for initialization
         void Start()
         {
@@ -30,9 +28,7 @@ namespace Scripts.Controllers
 
         public bool Activate()
         {
-            if (!IsReachableToActivate() && _scriptBypass == false) return false;
-
-            _scriptBypass = false;
+            if (!IsReachableToActivate()) return false;
 
             IsActive = !IsActive;
 
@@ -74,9 +70,7 @@ namespace Scripts.Controllers
             if (ObjectConfig == null) return;
             if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
-            if (IsActive == true) return;
-            _scriptBypass = true;
-            Activate();
+            IsActive = true;
         }
 
         public void ActionSwitchOff(string target)
@@ -84,9 +78,7 @@ namespace Scripts.Controllers
             if (ObjectConfig == null) return;
             if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
-            if (IsActive == false) return;
-            _scriptBypass = true;
-            Activate();
+            IsActive = false;
         }
     }
 }

@@ -22,6 +22,10 @@ mapBlocks:
       teleport:
        target: [x, y]
        rotation: rotacia po presune
+      door:
+       manual: true/false
+      torch:
+       state: true/false
 gameLogic:
  variables:
   - name: meno
@@ -65,9 +69,14 @@ Typy objektov (musi zodpovedat znaku na mape):
  * **t** - drziak pochodne, ma nasledujuce nastavenia:
    * ```yaml
      type: torch
+     name: meno
      rotation: smer
+     torch:
+      state: true/false
      ```
+   * Nastavenie `meno` je meno objektu.
    * Nastavenie `smer` rotacie je `N`, `S`, `W`, `E`.
+   * Nastavenie `torch.state` je vychodzi stav, zapnute ak `true` a vypnute ak `false`. Ak nie je uvedeny `torch` blok tak je pochoden zapnuta. Stav pochodne sa meni akciou `switchOn` a `switchOff`.
  * **T** - teleport, ma nasledujuce nastavenia:
    * ```yaml
      type: teleport
@@ -81,8 +90,31 @@ Typy objektov (musi zodpovedat znaku na mape):
    * ```yaml
      type: door
      name: meno
+     door:
+      manual: true/false
+     actions:
+      onOpen:
+       - open: nazov
+       - close: nazov
+       - switchOn: nazov
+       - switchOff: nazov
+       - setTrue: nazov
+       - setFalse: nazov
+       - increment: nazov
+       - decrement: nazov
+      onClose:
+       - open: nazov
+       - close: nazov
+       - switchOn: nazov
+       - switchOff: nazov
+       - setTrue: nazov
+       - setFalse: nazov
+       - increment: nazov
+       - decrement: nazov
      ```
    * Nastavenie `meno` je nazov dveri. Nie je nutne aby bol unikatny.
+   * Nastavenie `door.manual` na `true` umozni dvere otvarat rucne (aj ked maju meno!). Ak nie je uvedeny `door` blok tak sa dvere nedaju manualne otvarat.
+   * Akcie `actions` sa vykonaju, ak su dvere otvorene `onOpen` a ak su zatvorene `onClose`.
  * **l** - nastenna paka, nastavenia su taketo:
    * ```yaml
      type: lever

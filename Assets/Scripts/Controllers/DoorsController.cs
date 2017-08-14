@@ -4,7 +4,7 @@ using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable
+    public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable, Interfaces.IInteractive
     {
         public bool IsOpen = true;
 
@@ -75,6 +75,7 @@ namespace Scripts.Controllers
         public void ActionOpen(string target)
         {
             if (ObjectConfig == null) return;
+            if (ObjectConfig.Name == null) return;
             if (!ObjectConfig.Name.Equals(target)) return;
 
             Open();
@@ -83,6 +84,7 @@ namespace Scripts.Controllers
         public void ActionClose(string target)
         {
             if (ObjectConfig == null) return;
+            if (ObjectConfig.Name == null) return;
             if (!ObjectConfig.Name.Equals(target)) return;
 
             Close();
@@ -96,6 +98,19 @@ namespace Scripts.Controllers
         public void SetDoorNonWalkable()
         {
             DoorWalkable = false;
+        }
+
+        public bool Activate()
+        {
+            if (!IsReachableToActivate(true)) return false;
+
+            if (ObjectConfig == null) return false;
+            if (ObjectConfig.Door == null) return false;
+            if (!ObjectConfig.Door.Manual) return false;
+
+            Toggle(!IsOpen);
+
+            return true;
         }
     }
 }

@@ -1,8 +1,8 @@
-#####    ####################
-#t t#    # d d d #T d d d dd#
-# Pl#    #D ddd D#########-##
-#tbt#    #  tdt    ltltl t d#
-##-##### ###### #############
+#############################
+#t t# lt # d d d #T d d d dd#
+# Pl#l  l#D ddd D#########-##
+#tbt# lt #  tdt    ltltl t d#
+##-##-######### #############
 #lt   T# # b|b  T#
 ######## #########
 #
@@ -171,6 +171,11 @@ mapBlocks:
       actions:
        onActivate:
         - decrement: counter1
+ - position: [6, 5]
+   objects:
+    - type: door
+      door:
+       manual: true
 gameLogic:
  variables:
   - name: logicDoorV1

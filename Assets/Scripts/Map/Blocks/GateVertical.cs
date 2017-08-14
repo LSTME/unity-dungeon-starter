@@ -22,7 +22,7 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(gate);
 
             mapBlock.Type = "vgate";
-            mapBlock.Interactive = false;
+            mapBlock.Interactive = true;
             mapBlock.MinimapColor = Color.cyan;
         }
 

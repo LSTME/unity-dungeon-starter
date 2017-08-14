@@ -8,5 +8,6 @@
         public string Model { get; set; }
         public Action Actions { get; set; }
         public Teleport Teleport { get; set; }
+        public Door Door { get; set; }
     }
 }

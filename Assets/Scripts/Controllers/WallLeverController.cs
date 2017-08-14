@@ -20,14 +20,20 @@ namespace Scripts.Controllers
 
         private bool _isActive;
 
+        private bool _scriptBypass = false;
+
         // Use this for initialization
         void Start()
         {
             UpdateVisuals();
         }
 
-        public void Activate()
+        public bool Activate()
         {
+            if (!IsReachableToActivate() && _scriptBypass == false) return false;
+
+            _scriptBypass = false;
+
             IsActive = !IsActive;
 
             PlaySound();
@@ -37,10 +43,13 @@ namespace Scripts.Controllers
             if (IsActive)
             {
                 PerformActions(Map.Config.Action.ACTION_ACTIVATE);
-            } else
+            }
+            else
             {
                 PerformActions(Map.Config.Action.ACTION_DEACTIVATE);
             }
+
+            return true;
         }
 
         void UpdateVisuals()
@@ -65,7 +74,9 @@ namespace Scripts.Controllers
             if (ObjectConfig == null) return;
             if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
-            IsActive = true;
+            if (IsActive == true) return;
+            _scriptBypass = true;
+            Activate();
         }
 
         public void ActionSwitchOff(string target)
@@ -73,7 +84,9 @@ namespace Scripts.Controllers
             if (ObjectConfig == null) return;
             if (ObjectConfig.Name == null || !ObjectConfig.Name.Equals(target)) return;
 
-            IsActive = false;
+            if (IsActive == false) return;
+            _scriptBypass = true;
+            Activate();
         }
     }
 }

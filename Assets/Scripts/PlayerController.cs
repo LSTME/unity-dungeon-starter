@@ -108,15 +108,39 @@ namespace Scripts
 
         public void PerformAction()
         {
-            var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
+            if (PerformActionOnThisCell()) return;
+
+            PefrormActionOnNextCell();
+        }
+
+        private void PefrormActionOnNextCell()
+        {
+            var mapBlock = Map.GetBlockAtLocation(LocationForDirection(m_CurrentDirection, 1));
             if (mapBlock == null || !mapBlock.Interactive) return;
-            
+
             foreach (var gameObject in mapBlock.GameObjects)
             {
                 var component = gameObject.GetComponent<IInteractive>();
                 if (component == null) continue;
                 component.Activate();
             }
+        }
+
+        public bool PerformActionOnThisCell()
+        {
+            var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
+            if (mapBlock == null || !mapBlock.Interactive) return false;
+
+            bool CloseActionPerformed = false;
+
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<IInteractive>();
+                if (component == null) continue;
+                CloseActionPerformed |= component.Activate();
+            }
+
+            return CloseActionPerformed;
         }
 
         Action PerformWalkOnAction()
@@ -285,7 +309,7 @@ namespace Scripts
             }
         }
 
-        Vector2 LocationForDirection(Direction direction, int step = 1)
+        public Vector2 LocationForDirection(Direction direction, int step = 1)
         {
             switch (direction)
             {

@@ -43,6 +43,7 @@ namespace Scripts.Map
         {
             var position = PositionForLocation(location);
             var instance = UnityEngine.Object.Instantiate(prefab, position, Quaternion.identity);
+            instance.transform.localScale = new Vector3((1.0f / 0.042f) / 24.0f, (1.0f / 0.042f) / 24.0f, (1.0f / 0.042f) / 24.0f);
             instance.transform.parent = MapObject.transform;
             instance.name = prefab.name + "_" + location.x + "x" + location.y + suffix;
 

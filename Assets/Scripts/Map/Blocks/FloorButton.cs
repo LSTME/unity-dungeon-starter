@@ -3,17 +3,15 @@ using UnityEngine;
 
 namespace Scripts.Map.Blocks
 {
-    class FloorButton : AbstractBlockBuilder
+    class FloorButton : EmptyCorridor
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
             mapBlock.Initialize();
 
-            GameObject templateCeiling = prefabList["ceiling"];
+            GenerateFloor = false;
 
-            GameObject ceiling = AddObject(mapBlock.Location, templateCeiling, ref MapObject);
-
-            mapBlock.addGameObject(ceiling);
+            base.createGameObject(mapBlock, prefabList, ref MapObject);
 
             GameObject templateFloorButton = prefabList["floor_button"];
 

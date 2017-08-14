@@ -29,8 +29,7 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(lever, "lever", mapBlock);
 
             mapBlock.addGameObject(lever);
-
-            mapBlock.Interactive = true;
+            
             mapBlock.Type = "wall_lever";
             mapBlock.MinimapColor = Color.magenta;
         }

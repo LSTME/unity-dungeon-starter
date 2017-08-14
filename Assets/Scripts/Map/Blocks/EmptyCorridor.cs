@@ -17,7 +17,6 @@ namespace Scripts.Map.Blocks
             MapObject = GenerateCeilingObject(mapBlock, prefabList, MapObject);
 
             mapBlock.Type = "floor";
-            mapBlock.Interactive = false;
             mapBlock.MinimapColor = new Color(0.645f, 0.371f, 0.175f);
         }
 

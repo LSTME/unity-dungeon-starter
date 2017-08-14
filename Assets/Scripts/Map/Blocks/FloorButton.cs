@@ -20,8 +20,7 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(floorButton, "floor_button", mapBlock);
 
             mapBlock.addGameObject(floorButton);
-
-            mapBlock.Interactive = true;
+            
             mapBlock.Type = "floor_button";
             mapBlock.MinimapColor = Color.blue;
         }

@@ -19,7 +19,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(ducat);
 
             mapBlock.Type = "ducat";
-            mapBlock.Interactive = true;
             mapBlock.MinimapColor = new Color(0.94f, 1f, 0.46f);
         }
 

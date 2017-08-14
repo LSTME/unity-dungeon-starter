@@ -31,7 +31,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(decoration);
 
             mapBlock.Type = "decoration";
-            mapBlock.Interactive = false;
             mapBlock.MinimapColor = selectDecorationColor(mapBlock);
         }
 

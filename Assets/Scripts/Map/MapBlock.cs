@@ -42,8 +42,6 @@ namespace Scripts.Map
 
         public string Type { get; set; }
 
-        public bool Interactive { get; set; }
-
         public Color MinimapColor
         {
             get

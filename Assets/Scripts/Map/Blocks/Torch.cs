@@ -31,7 +31,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(torch);
 
             mapBlock.Type = "torch";
-            mapBlock.Interactive = false;
             mapBlock.MinimapColor = Color.yellow;
         }
 

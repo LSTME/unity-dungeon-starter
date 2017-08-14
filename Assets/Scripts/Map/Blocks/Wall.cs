@@ -55,7 +55,6 @@ namespace Scripts.Map.Blocks
             }
 
             mapBlock.Type = "wall";
-            mapBlock.Interactive = false;
             mapBlock.MinimapColor = new Color(0.545f, 0.271f, 0.075f);
         }
 

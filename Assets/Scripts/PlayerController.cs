@@ -116,7 +116,7 @@ namespace Scripts
         private void PefrormActionOnNextCell()
         {
             var mapBlock = Map.GetBlockAtLocation(LocationForDirection(m_CurrentDirection, 1));
-            if (mapBlock == null || !mapBlock.Interactive) return;
+            if (mapBlock == null) return;
 
             foreach (var gameObject in mapBlock.GameObjects)
             {
@@ -129,7 +129,7 @@ namespace Scripts
         public bool PerformActionOnThisCell()
         {
             var mapBlock = Map.GetBlockAtLocation(m_CurrentLocation);
-            if (mapBlock == null || !mapBlock.Interactive) return false;
+            if (mapBlock == null) return false;
 
             bool CloseActionPerformed = false;
 
@@ -192,7 +192,7 @@ namespace Scripts
             if (!m_TogglePressables) return null;
 
             var mapBlock = Map.GetBlockAtLocation(location);
-            if (mapBlock == null || !mapBlock.Interactive) return null;
+            if (mapBlock == null) return null;
             
             foreach (var gameObject in mapBlock.GameObjects)
             {

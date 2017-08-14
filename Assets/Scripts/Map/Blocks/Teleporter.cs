@@ -40,7 +40,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(teleport);
 
             mapBlock.Type = "teleport";
-            mapBlock.Interactive = false;
             mapBlock.MinimapColor = new Color(0.5f, 0.5f, 1f);
         }
 

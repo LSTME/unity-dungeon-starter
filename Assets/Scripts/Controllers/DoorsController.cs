@@ -93,11 +93,13 @@ namespace Scripts.Controllers
         public void SetDoorWalkable()
         {
             DoorWalkable = true;
+            PerformActions(Map.Config.Action.ACTION_ON_OPEN);
         }
 
         public void SetDoorNonWalkable()
         {
             DoorWalkable = false;
+            PerformActions(Map.Config.Action.ACTION_ON_CLOSE);
         }
 
         public bool Activate()

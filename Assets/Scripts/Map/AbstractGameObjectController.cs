@@ -10,6 +10,7 @@ namespace Scripts.Map
         public void PerformActions(int actionType)
         {
             if (ObjectConfig == null) return;
+            if (ObjectConfig.Actions == null) return;
 
             var actions = ObjectConfig.Actions.getActions(actionType);
 

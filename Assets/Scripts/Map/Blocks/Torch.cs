@@ -26,7 +26,7 @@ namespace Scripts.Map.Blocks
                 AttachToWall(ref torch);
             }
 
-            AssignObjectConfigByType(torch, "lever", mapBlock);
+            AssignObjectConfigByType(torch, "torch", mapBlock);
 
             mapBlock.addGameObject(torch);
 

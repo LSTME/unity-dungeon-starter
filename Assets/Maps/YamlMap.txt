@@ -20,13 +20,25 @@ mapBlocks:
        onActivate:
         - open: door1
         - switchOn: door1lever
+        - switchOff: room1torch
        onDeactivate:
         - close: door1
         - switchOff: door1lever
+        - switchOn: room1torch
  - position: [3, 5]
    objects:
     - type: door
       name: door1
+      actions:
+       onOpen:
+        - switchOn: corridor1torch
+       onClose:
+        - switchOff: corridor1torch
+ - position: [3, 6]
+   objects:
+    - type: torch
+      name: corridor1torch
+      torch: { state: false }
  - position: [2, 6]
    objects:
     - type: lever
@@ -35,16 +47,20 @@ mapBlocks:
        onActivate:
         - open: door1
         - switchOn: door1lever
+        - switchOff: room1torch
        onDeactivate:
         - close: door1
         - switchOff: door1lever
+        - switchOn: room1torch
  - position: [2, 4]
    objects:
     - type: torch
+      name: room1torch
       rotation: W
  - position: [4, 4]
    objects:
     - type: torch
+      name: room1torch
       rotation: E
  - position: [7, 6]
    objects:
@@ -65,6 +81,7 @@ mapBlocks:
        onActivate:
         - open: door1
         - switchOn: door1lever
+        - switchOff: room1torch
  - position: [12, 6]
    objects:
     - type: floor_button

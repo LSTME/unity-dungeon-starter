@@ -353,6 +353,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LeftLight: {fileID: 108867531759595870}
   RightLight: {fileID: 108620189467656318}
+  TorchFlame: {fileID: 1285597055176596}
   BaseIntensity: 2
   MaxReduction: 0.75
   MaxIncrease: 0.3

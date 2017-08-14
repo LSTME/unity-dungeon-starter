@@ -11,6 +11,8 @@ namespace Scripts.Map.Config
         public const int ACTION_ON_MIN = 5;
         public const int ACTION_ON_MAX = 6;
         public const int ACTION_ON_ELSE = 7;
+        public const int ACTION_ON_OPEN = 8;
+        public const int ACTION_ON_CLOSE = 9;
 
         public List<ActionCommand> OnActivate { get; set; }
         public List<ActionCommand> OnDeactivate { get; set; }
@@ -19,6 +21,8 @@ namespace Scripts.Map.Config
         public List<ActionCommand> OnMin { get; set; }
         public List<ActionCommand> OnMax { get; set; }
         public List<ActionCommand> OnElse { get; set; }
+        public List<ActionCommand> OnOpen { get; set; }
+        public List<ActionCommand> OnClose { get; set; }
 
         public List<ActionCommand> getActions(int actionType)
         {
@@ -38,6 +42,10 @@ namespace Scripts.Map.Config
                     return OnMax;
                 case ACTION_ON_ELSE:
                     return OnElse;
+                case ACTION_ON_OPEN:
+                    return OnOpen;
+                case ACTION_ON_CLOSE:
+                    return OnClose;
                 default:
                     return null;
             }

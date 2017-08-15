@@ -23,43 +23,32 @@ namespace Scripts.AI
 
         protected void MoveForward()
         {
-			//PlayerController.getInstance().MoveForward();
 			PlayerController.getInstance().IssueAction("Vertical", 1.0f);
         }
         
         protected void MoveBackward()
         {
 			PlayerController.getInstance().IssueAction("Vertical", -1.0f);
-			//PlayerController.getInstance().MoveBackward();
         }
         
         protected void TurnLeft()
         {
 			PlayerController.getInstance().IssueAction("Horizontal", -1.0f);
-			//PlayerController.getInstance().RotateLeft();
         }
         
         protected void TurnRight()
         {
 			PlayerController.getInstance().IssueAction("Horizontal", 1.0f);
-            //PlayerController.getInstance().RotateRight();
         }
         
         protected void StrafeLeft()
         {
 			PlayerController.getInstance().IssueAction("Strafe", -1.0f);
-			//PlayerController.getInstance().StrafeLeft();
         }
         
         protected void StrafeRight()
         {
 			PlayerController.getInstance().IssueAction("Strafe", 1.0f);
-            //PlayerController.getInstance().StrafeRight();
-        }
-
-        protected void LookAt(Direction direction)
-        {
-            PlayerController.getInstance().RotateTo(direction);
         }
         
         #endregion
@@ -157,8 +146,12 @@ namespace Scripts.AI
         protected void UseBlock()
         {
 			PlayerController.getInstance().IssueAction("Action");
-            //PlayerController.getInstance().PerformAction();
         }
+
+		protected bool IsObjectCarried()
+		{
+			return PlayerController.getInstance().IsObjectPickedUp();
+		}
 
 		#endregion
 

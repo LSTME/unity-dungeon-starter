@@ -58,6 +58,7 @@ namespace Scripts.Map
                 {
                     var component = gameObject.GetComponent<Interfaces.IWalkable>();
                     if (component != null) walkable &= component.IsWalkable();
+					if (!walkable) break;
                 }
 
                 return walkable;

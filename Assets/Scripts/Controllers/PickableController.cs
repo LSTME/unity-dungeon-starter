@@ -22,5 +22,10 @@ namespace Scripts.Controllers
         {
             return true;
         }
-    }
+
+		public bool IsReachable()
+		{
+			return IsReachableToActivate(true);
+		}
+	}
 }

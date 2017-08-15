@@ -152,3 +152,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 10
   MinimapColor: {r: 0.5159305, g: 0.42744377, b: 0.9852941, a: 0}
+  TypePriority: 10
+  Type: decoration

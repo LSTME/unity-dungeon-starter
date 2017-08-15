@@ -29,8 +29,6 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(torch, "torch", mapBlock);
 
             mapBlock.addGameObject(torch);
-
-            mapBlock.Type = "torch";
         }
 
         public override char forMapChar()

@@ -19,8 +19,6 @@ namespace Scripts.Map.Blocks
             GameObject crate = AddObject(mapBlock.Location, crateTemplate, ref MapObject);
 
             mapBlock.addGameObject(crate);
-            
-            mapBlock.Type = "crate";
         }
 
         public override char forMapChar()

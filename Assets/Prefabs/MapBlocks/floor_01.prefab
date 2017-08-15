@@ -123,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 0
   MinimapColor: {r: 0.5, g: 0.48859027, b: 0.33455884, a: 0}
+  TypePriority: 0
+  Type: floor

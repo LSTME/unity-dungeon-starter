@@ -20,8 +20,6 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(floorButton, "floor_button", mapBlock);
 
             mapBlock.addGameObject(floorButton);
-            
-            mapBlock.Type = "floor_button";
         }
 
         public override char forMapChar()

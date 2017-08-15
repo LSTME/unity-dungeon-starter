@@ -312,3 +312,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 10
   MinimapColor: {r: 1, g: 0.71323526, b: 0.99208933, a: 0}
+  TypePriority: 10
+  Type: decoration

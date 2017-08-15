@@ -17,8 +17,6 @@ namespace Scripts.Map.Blocks
             ducat.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             mapBlock.addGameObject(ducat);
-
-            mapBlock.Type = "ducat";
         }
 
         public override char forMapChar()

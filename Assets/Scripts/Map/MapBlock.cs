@@ -38,7 +38,28 @@ namespace Scripts.Map
 
         public List<Config.ObjectConfig> ObjectsConfig { get; set; }
 
-        public string Type { get; set; }
+        public string Type {
+			get
+			{
+				string BestType = "";
+				int BestTypePriority = int.MinValue;
+
+				foreach (var gameObject in GameObjects)
+				{
+					var component = gameObject.GetComponent<AbstractGameObjectController>();
+					if (component != null)
+					{
+						if (component.TypePriority > BestTypePriority)
+						{
+							BestTypePriority = component.TypePriority;
+							BestType = component.Type;
+						}
+					}
+				}
+
+				return BestType;
+			}
+		}
 
         public char MapSymbol
         {
@@ -64,6 +85,114 @@ namespace Scripts.Map
                 return walkable;
             }
         }
+
+		public bool IsInteractive
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IInteractive>();
+					if (component != null) return true;
+				}
+
+				return false;
+			}
+		}
+
+		public bool IsReachable
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IInteractive>();
+					if (component != null && component.IsReachable()) return true;
+				}
+
+				return false;
+			}
+		}
+
+		public bool IsPickable
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IPickable>();
+					if (component != null) return true;
+				}
+
+				return false;
+			}
+		}
+
+		public bool IsDropable
+		{
+			get
+			{
+				bool dropableFound = false;
+				bool undropableFound = false;
+				foreach (var gameObject in gameObjects)
+				{
+					var componentDropable = gameObject.GetComponent<Interfaces.IDropable>();
+					if (componentDropable != null) dropableFound = true;
+
+					var componentUndropable = gameObject.GetComponent<Interfaces.IUnplacableCorridor>();
+					if (componentUndropable != null && componentUndropable.IsUnplacable()) undropableFound = true;
+				}
+
+				return dropableFound && !undropableFound;
+			}
+		}
+
+		public bool IsPressable
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IPressable>();
+					if (component != null) return true;
+				}
+
+				return false;
+			}
+		}
+
+		public bool IsOpenable
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IOpenable>();
+					if (component != null) return true;
+				}
+
+				return false;
+			}
+		}
+
+		public List<Direction> InteractiveObjectsDirection
+		{
+			get
+			{
+				var result = new List<Direction>();
+
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<AbstractGameObjectController>();
+					if (component != null && component is Interfaces.IInteractive)
+					{
+						result.Add(component.GetBlockOrientation());
+					} 
+				}
+
+				return result;
+			}
+		}
 
         protected Dictionary<string, Config.ObjectConfig> NamedObjectsConfig;
 

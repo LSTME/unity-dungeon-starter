@@ -1,8 +1,7 @@
 ﻿namespace Scripts.AI
 {
-    public class Player: PlayerBase {        
-        
-    }
+    public class Player: PlayerBase {
+	}
 }
 
 

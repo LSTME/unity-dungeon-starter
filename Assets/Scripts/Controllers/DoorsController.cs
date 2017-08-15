@@ -104,11 +104,7 @@ namespace Scripts.Controllers
 
         public bool Activate()
         {
-            if (!IsReachableToActivate(true)) return false;
-
-            if (ObjectConfig == null) return false;
-            if (ObjectConfig.Door == null) return false;
-            if (!ObjectConfig.Door.Manual) return false;
+            if (!IsReachable()) return false;
 
             Toggle(!IsOpen);
 
@@ -119,5 +115,16 @@ namespace Scripts.Controllers
         {
             return true;
         }
-    }
+
+		public bool IsReachable()
+		{
+			if (!IsReachableToActivate(true)) return false;
+
+			if (ObjectConfig == null) return false;
+			if (ObjectConfig.Door == null) return false;
+			if (!ObjectConfig.Door.Manual) return false;
+
+			return true;
+		}
+	}
 }

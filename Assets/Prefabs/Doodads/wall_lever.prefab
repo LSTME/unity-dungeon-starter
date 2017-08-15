@@ -361,6 +361,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 10
   MinimapColor: {r: 0.33407736, g: 0.2794118, b: 1, a: 0}
+  TypePriority: 10
+  Type: lever
   Clips:
   - {fileID: 8300000, guid: 53b7572c306d3498b8215061e1b76661, type: 3}
   - {fileID: 8300000, guid: 43d8fffe4b90744f4b2e9ead7b9bd7b8, type: 3}

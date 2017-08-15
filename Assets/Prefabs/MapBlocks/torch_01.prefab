@@ -353,6 +353,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 1
   MinimapColor: {r: 0.9338235, g: 0.87841916, b: 0.13046065, a: 0}
+  TypePriority: 1
+  Type: torch
   LeftLight: {fileID: 108867531759595870}
   RightLight: {fileID: 108620189467656318}
   TorchFlame: {fileID: 1285597055176596}

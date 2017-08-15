@@ -152,3 +152,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 100
   MinimapColor: {r: 0, g: 1, b: 0.21379304, a: 0}
+  TypePriority: 100
+  Type: crate

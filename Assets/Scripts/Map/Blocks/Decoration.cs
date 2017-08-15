@@ -29,8 +29,6 @@ namespace Scripts.Map.Blocks
             }
 
             mapBlock.addGameObject(decoration);
-
-            mapBlock.Type = "decoration";
         }
 
         public override char forMapChar()

@@ -20,8 +20,6 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(gate, "door", mapBlock);
 
             mapBlock.addGameObject(gate);
-
-            mapBlock.Type = "vgate";
         }
 
         public override char forMapChar()

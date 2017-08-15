@@ -123,3 +123,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 100
   MinimapColor: {r: 0.61764705, g: 0.34503043, b: 0, a: 0}
+  TypePriority: 100
+  Type: wall

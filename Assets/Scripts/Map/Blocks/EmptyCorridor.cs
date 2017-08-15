@@ -15,8 +15,6 @@ namespace Scripts.Map.Blocks
             MapObject = GenerateFloorObject(mapBlock, prefabList, MapObject);
 
             MapObject = GenerateCeilingObject(mapBlock, prefabList, MapObject);
-
-            mapBlock.Type = "floor";
         }
 
         private GameObject GenerateCeilingObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, GameObject MapObject)

@@ -28,7 +28,7 @@ namespace Scripts.Controllers
 
         public bool Activate()
         {
-            if (!IsReachableToActivate()) return false;
+            if (!IsReachable()) return false;
 
             IsActive = !IsActive;
 
@@ -80,5 +80,10 @@ namespace Scripts.Controllers
 
             IsActive = false;
         }
-    }
+
+		public bool IsReachable()
+		{
+			return IsReachableToActivate();
+		}
+	}
 }

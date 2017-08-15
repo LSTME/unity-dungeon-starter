@@ -53,8 +53,6 @@ namespace Scripts.Map.Blocks
 
                 mapBlock.addGameObject(wall);
             }
-
-            mapBlock.Type = "wall";
         }
 
         public override char forMapChar()

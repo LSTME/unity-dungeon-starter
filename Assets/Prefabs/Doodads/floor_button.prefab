@@ -251,4 +251,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinimapColorPriority: 1
   MinimapColor: {r: 1, g: 0.72413796, b: 0, a: 0}
+  TypePriority: 1
+  Type: floor_button
   Clips: []

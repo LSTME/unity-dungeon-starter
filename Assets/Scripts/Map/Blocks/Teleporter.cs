@@ -38,8 +38,6 @@ namespace Scripts.Map.Blocks
             }
 
             mapBlock.addGameObject(teleport);
-
-            mapBlock.Type = "teleport";
         }
 
         public override char forMapChar()

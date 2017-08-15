@@ -27,7 +27,12 @@ namespace Scripts
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
 
-        private GameObject PickedUpObject = null;
+		private string IssuedAction = "";
+		private float IssuedActionValue = 0.0f;
+
+		private System.Collections.Generic.HashSet<string> knownActions = new System.Collections.Generic.HashSet<string>();
+
+		private GameObject PickedUpObject = null;
         
         public static PlayerController getInstance()
         {
@@ -67,7 +72,13 @@ namespace Scripts
 
         private void Start()
         {
-            RotateTo(m_CurrentDirection, false);
+			knownActions.Add("Strafe");
+			knownActions.Add("Vertical");
+			knownActions.Add("Horizontal");
+			knownActions.Add("Action");
+			knownActions.Add("");
+
+			RotateTo(m_CurrentDirection, false);
         }
 
         private void Update()
@@ -110,20 +121,20 @@ namespace Scripts
             if (m_IsRotating) return Rotate;
             if (m_IsMoving) return Move;
 
-            var vertical = Input.GetAxis("Vertical");
+            var vertical = GetFloatValueAction("Vertical");
             if (vertical > 0) return MoveForward;
             if (vertical < 0) return MoveBackward;
 
-            var strafe = Input.GetAxis("Strafe");
+            var strafe = GetFloatValueAction("Strafe");
             if (strafe > 0) return StrafeRight;
             if (strafe < 0) return StrafeLeft;
 
-            var horizontal = Input.GetAxis("Horizontal");
+            var horizontal = GetFloatValueAction("Horizontal");
 
             if (horizontal < 0) return RotateLeft;
             if (horizontal > 0) return RotateRight;
 
-            if (Input.GetButtonDown("Action")) return PerformAction;
+            if (GetBoolValueAction("Action")) return PerformAction;
 
             if (Input.GetButtonDown("LargeMap"))
             {
@@ -132,6 +143,46 @@ namespace Scripts
 
             return null;
         }
+
+		public void IssueAction(string ActionType, float ActionValue = 0.0f)
+		{
+			if (!knownActions.Contains(ActionType)) return;
+
+			IssuedAction = ActionType;
+			IssuedActionValue = ActionValue;
+		}
+
+		private float GetFloatValueAction(string ActionType)
+		{
+			float input = Input.GetAxis(ActionType);
+			if (input != 0.0f)
+			{
+				return input;
+			}
+			if (IssuedAction.Equals(ActionType))
+			{
+				IssuedAction = "";
+				return IssuedActionValue;
+			}
+
+			return 0.0f;
+		}
+
+		private bool GetBoolValueAction(string ActionType)
+		{
+			bool input = Input.GetButtonDown(ActionType);
+			if (input)
+			{
+				return input;
+			}
+			if (IssuedAction.Equals(ActionType))
+			{
+				IssuedAction = "";
+				return true;
+			}
+
+			return false;
+		}
 
         public void PerformAction()
         {

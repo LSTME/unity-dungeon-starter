@@ -29,8 +29,6 @@ namespace Scripts.Map.Blocks
             AssignObjectConfigByType(lever, "lever", mapBlock);
 
             mapBlock.addGameObject(lever);
-            
-            mapBlock.Type = "wall_lever";
         }
 
         public override char forMapChar()

@@ -11,6 +11,9 @@ namespace Scripts.Map
 
         public UnityEngine.Color MinimapColor;
 
+		public int TypePriority = 0;
+		public string Type = "";
+
         private static UnityEngine.Rendering.ShadowCastingMode _pickedObjectShadowMode;
 
         public void PerformActions(int actionType)
@@ -28,7 +31,7 @@ namespace Scripts.Map
             }
         }
 
-        protected Direction GetBlockOrientation()
+        public Direction GetBlockOrientation()
         {
             float Angle = 0.0f;
             Vector3 Axis = Vector3.zero;

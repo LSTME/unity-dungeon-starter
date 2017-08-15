@@ -31,7 +31,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(torch);
 
             mapBlock.Type = "torch";
-            mapBlock.MinimapColor = Color.yellow;
         }
 
         public override char forMapChar()

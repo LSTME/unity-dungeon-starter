@@ -31,7 +31,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(lever);
             
             mapBlock.Type = "wall_lever";
-            mapBlock.MinimapColor = Color.magenta;
         }
 
         public override char forMapChar()

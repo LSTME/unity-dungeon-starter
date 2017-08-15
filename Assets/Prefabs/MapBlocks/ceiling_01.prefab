@@ -121,3 +121,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4a346a0d4f8b1747969b0ef03e65f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: -1
+  MinimapColor: {r: 0, g: 0, b: 0, a: 0}

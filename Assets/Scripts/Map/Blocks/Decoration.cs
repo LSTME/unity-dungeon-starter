@@ -31,7 +31,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(decoration);
 
             mapBlock.Type = "decoration";
-            mapBlock.MinimapColor = selectDecorationColor(mapBlock);
         }
 
         public override char forMapChar()

@@ -22,7 +22,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(gate);
 
             mapBlock.Type = "vgate";
-            mapBlock.MinimapColor = Color.cyan;
         }
 
         public override char forMapChar()

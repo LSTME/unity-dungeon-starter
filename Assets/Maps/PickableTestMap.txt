@@ -1,0 +1,52 @@
+﻿###########
+# t t t t #
+#d b b b d#
+#t   P   t#
+#d c c c d#
+# tlt t t #
+#####-#####
+#   # #
+##### #####
+#    t    #
+###########
+mapBlocks:
+ - position: [6, 7]
+   objects:
+    - type: door
+      name: lockedDoor
+      actions:
+       onOpen:
+        - switchOn: torchInCorridor
+       onClose:
+        - switchOff: torchInCorridor
+ - position: [4, 3]
+   objects: &doorCounterFloorButton
+    - type: floor_button
+      actions:
+       onActivate:
+        - increment: doorCounter
+       onDeactivate:
+        - decrement: doorCounter
+ - position: [6, 3]
+   objects: *doorCounterFloorButton
+ - position: [8, 3]
+   objects: *doorCounterFloorButton
+ - position: [6, 10]
+   objects: 
+    - type: torch
+      name: torchInCorridor
+      torch:
+       state: false
+gameLogic:
+ counters:
+  - name: doorCounter
+    min: 0
+    max: 3
+    start: 0
+    actions:
+     onMax:
+      - open: lockedDoor
+     onMin:
+      - close: lockedDoor
+     onElse:
+      - close: lockedDoor

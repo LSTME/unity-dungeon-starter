@@ -71,6 +71,8 @@ namespace Scripts.Map.Config
         {
             NamedCounters = new Dictionary<string, Counter>();
 
+            if (Counters == null) return; 
+
             foreach (var Counter in Counters)
             {
                 if (!NamedCounters.ContainsKey(Counter.Name))
@@ -83,6 +85,8 @@ namespace Scripts.Map.Config
         private void InitializeNamedVariables()
         {
             NamedVariables = new Dictionary<string, Variable>();
+
+            if (Variables == null) return;
 
             foreach (var Variable in Variables)
             {

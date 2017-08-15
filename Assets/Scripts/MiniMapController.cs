@@ -11,7 +11,7 @@ namespace Scripts
         public int Columns;
         public int Rows;
 
-        public Dictionary<Vector2, Color> Cells = new Dictionary<Vector2, Color>();
+        public HashSet<Vector2> Cells = new HashSet<Vector2>();
         public Vector2 PlayerLocation;
 
         private float _cellSize;
@@ -41,7 +41,7 @@ namespace Scripts
             if (UseLarge) Size = LargeSize;
 
             _frameRect = new Rect(0, 0, Screen.height * Size / 100.0f, Screen.height * Size / 100.0f);
-            _cellSize = Mathf.Min(_frameRect.xMax / Columns, _frameRect.yMax / Rows);
+            _cellSize = Mathf.Min(_frameRect.xMax / (Columns - 1), _frameRect.yMax / (Rows - 1));
 
             if (_quads == null)
             {
@@ -65,8 +65,8 @@ namespace Scripts
                 _border.SetPixel(0, 0, new Color(0.8f, 0.46f, 0.0f));
                 _border.Apply();
             }
-            DrawQuad(new Rect(0, _frameRect.xMax, _frameRect.xMax + _cellSize, _cellSize), _border);
-            DrawQuad(new Rect(_frameRect.xMax, 0, _cellSize, _frameRect.xMax), _border);
+            DrawQuad(new Rect(0, _frameRect.xMax, _frameRect.xMax + 6, 4), _border);
+            DrawQuad(new Rect(_frameRect.xMax, 0, 4, _frameRect.xMax), _border);
 
             if (_playerQuad == null)
             {
@@ -77,12 +77,12 @@ namespace Scripts
 
             foreach (var cell in Cells)
             {
-                if (!visited.Contains(cell.Key)) continue;
-                var quad = _quads[cell.Key];
-                quad.SetPixel(0, 0, cell.Value);
+                if (!visited.Contains(cell)) continue;
+                var quad = _quads[cell];
+                quad.SetPixel(0, 0, GetCellColor(cell));
                 quad.Apply();
 
-                DrawCell(cell.Key, quad);
+                DrawCell(cell, quad);
             }
 
             DrawCell(PlayerLocation, _playerQuad);
@@ -108,10 +108,34 @@ namespace Scripts
             foreach (var direction in directions)
             {
                 var locationToAdd = location + direction;
-                if (!Cells.ContainsKey(locationToAdd)) continue;
+                if (!Cells.Contains(locationToAdd)) continue;
                 if (visited.Contains(locationToAdd)) continue;
                 visited.Add(locationToAdd);
             }
+        }
+
+        private Color GetCellColor(Vector2 location)
+        {
+            var mapGenerator = MapGenerator.getInstance();
+
+            Color result = new Color(0, 0, 0, 0);
+            int highestPriority = int.MinValue;
+
+            var mapBlock = mapGenerator.GetBlockAtLocation(location);
+            if (mapBlock == null) return result;
+            
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<Map.AbstractGameObjectController>();
+                if (component != null && component.MinimapColorPriority > highestPriority)
+                {
+                    result = component.MinimapColor;
+                    result.a = 1.0f;
+                    highestPriority = component.MinimapColorPriority;
+                }
+            }
+
+            return result;
         }
     }
 }

@@ -4,7 +4,7 @@ using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable, Interfaces.IInteractive
+    public class DoorsController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IOpenable, Interfaces.IInteractive, Interfaces.IUnplacableCorridor
     {
         public bool IsOpen = true;
 
@@ -112,6 +112,11 @@ namespace Scripts.Controllers
 
             Toggle(!IsOpen);
 
+            return true;
+        }
+
+        public bool IsUnplacable()
+        {
             return true;
         }
     }

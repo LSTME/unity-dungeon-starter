@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using UnityEngine;
 
 namespace Scripts.Map.Blocks
 {
-    class Ducat : EmptyCorridor
+    class Crate : EmptyCorridor
     {
         public override void createGameObject(MapBlock mapBlock, Dictionary<string, GameObject> prefabList, ref GameObject MapObject)
         {
@@ -11,19 +14,18 @@ namespace Scripts.Map.Blocks
 
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
-            GameObject template = prefabList["ducat"];
+            var crateTemplate = prefabList["crate_01"];
 
-            GameObject ducat = AddObject(mapBlock.Location, template, ref MapObject);
-            ducat.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            GameObject crate = AddObject(mapBlock.Location, crateTemplate, ref MapObject);
 
-            mapBlock.addGameObject(ducat);
-
-            mapBlock.Type = "ducat";
+            mapBlock.addGameObject(crate);
+            
+            mapBlock.Type = "crate";
         }
 
         public override char forMapChar()
         {
-            return 'D';
+            return 'c';
         }
     }
 }

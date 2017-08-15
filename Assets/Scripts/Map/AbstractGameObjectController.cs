@@ -7,6 +7,12 @@ namespace Scripts.Map
     {
         public ObjectConfig ObjectConfig { get; set; }
 
+        public int MinimapColorPriority = 0;
+
+        public UnityEngine.Color MinimapColor;
+
+        private static UnityEngine.Rendering.ShadowCastingMode _pickedObjectShadowMode;
+
         public void PerformActions(int actionType)
         {
             if (ObjectConfig == null) return;
@@ -67,6 +73,108 @@ namespace Scripts.Map
                 var PlayerPositionAfterMove = PlayerController.getInstance().LocationForDirection(PlayerDirection, 1);
                 if (Vector2.Distance(PlayerPositionAfterMove, BlockPosition) > 0.1) { return false; }
                 return true;
+            }
+        }
+
+        public bool PickUpObject()
+        {
+            if (!IsReachableToActivate(true)) return false;
+
+            var playerController = PlayerController.getInstance();
+
+            if (playerController.IsObjectPickedUp()) return false;
+
+            playerController.PickUpObject(gameObject);
+
+            var mapGenerator = MapGenerator.getInstance();
+
+            var mapBlock = mapGenerator.GetBlockAtLocation(GetBlockPosition());
+
+            var Player = GameObject.FindGameObjectWithTag("Player");
+            gameObject.transform.parent = Player.transform;
+            gameObject.transform.rotation = Quaternion.identity;
+            gameObject.transform.Translate(GetObjectTranslate());
+            var meshRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                _pickedObjectShadowMode = meshRenderer.shadowCastingMode;
+                meshRenderer.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            }
+
+            mapBlock.DetachGameObject(gameObject);
+
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<Interfaces.IDropable>();
+                if (component != null) component.SignalRemove();
+            }
+
+            return true;
+        }
+
+        public virtual bool DropObject()
+        {
+            if (!IsReachableToActivate(true)) return false;
+
+            var playerController = PlayerController.getInstance();
+            if (!playerController.IsObjectPickedUp()) return false;
+
+            if (!IsDropPointFree()) return false;
+
+            var mapGenerator = MapGenerator.getInstance();
+            var mapBlock = mapGenerator.GetBlockAtLocation(GetBlockPosition());
+
+            var gameObjectToDrop = playerController.PutDownObject();
+
+            var position = mapGenerator.PositionForLocation(GetBlockPosition());
+
+            gameObjectToDrop.transform.parent = mapGenerator.MapObject.transform;
+            gameObjectToDrop.transform.position = position;
+            
+            var meshRenderer = gameObjectToDrop.GetComponentInChildren<MeshRenderer>();
+            if (meshRenderer != null)
+            {
+                meshRenderer.shadowCastingMode = _pickedObjectShadowMode;
+            }
+
+            mapBlock.addGameObject(gameObjectToDrop);
+
+            return true;
+        }
+
+        private bool IsDropPointFree()
+        {
+            var mapGenerator = MapGenerator.getInstance();
+            var mapBlock = mapGenerator.GetBlockAtLocation(GetBlockPosition());
+
+            if (mapBlock == null) return false;
+            if (mapBlock.GameObjects == null) return false;
+
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<Interfaces.IUnplacableCorridor>();
+                if (component != null) return false;
+            }
+
+            return true;
+        }
+
+        private Vector3 GetObjectTranslate()
+        {
+            var PlayerPosition = PlayerController.getInstance().CurrentDirection;
+
+            switch (PlayerPosition)
+            {
+                case Direction.North:
+                    return new Vector3(0, -0.1f, -1);
+                case Direction.South:
+                    return new Vector3(0, -0.1f, 1);
+                case Direction.West:
+                    return new Vector3(1, -0.1f, 0);
+                case Direction.East:
+                    return new Vector3(-1, -0.1f, 0);
+                default:
+                    return Vector3.zero;
             }
         }
     }

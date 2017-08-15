@@ -26,10 +26,37 @@ namespace Scripts
         [SerializeField] private Direction m_CurrentDirection = Direction.North;
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
+
+        private GameObject PickedUpObject = null;
         
         public static PlayerController getInstance()
         {
             return GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        }
+
+        public bool IsObjectPickedUp()
+        {
+            return PickedUpObject != null;
+        }
+
+        public bool PickUpObject(GameObject GO)
+        {
+            if (IsObjectPickedUp()) return false;
+
+            PickedUpObject = GO;
+
+            return true;
+        }
+
+        public GameObject PutDownObject()
+        {
+            if (!IsObjectPickedUp()) return null;
+
+            var result = PickedUpObject;
+
+            PickedUpObject = null;
+
+            return result;
         }
 
         private MapGenerator Map {
@@ -108,9 +135,31 @@ namespace Scripts
 
         public void PerformAction()
         {
+            if (PerformPutDownAction()) return;
+
             if (PerformActionOnThisCell()) return;
 
             PefrormActionOnNextCell();
+        }
+
+        public bool PerformPutDownAction()
+        {
+            if (!PlayerController.getInstance().IsObjectPickedUp()) return false;
+
+            var mapBlock = Map.GetBlockAtLocation(LocationForDirection(m_CurrentDirection, 1));
+            if (mapBlock == null) return false;
+
+            foreach (var gameObject in mapBlock.GameObjects)
+            {
+                var component = gameObject.GetComponent<IDropable>();
+                if (component != null) 
+                {
+                    component.DropObject();
+                    break;
+                }
+            }
+
+            return true;
         }
 
         private void PefrormActionOnNextCell()

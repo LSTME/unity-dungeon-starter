@@ -351,6 +351,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 892fa48dbf00247268d9d428775faede, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: 1
+  MinimapColor: {r: 0.9338235, g: 0.87841916, b: 0.13046065, a: 0}
   LeftLight: {fileID: 108867531759595870}
   RightLight: {fileID: 108620189467656318}
   TorchFlame: {fileID: 1285597055176596}

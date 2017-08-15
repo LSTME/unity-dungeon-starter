@@ -677,6 +677,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1968cb3e351e1143881c658a100e026, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: 1
+  MinimapColor: {r: 0.66176474, g: 1, b: 1, a: 0}
   TeleportLight: {fileID: 108949038143243296}
   BaseIntensity: 4
   MaxReduction: 0.25

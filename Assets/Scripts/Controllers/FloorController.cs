@@ -1,13 +1,19 @@
-﻿using Scripts.Map;
+﻿using System;
+using Scripts.Map;
 
 namespace Scripts.Controllers
 {
 
-    public class FloorController : AbstractGameObjectController, Scripts.Interfaces.IWalkable
+    public class FloorController : AbstractGameObjectController, Interfaces.IWalkable, Interfaces.IDropable
     {
         public bool IsWalkable()
         {
             return true;
+        }
+
+        public void SignalRemove()
+        {
+            
         }
     }
 

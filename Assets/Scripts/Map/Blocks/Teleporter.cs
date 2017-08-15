@@ -40,7 +40,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(teleport);
 
             mapBlock.Type = "teleport";
-            mapBlock.MinimapColor = new Color(0.5f, 0.5f, 1f);
         }
 
         public override char forMapChar()

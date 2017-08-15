@@ -6,7 +6,7 @@ using Scripts.Map;
 
 namespace Scripts.Controllers
 {
-    public class FloorButtonController : AbstractGameObjectController, IPressable
+    public class FloorButtonController : AbstractGameObjectController, IPressable, IDropable
     {
         public bool IsActive
         {
@@ -40,6 +40,23 @@ namespace Scripts.Controllers
             {
                 PerformActions(Map.Config.Action.ACTION_DEACTIVATE);
             }
+        }
+
+        public override bool DropObject()
+        {
+            var result = base.DropObject();
+
+            if (result)
+            {
+                Press(true);
+            }
+
+            return result;
+        }
+
+        public void SignalRemove()
+        {
+            Press(false);
         }
 
         void UpdateVisuals()

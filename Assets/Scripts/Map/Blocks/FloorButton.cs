@@ -22,7 +22,6 @@ namespace Scripts.Map.Blocks
             mapBlock.addGameObject(floorButton);
             
             mapBlock.Type = "floor_button";
-            mapBlock.MinimapColor = Color.blue;
         }
 
         public override char forMapChar()

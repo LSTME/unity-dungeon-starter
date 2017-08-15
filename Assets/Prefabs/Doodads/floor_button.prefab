@@ -249,5 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c07f91bfc6173e14291071dfae876037, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: 1
+  MinimapColor: {r: 1, g: 0.72413796, b: 0, a: 0}
   Clips: []
-  DoorTag: 

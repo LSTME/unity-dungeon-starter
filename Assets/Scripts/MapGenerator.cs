@@ -71,10 +71,18 @@ namespace Scripts
 
             foreach (var mapBlock in mapLoader.MapBlocks.Values)
             {
-                miniMapController.Cells[mapBlock.Location] = mapBlock.MinimapColor;
+                miniMapController.Cells.Add(mapBlock.Location);
             }
 
             miniMapController.visit(startLocation);
+        }
+
+        public MapBlock GetMapBlockAtLocation(Vector2 location)
+        {
+            if (Blocks == null) return null;
+            if (!Blocks.ContainsKey(location)) return null;
+
+            return Blocks[location];
         }
 
         void ClearMap()

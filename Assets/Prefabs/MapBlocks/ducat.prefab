@@ -121,6 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5468a00adfe47119ca3c0a800544b95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: 10
+  MinimapColor: {r: 0.9117647, g: 0.88402337, b: 0.366, a: 0}
   RotationSpeed: 350
   BouncingSpeed: 150
   BouncingAmplitude: 0.05

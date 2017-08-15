@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Scripts.Interfaces;
 using Scripts.Map;
+using System;
 
 namespace Scripts.Controllers
 {
-    public class TeleportController : AbstractGameObjectController, ITeleport
+    public class TeleportController : AbstractGameObjectController, ITeleport, IUnplacableCorridor
     {
         public Light TeleportLight;
 
@@ -51,7 +52,7 @@ namespace Scripts.Controllers
         {
             while (true)
             {
-                var intensity = Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
+                var intensity = UnityEngine.Random.Range(BaseIntensity - MaxReduction, BaseIntensity + MaxIncrease);
 
                 TeleportLight.intensity = Mathf.Lerp(TeleportLight.intensity, intensity, Strength * Time.deltaTime);
 
@@ -69,6 +70,11 @@ namespace Scripts.Controllers
             result.Add('E', Direction.East);
 
             return result;
+        }
+
+        public bool IsUnplacable()
+        {
+            return true;
         }
     }
 }

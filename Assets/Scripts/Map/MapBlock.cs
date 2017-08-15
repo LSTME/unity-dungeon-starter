@@ -12,8 +12,6 @@ namespace Scripts.Map
         private Vector2 location;
         private bool initialized = false;
 
-        private Color minimapColor = Color.black;
-
         public string[] Attributes
         {
             get
@@ -41,19 +39,6 @@ namespace Scripts.Map
         public List<Config.ObjectConfig> ObjectsConfig { get; set; }
 
         public string Type { get; set; }
-
-        public Color MinimapColor
-        {
-            get
-            {
-                return minimapColor;
-            }
-
-            set
-            {
-                minimapColor = value;
-            }
-        }
 
         public char MapSymbol
         {
@@ -134,6 +119,21 @@ namespace Scripts.Map
             if (!NamedObjectsConfig.ContainsKey(type)) return null;
 
             return NamedObjectsConfig[type];
+        }
+
+        public void DetachGameObject(GameObject Block)
+        {
+            Initialize();
+
+            List<GameObject> newGameObjects = new List<GameObject>();
+
+            foreach (var gameObject in gameObjects)
+            {
+                if (gameObject == Block) continue;
+                newGameObjects.Add(gameObject);
+            }
+
+            gameObjects = newGameObjects;
         }
     }
 }

@@ -359,10 +359,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1a35d4abe2444238b23993b64c02d32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MinimapColorPriority: 10
+  MinimapColor: {r: 0.33407736, g: 0.2794118, b: 1, a: 0}
   Clips:
   - {fileID: 8300000, guid: 53b7572c306d3498b8215061e1b76661, type: 3}
   - {fileID: 8300000, guid: 43d8fffe4b90744f4b2e9ead7b9bd7b8, type: 3}
   - {fileID: 8300000, guid: 4302b1604f5db426eb315d741ea733fa, type: 3}
   - {fileID: 8300000, guid: 3369d936ca3ae4b3bb47ef4c2f5982be, type: 3}
   - {fileID: 8300000, guid: a56613e6f19ac40bda3e5e6959d750c2, type: 3}
-  DoorTag: 

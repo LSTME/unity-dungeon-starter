@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4697195855046454}
+  - component: {fileID: 114664139121419580}
   m_Layer: 0
   m_Name: decoration_chair
   m_TagString: Untagged
@@ -138,3 +139,16 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1386120756032222}
   m_Mesh: {fileID: 4300000, guid: cf7d8421fadf96445a0d5ea6dffeeb51, type: 3}
+--- !u!114 &114664139121419580
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1554550385547602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7656238d8dc233845b3c18de1fef9218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MinimapColorPriority: 10
+  MinimapColor: {r: 0.5159305, g: 0.42744377, b: 0.9852941, a: 0}

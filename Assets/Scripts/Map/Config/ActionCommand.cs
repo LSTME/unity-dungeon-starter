@@ -115,8 +115,6 @@ namespace Scripts.Map.Config
 		{
 			if (Message == null || Message.Trim().Equals("")) return;
 
-			Debug.Log("Vypisujem spravu " + Message);
-
 			GUITexts.GetInstance().NewTextMessage(Message);
 		}
 

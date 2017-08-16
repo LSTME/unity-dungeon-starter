@@ -143,6 +143,16 @@ namespace Scripts.AI
         
         #region Interaction
 
+	    protected bool IsKeyDown(string keyName)
+	    {
+		    return Input.GetKey(keyName);
+	    }
+	    
+	    protected bool WasKeyDown(string keyName)
+	    {
+		    return Input.GetKeyDown(keyName);
+	    }
+
         protected void UseBlock()
         {
 			PlayerController.getInstance().IssueAction("Action");

@@ -65,7 +65,7 @@ namespace Scripts.Map
 
         private void loadMapChar(string row, ref int y, ref int columns)
         {
-            if (row[0] != '#') return;
+            if (row.Trim()[0] != '#') return;
 
             for (int x = 0; x < row.Length; x++)
             {
@@ -79,7 +79,7 @@ namespace Scripts.Map
 
         private void loadYamlConfig(string row, StringBuilder yamlConfig)
         {
-            if (row[0] == '#')
+            if (row.Trim()[0] == '#')
             {
                 yamlConfig.AppendLine("");
                 return;

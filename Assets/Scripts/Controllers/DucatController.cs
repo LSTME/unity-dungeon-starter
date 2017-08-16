@@ -4,7 +4,7 @@ using System;
 
 namespace Scripts.Controllers
 {
-    public class DucatController : AbstractGameObjectController, Interfaces.IUnplacableCorridor
+    public class DucatController : AbstractGameObjectController, Interfaces.IUnplacableCorridor, Interfaces.IInteractive
     {
         public float RotationSpeed = 350.0f;
         public float BouncingSpeed = 150.0f;
@@ -12,7 +12,33 @@ namespace Scripts.Controllers
 
         private float _angle = 0.0f;
 
-        public bool IsUnplacable()
+		public bool Activate()
+		{
+			if (!IsReachable()) return false;
+
+			GUITexts guiTexts = GUITexts.GetInstance();
+
+			guiTexts.CollectCoin();
+
+			var mapGenerator = MapGenerator.getInstance();
+
+			var mapBlock = mapGenerator.GetBlockAtLocation(GetBlockPosition());
+
+			mapBlock.DetachGameObject(gameObject);
+
+			GameObject.Destroy(gameObject);
+
+			PerformActions(Map.Config.Action.ACTION_ACTIVATE);
+
+			return true;
+		}
+
+		public bool IsReachable()
+		{
+			return IsReachableToActivate(true);
+		}
+
+		public bool IsUnplacable()
         {
             return true;
         }

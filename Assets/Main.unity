@@ -474,6 +474,7 @@ GameObject:
   - component: {fileID: 527218282}
   - component: {fileID: 527218281}
   - component: {fileID: 527218283}
+  - component: {fileID: 527218284}
   m_Layer: 0
   m_Name: GUI
   m_TagString: GUI
@@ -521,6 +522,21 @@ MonoBehaviour:
   Columns: 0
   Rows: 0
   PlayerLocation: {x: 0, y: 0}
+--- !u!114 &527218284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 527218280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dce1bbfe67319cc4cb90ae991c8b3cfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DucatIcon: {fileID: 2800000, guid: fff90cd7b7c3c624fba3a0ea747c2266, type: 3}
+  DucatIconPositionX: 1
+  DucatIconPositionY: 22
+  ShowDucatIcon: 1
 --- !u!1001 &563729709
 Prefab:
   m_ObjectHideFlags: 0
@@ -624,7 +640,7 @@ MonoBehaviour:
   - name: crate_01
     prefab: {fileID: 1485495064805902, guid: 1f489689f08522c46a00f98c1156de3d, type: 2}
   MapObject: {fileID: 1324170934}
-  MapFile: {fileID: 4900000, guid: 85cbfb9a36bc8b44c92d4a226261cfd1, type: 3}
+  MapFile: {fileID: 4900000, guid: 2f10c739194471a4989657637c769ce8, type: 3}
 --- !u!4 &656584862
 Transform:
   m_ObjectHideFlags: 0

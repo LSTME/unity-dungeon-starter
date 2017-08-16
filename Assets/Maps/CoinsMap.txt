@@ -1,0 +1,41 @@
+﻿###################
+#P D D D D D |   t#
+################# #
+                # #
+                # #
+                #T#
+                ###
+mapBlocks:
+ - position: [4, 2]
+   objects: &ducatPickup
+    - type: ducat
+      actions:
+       onActivate:
+        - increment: ducatsCounter
+ - position: [6, 2]
+   objects: *ducatPickup
+ - position: [8, 2]
+   objects: *ducatPickup
+ - position: [10, 2]
+   objects: *ducatPickup
+ - position: [12, 2]
+   objects: *ducatPickup
+ - position: [14, 2]
+   objects:
+    - type: door
+      name: ducatDoor
+ - position: [18, 6]
+   objects:
+    - type: teleport
+      teleport:
+       target: [2, 2]
+       rotation: E
+gameLogic:
+ counters:
+  - name: ducatsCounter
+    min: 0
+    max: 5
+    start: 0
+    actions:
+     onMax:
+      - open: ducatDoor

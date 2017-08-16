@@ -81,6 +81,8 @@ namespace Scripts.Map
 
         public bool PickUpObject()
         {
+            PlayerController.InterpreterLock.Set();
+            
             if (!IsReachableToActivate(true)) return false;
 
             var playerController = PlayerController.getInstance();
@@ -117,6 +119,8 @@ namespace Scripts.Map
 
         public virtual bool DropObject()
         {
+			PlayerController.InterpreterLock.Set();
+            
             if (!IsReachableToActivate(true)) return false;
 
             var playerController = PlayerController.getInstance();

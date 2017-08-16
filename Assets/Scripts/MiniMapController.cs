@@ -38,11 +38,13 @@ namespace Scripts
 
         void OnGUI()
         {
+            if (!MapGenerator.getInstance().IsMapLoaded) return;
+            
             float Size = SmallSize;
             if (UseLarge) Size = LargeSize;
 
             _frameRect = new Rect(0, 0, Screen.height * Size / 100.0f, Screen.height * Size / 100.0f);
-            _cellSize = Mathf.Min(_frameRect.xMax / (Columns - 1), _frameRect.yMax / (Rows - 1));
+            _cellSize = Mathf.Min(_frameRect.xMax / Columns, _frameRect.yMax / Rows);
 
             if (_quads == null)
             {

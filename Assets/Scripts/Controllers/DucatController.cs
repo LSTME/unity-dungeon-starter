@@ -14,6 +14,8 @@ namespace Scripts.Controllers
 
 		public bool Activate()
 		{
+			PlayerController.InterpreterLock.Set();
+			
 			if (!IsReachable()) return false;
 
 			GUITexts guiTexts = GUITexts.GetInstance();

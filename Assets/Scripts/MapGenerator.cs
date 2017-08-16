@@ -26,6 +26,12 @@ namespace Scripts
         public Map.Config.GameLogic GameLogic { get; set; }
 
         private bool Initialized = false;
+        private bool _isMapLoaded = false;
+
+        public bool IsMapLoaded
+        {
+            get { return _isMapLoaded; }
+        }
 
         private Vector2 startLocation = new Vector2(0, 0);
 
@@ -58,7 +64,11 @@ namespace Scripts
             var mapPath = Path.Combine("Maps", mapName);
             var textAsset = Resources.Load<TextAsset>(mapPath);
             if (textAsset != null)
+            {
                 LoadMap(textAsset.text);
+                _isMapLoaded = true;
+                PlayerController.InterpreterLock.Set();
+            }
         }
 
         void LoadMap(string mapString)

@@ -1,18 +1,20 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using Scripts.Map;
 using UnityEditor;
 using UnityEngine;
 
 namespace Scripts.AI
 {
-    public abstract class PlayerBase : MonoBehaviour {
+    public abstract class PlayerBase {
 	    
 	    #region Map
 
 	    protected void StartMap(string mapName)
 	    {
-            MapGenerator.getInstance().LoadMapFile(mapName);
+		    SequentialAction(() => MapGenerator.getInstance().LoadMapFile(mapName));
 	    }
 	    
 	    #endregion
@@ -21,12 +23,12 @@ namespace Scripts.AI
         
         protected Vector2 PlayerLocation()
         {
-            return PlayerController.getInstance().CurrentLocation;
+            return SequentialSensor(() => PlayerController.getInstance().CurrentLocation);
         }
         
         protected Direction PlayerDirection()
         {
-            return PlayerController.getInstance().CurrentDirection;
+            return SequentialSensor(() => PlayerController.getInstance().CurrentDirection);
         }
         
         #endregion
@@ -35,32 +37,32 @@ namespace Scripts.AI
 
         protected void MoveForward()
         {
-			PlayerController.getInstance().IssueAction("Vertical", 1.0f);
+			SequentialAction(() => PlayerController.getInstance().IssueAction("Vertical", 1.0f));
         }
         
         protected void MoveBackward()
         {
-			PlayerController.getInstance().IssueAction("Vertical", -1.0f);
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Vertical", -1.0f));
         }
         
         protected void TurnLeft()
         {
-			PlayerController.getInstance().IssueAction("Horizontal", -1.0f);
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Horizontal", -1.0f));
         }
         
         protected void TurnRight()
         {
-			PlayerController.getInstance().IssueAction("Horizontal", 1.0f);
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Horizontal", 1.0f));
         }
         
         protected void StrafeLeft()
         {
-			PlayerController.getInstance().IssueAction("Strafe", -1.0f);
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Strafe", -1.0f));
         }
         
         protected void StrafeRight()
         {
-			PlayerController.getInstance().IssueAction("Strafe", 1.0f);
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Strafe", 1.0f));
         }
         
         #endregion
@@ -70,40 +72,52 @@ namespace Scripts.AI
         #region Relative
         
         protected SafeBlockWrapper FrontBlock()
-		{
-			var location = MapUtils.GetFrontLocation(PlayerLocation(), PlayerDirection());
-			var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+        {
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetFrontLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
 
 		protected SafeBlockWrapper BackBlock()
-        {
-            var location = MapUtils.GetBackLocation(PlayerLocation(), PlayerDirection());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+		{
+			return SequentialSensor(() =>
+			{
+				var location = MapUtils.GetBackLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection);
+				var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-        }
+				return SafeBlockWrapper.GetData(mapBlock);
+			});
+		}
         
         protected SafeBlockWrapper LeftBlock()
         {
-            var location = MapUtils.GetLeftLocation(PlayerLocation(), PlayerDirection());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetLeftLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         protected SafeBlockWrapper RightBlock()
         {
-            var location = MapUtils.GetRightLocation(PlayerLocation(), PlayerDirection());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetRightLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
 
 		protected SafeBlockWrapper CurrentBlock()
 		{
-			return BlockAt(PlayerLocation());
+			return SequentialSensor(() => BlockAt(PlayerController.getInstance().CurrentLocation));
 		}
         
         #endregion
@@ -112,42 +126,57 @@ namespace Scripts.AI
         
         protected SafeBlockWrapper NorthBlock()
         {
-            var location = MapUtils.GetNorthLocation(PlayerLocation());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetNorthLocation(PlayerController.getInstance().CurrentLocation);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         protected SafeBlockWrapper SouthBlock()
         {
-            var location = MapUtils.GetSouthLocation(PlayerLocation());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetSouthLocation(PlayerController.getInstance().CurrentLocation);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         protected SafeBlockWrapper WestBlock()
         {
-            var location = MapUtils.GetWestLocation(PlayerLocation());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetWestLocation(PlayerController.getInstance().CurrentLocation);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         protected SafeBlockWrapper EastBlock()
         {
-            var location = MapUtils.GetEastLocation(PlayerLocation());
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var location = MapUtils.GetEastLocation(PlayerController.getInstance().CurrentLocation);
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         protected SafeBlockWrapper BlockAt(Vector2 location)
         {
-            var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
+	        return SequentialSensor(() =>
+	        {
+		        var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return SafeBlockWrapper.GetData(mapBlock);
-		}
+		        return SafeBlockWrapper.GetData(mapBlock);
+	        });
+        }
         
         #endregion
         
@@ -157,22 +186,23 @@ namespace Scripts.AI
 
 	    protected bool IsKeyDown(string keyName)
 	    {
-		    return Input.GetKey(keyName);
+		    return SequentialSensor(() => Input.GetKey(keyName));
 	    }
 	    
 	    protected bool WasKeyDown(string keyName)
 	    {
-		    return Input.GetKeyDown(keyName);
+		    return SequentialSensor(() => Input.GetKeyDown(keyName));
 	    }
 
         protected void UseBlock()
         {
-			PlayerController.getInstance().IssueAction("Action");
+	        SequentialAction(() => PlayerController.getInstance().IssueAction("Action"));
+	        
         }
 
 		protected bool IsObjectCarried()
 		{
-			return PlayerController.getInstance().IsObjectPickedUp();
+			return SequentialSensor(() => PlayerController.getInstance().IsObjectPickedUp());
 		}
 
 		#endregion
@@ -181,7 +211,7 @@ namespace Scripts.AI
 
 		protected int GetNumberOfCollectedCoins()
 		{
-			return GUITexts.GetInstance().GetCoinsCount();
+			return SequentialSensor(() => GUITexts.GetInstance().GetCoinsCount());
 		}
 
 		#endregion
@@ -190,10 +220,38 @@ namespace Scripts.AI
 
 		public void ShowMessage(string Message)
 		{
-			GUITexts.GetInstance().NewTextMessage(Message);
+			SequentialProcedure(() => GUITexts.GetInstance().NewTextMessage(Message));
 		}
 
 		#endregion
+	    
+        private T SequentialSensor<T>(Func<T> action)
+        {
+            var manualResetEvent = new ManualResetEvent(true);
+            manualResetEvent.Reset();
+            var result = default(T);
+            PlayerController.ActionQueue.Enqueue(() =>
+            {
+                result = action();
+                manualResetEvent.Set();
+            });
+
+            manualResetEvent.WaitOne();
+            return result;
+        }
+
+        private void SequentialAction(Action action)
+        {
+            PlayerController.InterpreterLock.Reset();
+            PlayerController.ActionQueue.Enqueue(action);
+            PlayerController.InterpreterLock.WaitOne();
+            Thread.Sleep(100);
+        }
+	    
+        private void SequentialProcedure(Action action)
+        {
+            PlayerController.ActionQueue.Enqueue(action);
+        }
 	}
     
 }

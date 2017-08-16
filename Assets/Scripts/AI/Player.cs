@@ -1,11 +1,10 @@
-﻿using UnityEditor;
-
-namespace Scripts.AI
+﻿namespace Scripts.AI
 {
-    public class Player: PlayerBase {
-	    private void Start()
-	    {
-		    StartMap("CoinsMap");
-	    }
+    public class Player : PlayerBase
+    {
+        public void Run()
+        {
+            StartMap("PickableTestMap");
+        }
     }
 }

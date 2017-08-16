@@ -1,11 +1,14 @@
 using System;
+using System.Collections.Generic;
+using System.Threading;
+using Scripts.AI;
 using UnityEngine;
 using Scripts.Interfaces;
 
 namespace Scripts
 {
-    [RequireComponent(typeof (Rigidbody))]
-    [RequireComponent(typeof (CapsuleCollider))]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerController : MonoBehaviour
     {
         private Animator animator
@@ -19,7 +22,7 @@ namespace Scripts
         [SerializeField] private float m_MovementSpeed = 0.3f;
         [SerializeField] private bool m_TogglePressables;
         [SerializeField] private bool m_WalkActionFired = false;
-        
+
         private Vector2 m_CurrentLocation = new Vector2(0, 0);
         private Vector2 m_TargetLocation = new Vector2(0, 0);
         private Vector2 m_LastLocation = new Vector2(0, 0);
@@ -27,18 +30,33 @@ namespace Scripts
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
 
-		public bool enableKeyboardInteraction = false;
+        public bool enableKeyboardInteraction = false;
 
-		private string IssuedAction = "";
-		private float IssuedActionValue = 0.0f;
+        private string IssuedAction = "";
+        private float IssuedActionValue = 0.0f;
 
-		private System.Collections.Generic.HashSet<string> knownActions = new System.Collections.Generic.HashSet<string>();
+        private System.Collections.Generic.HashSet<string> knownActions =
+            new System.Collections.Generic.HashSet<string>();
 
-		private GameObject PickedUpObject = null;
-        
+        private GameObject PickedUpObject = null;
+
         public static PlayerController getInstance()
         {
             return GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+        }
+
+        private static readonly ManualResetEvent _interpreterLock = new ManualResetEvent(true);
+
+        public static ManualResetEvent InterpreterLock
+        {
+            get { return _interpreterLock; }
+        }
+
+        private static readonly Queue<Action> _actionQueue = new Queue<Action>();
+
+        public static Queue<Action> ActionQueue
+        {
+            get { return _actionQueue; }
         }
 
         public bool IsObjectPickedUp()
@@ -66,21 +84,25 @@ namespace Scripts
             return result;
         }
 
-        private MapGenerator Map {
-            get {
-                return GameObject.FindGameObjectWithTag("Map").GetComponent<MapGenerator>();
-            }
+        private MapGenerator Map
+        {
+            get { return GameObject.FindGameObjectWithTag("Map").GetComponent<MapGenerator>(); }
         }
 
         private void Start()
         {
-			knownActions.Add("Strafe");
-			knownActions.Add("Vertical");
-			knownActions.Add("Horizontal");
-			knownActions.Add("Action");
-			knownActions.Add("");
+            knownActions.Add("Strafe");
+            knownActions.Add("Vertical");
+            knownActions.Add("Horizontal");
+            knownActions.Add("Action");
+            knownActions.Add("");
 
-			RotateTo(m_CurrentDirection, false);
+            RotateTo(m_CurrentDirection, false);
+
+            new Thread(o =>
+            {
+                new Player().Run();
+            }).Start();
         }
 
         private void Update()
@@ -97,29 +119,24 @@ namespace Scripts
 
         public Vector2 CurrentLocation
         {
-            get
-            {
-                return m_CurrentLocation;
-            }
+            get { return m_CurrentLocation; }
         }
-        
+
         public Direction CurrentDirection
         {
-            get
-            {
-                return m_CurrentDirection;
-            }
+            get { return m_CurrentDirection; }
         }
 
         Action GetAction()
         {
-			if (Input.GetButtonDown("InputToggle"))
-			{
-				enableKeyboardInteraction = !enableKeyboardInteraction;
-			}
+            if (Input.GetButtonDown("InputToggle"))
+            {
+                enableKeyboardInteraction = !enableKeyboardInteraction;
+            }
 
             Action action;
-			if ((action = PerformWalkOnAction()) != null)
+
+            if ((action = PerformWalkOnAction()) != null)
             {
                 m_WalkActionFired = true;
                 return action;
@@ -147,49 +164,52 @@ namespace Scripts
             {
                 MiniMapController.getInstance().SwitchLarge();
             }
+            
+            if (_actionQueue.Count > 0)
+                return _actionQueue.Dequeue();
 
             return null;
         }
 
-		public void IssueAction(string ActionType, float ActionValue = 0.0f)
-		{
-			if (!knownActions.Contains(ActionType)) return;
+        public void IssueAction(string ActionType, float ActionValue = 0.0f)
+        {
+            if (!knownActions.Contains(ActionType)) return;
 
-			IssuedAction = ActionType;
-			IssuedActionValue = ActionValue;
-		}
+            IssuedAction = ActionType;
+            IssuedActionValue = ActionValue;
+        }
 
-		private float GetFloatValueAction(string ActionType)
-		{
-			float input = Input.GetAxis(ActionType);
-			if (input != 0.0f && enableKeyboardInteraction)
-			{
-				return input;
-			}
-			if (IssuedAction.Equals(ActionType))
-			{
-				IssuedAction = "";
-				return IssuedActionValue;
-			}
+        private float GetFloatValueAction(string ActionType)
+        {
+            float input = Input.GetAxis(ActionType);
+            if (input != 0.0f && enableKeyboardInteraction)
+            {
+                return input;
+            }
+            if (IssuedAction.Equals(ActionType))
+            {
+                IssuedAction = "";
+                return IssuedActionValue;
+            }
 
-			return 0.0f;
-		}
+            return 0.0f;
+        }
 
-		private bool GetBoolValueAction(string ActionType)
-		{
-			bool input = Input.GetButtonDown(ActionType);
-			if (input && enableKeyboardInteraction)
-			{
-				return input;
-			}
-			if (IssuedAction.Equals(ActionType))
-			{
-				IssuedAction = "";
-				return true;
-			}
+        private bool GetBoolValueAction(string ActionType)
+        {
+            bool input = Input.GetButtonDown(ActionType);
+            if (input && enableKeyboardInteraction)
+            {
+                return input;
+            }
+            if (IssuedAction.Equals(ActionType))
+            {
+                IssuedAction = "";
+                return true;
+            }
 
-			return false;
-		}
+            return false;
+        }
 
         public void PerformAction()
         {
@@ -210,7 +230,7 @@ namespace Scripts
             foreach (var gameObject in mapBlock.GameObjects)
             {
                 var component = gameObject.GetComponent<IDropable>();
-                if (component != null) 
+                if (component != null)
                 {
                     component.DropObject();
                     break;
@@ -258,7 +278,7 @@ namespace Scripts
             if ((action = TeleportAction()) != null) return action;
 
             if ((action = PressFloorButtonAction()) != null) return action;
-            
+
             return null;
         }
 
@@ -300,7 +320,7 @@ namespace Scripts
 
             var mapBlock = Map.GetBlockAtLocation(location);
             if (mapBlock == null) return null;
-            
+
             foreach (var gameObject in mapBlock.GameObjects)
             {
                 var component = gameObject.GetComponent<IPressable>();
@@ -314,33 +334,33 @@ namespace Scripts
         public void RotateLeft()
         {
             if (m_IsRotating) return;
-            
+
             m_IsRotating = true;
-            m_TargetDirection = (Direction)(((int)m_CurrentDirection + 7) % 4);
+            m_TargetDirection = (Direction) (((int) m_CurrentDirection + 7) % 4);
         }
 
-        public void RotateRight() 
+        public void RotateRight()
         {
             if (m_IsRotating) return;
-            
+
             m_IsRotating = true;
-            m_TargetDirection = (Direction)(((int)m_CurrentDirection + 1) % 4);
+            m_TargetDirection = (Direction) (((int) m_CurrentDirection + 1) % 4);
         }
-        
-        public void StrafeLeft() 
+
+        public void StrafeLeft()
         {
             if (m_IsMoving) return;
             m_IsMoving = true;
-            m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 7) % 4));
+            m_TargetLocation = LocationForDirection((Direction) (((int) m_CurrentDirection + 7) % 4));
             PlayHeadBob();
             m_WalkActionFired = false;
         }
 
-        public void StrafeRight() 
+        public void StrafeRight()
         {
             if (m_IsMoving) return;
             m_IsMoving = true;
-            m_TargetLocation = LocationForDirection((Direction)(((int)m_CurrentDirection + 1) % 4));
+            m_TargetLocation = LocationForDirection((Direction) (((int) m_CurrentDirection + 1) % 4));
             PlayHeadBob();
             m_WalkActionFired = false;
         }
@@ -368,14 +388,15 @@ namespace Scripts
                 transform.rotation = target;
                 m_IsRotating = false;
                 m_CurrentDirection = m_TargetDirection;
-            } 
-            else 
+                InterpreterLock.Set();
+            }
+            else
             {
                 transform.rotation = Quaternion.RotateTowards(transform.rotation, target, step);
             }
         }
 
-        public void MoveForward() 
+        public void MoveForward()
         {
             if (m_IsMoving) return;
             m_IsMoving = true;
@@ -383,8 +404,8 @@ namespace Scripts
             PlayHeadBob();
             m_WalkActionFired = false;
         }
-        
-        public void MoveBackward() 
+
+        public void MoveBackward()
         {
             if (m_IsMoving) return;
             m_IsMoving = true;
@@ -395,7 +416,8 @@ namespace Scripts
 
         void Move()
         {
-            if (!Map.IsWalkable(m_TargetLocation)) {
+            if (!Map.IsWalkable(m_TargetLocation))
+            {
                 m_IsMoving = false;
                 return;
             }
@@ -408,8 +430,9 @@ namespace Scripts
                 m_LastLocation = m_CurrentLocation;
                 m_CurrentLocation = m_TargetLocation;
                 m_TogglePressables = true;
-            } 
-            else 
+                InterpreterLock.Set();
+            }
+            else
             {
                 var step = Time.deltaTime * m_MovementSpeed;
                 transform.position = Vector3.MoveTowards(transform.position, target, step);
@@ -422,8 +445,8 @@ namespace Scripts
             {
                 case Direction.North: return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y - step);
                 case Direction.South: return new Vector2(m_CurrentLocation.x, m_CurrentLocation.y + step);
-                case Direction.East:  return new Vector2(m_CurrentLocation.x + step, m_CurrentLocation.y);
-                default: /* West */   return new Vector2(m_CurrentLocation.x - step, m_CurrentLocation.y);
+                case Direction.East: return new Vector2(m_CurrentLocation.x + step, m_CurrentLocation.y);
+                default: /* West */ return new Vector2(m_CurrentLocation.x - step, m_CurrentLocation.y);
             }
         }
 
@@ -463,7 +486,7 @@ namespace Scripts
         {
             var player = GameObject.FindGameObjectWithTag("Player");
             PlayerController controller = player.GetComponent<PlayerController>();
-            
+
             controller.MoveTo(location);
             m_LastLocation = m_CurrentLocation;
             m_CurrentLocation = location;

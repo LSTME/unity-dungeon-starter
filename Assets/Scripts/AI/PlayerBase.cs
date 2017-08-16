@@ -62,7 +62,7 @@ namespace Scripts.AI
 			var location = MapUtils.GetFrontLocation(PlayerLocation(), PlayerDirection());
 			var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
 
 		protected SafeBlockWrapper BackBlock()
@@ -70,7 +70,7 @@ namespace Scripts.AI
             var location = MapUtils.GetBackLocation(PlayerLocation(), PlayerDirection());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
         }
         
         protected SafeBlockWrapper LeftBlock()
@@ -78,7 +78,7 @@ namespace Scripts.AI
             var location = MapUtils.GetLeftLocation(PlayerLocation(), PlayerDirection());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         protected SafeBlockWrapper RightBlock()
@@ -86,7 +86,7 @@ namespace Scripts.AI
             var location = MapUtils.GetRightLocation(PlayerLocation(), PlayerDirection());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
 
 		protected SafeBlockWrapper CurrentBlock()
@@ -103,7 +103,7 @@ namespace Scripts.AI
             var location = MapUtils.GetNorthLocation(PlayerLocation());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         protected SafeBlockWrapper SouthBlock()
@@ -111,7 +111,7 @@ namespace Scripts.AI
             var location = MapUtils.GetSouthLocation(PlayerLocation());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         protected SafeBlockWrapper WestBlock()
@@ -119,7 +119,7 @@ namespace Scripts.AI
             var location = MapUtils.GetWestLocation(PlayerLocation());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         protected SafeBlockWrapper EastBlock()
@@ -127,14 +127,14 @@ namespace Scripts.AI
             var location = MapUtils.GetEastLocation(PlayerLocation());
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         protected SafeBlockWrapper BlockAt(Vector2 location)
         {
             var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(location);
 
-			return WrapMapBlockData(mapBlock);
+			return SafeBlockWrapper.GetData(mapBlock);
 		}
         
         #endregion
@@ -151,25 +151,6 @@ namespace Scripts.AI
 		protected bool IsObjectCarried()
 		{
 			return PlayerController.getInstance().IsObjectPickedUp();
-		}
-
-		#endregion
-
-		#region Auxilliary
-
-		private static SafeBlockWrapper WrapMapBlockData(MapBlock mapBlock)
-		{
-			var result = new SafeBlockWrapper();
-			result.IsWalkable = mapBlock.IsWalkable;
-			result.IsInteractive = mapBlock.IsInteractive;
-			result.IsReachable = mapBlock.IsReachable;
-			result.IsDropable = mapBlock.IsDropable;
-			result.IsPickable = mapBlock.IsPickable;
-			result.IsPressable = mapBlock.IsPressable;
-			result.IsOpenable = mapBlock.IsOpenable;
-			result.InteractiveObjectsDirections = mapBlock.InteractiveObjectsDirection;
-
-			return result;
 		}
 
 		#endregion

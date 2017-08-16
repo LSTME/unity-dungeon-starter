@@ -1,4 +1,6 @@
-﻿namespace Scripts.AI
+﻿using Scripts.Map;
+
+namespace Scripts.AI
 {
 	public class SafeBlockWrapper
 	{
@@ -20,5 +22,20 @@
 		public System.Collections.Generic.List<Direction> InteractiveObjectsDirections { get; set; }
 		// The most priorized object type (there are always more than one object on the same location)
 		public string Type { get; set; }
+
+		public static SafeBlockWrapper GetData(MapBlock mapBlock)
+		{
+			var result = new SafeBlockWrapper();
+			result.IsWalkable = mapBlock.IsWalkable;
+			result.IsInteractive = mapBlock.IsInteractive;
+			result.IsReachable = mapBlock.IsReachable;
+			result.IsDropable = mapBlock.IsDropable;
+			result.IsPickable = mapBlock.IsPickable;
+			result.IsPressable = mapBlock.IsPressable;
+			result.IsOpenable = mapBlock.IsOpenable;
+			result.InteractiveObjectsDirections = mapBlock.InteractiveObjectsDirection;
+
+			return result;
+		}
 	}
 }

@@ -342,6 +342,8 @@ MonoBehaviour:
   m_IsRotating: 0
   m_RotationSpeed: 300
   m_MovementSpeed: 3
+  m_TogglePressables: 0
+  m_WalkActionFired: 0
   m_CurrentDirection: 0
   m_TargetDirection: 0
 --- !u!124 &124977865311968208

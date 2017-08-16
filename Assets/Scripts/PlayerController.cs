@@ -27,6 +27,8 @@ namespace Scripts
         [SerializeField] private Direction m_TargetDirection = Direction.North;
         private Vector2 m_Input;
 
+		public bool enableKeyboardInteraction = false;
+
 		private string IssuedAction = "";
 		private float IssuedActionValue = 0.0f;
 
@@ -111,8 +113,13 @@ namespace Scripts
 
         Action GetAction()
         {
+			if (Input.GetButtonDown("InputToggle"))
+			{
+				enableKeyboardInteraction = !enableKeyboardInteraction;
+			}
+
             Action action;
-            if ((action = PerformWalkOnAction()) != null)
+			if ((action = PerformWalkOnAction()) != null)
             {
                 m_WalkActionFired = true;
                 return action;
@@ -155,7 +162,7 @@ namespace Scripts
 		private float GetFloatValueAction(string ActionType)
 		{
 			float input = Input.GetAxis(ActionType);
-			if (input != 0.0f)
+			if (input != 0.0f && enableKeyboardInteraction)
 			{
 				return input;
 			}
@@ -171,7 +178,7 @@ namespace Scripts
 		private bool GetBoolValueAction(string ActionType)
 		{
 			bool input = Input.GetButtonDown(ActionType);
-			if (input)
+			if (input && enableKeyboardInteraction)
 			{
 				return input;
 			}

@@ -33,7 +33,7 @@ namespace Scripts
         public void SwitchLarge()
         {
             UseLarge = !UseLarge;
-			GUITexts.GetInstance().ShowDucatIcon = !UseLarge;
+			GUITexts.GetInstance().ShowHUDElements = !UseLarge;
         }
 
         void OnGUI()

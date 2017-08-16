@@ -536,7 +536,7 @@ MonoBehaviour:
   DucatIcon: {fileID: 2800000, guid: fff90cd7b7c3c624fba3a0ea747c2266, type: 3}
   DucatIconPositionX: 1
   DucatIconPositionY: 22
-  ShowDucatIcon: 1
+  ShowHUDElements: 1
 --- !u!1001 &563729709
 Prefab:
   m_ObjectHideFlags: 0
@@ -872,6 +872,26 @@ Prefab:
     - target: {fileID: 108834929549341210, guid: 5c4bdedf6a1994ef6940e675f4eee229,
         type: 2}
       propertyPath: m_Shadows.m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

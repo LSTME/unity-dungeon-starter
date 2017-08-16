@@ -1,9 +1,21 @@
-﻿using Scripts.Map;
+﻿using System.IO;
+using System.Linq;
+using Scripts.Map;
+using UnityEditor;
 using UnityEngine;
 
 namespace Scripts.AI
 {
     public abstract class PlayerBase : MonoBehaviour {
+	    
+	    #region Map
+
+	    protected void StartMap(string mapName)
+	    {
+            MapGenerator.getInstance().LoadMapFile(mapName);
+	    }
+	    
+	    #endregion
 
         #region Navigation
         

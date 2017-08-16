@@ -1,27 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using UnityEngine;
 using Scripts.Map;
+using UnityEditor;
 
 namespace Scripts
 {
-
     public class MapGenerator : MonoBehaviour
     {
-
         [Serializable]
         public struct NamedPrefab
         {
             public string name;
             public GameObject prefab;
         }
+
         public NamedPrefab[] prefabs;
         private Dictionary<string, GameObject> Prefabs;
 
         public GameObject MapObject;
-        public TextAsset MapFile;
-    	private Dictionary<Vector2, Scripts.Map.MapBlock> Blocks;
-        
+        private Dictionary<Vector2, MapBlock> Blocks;
+
         public Map.Config.GameLogic GameLogic { get; set; }
 
         private bool Initialized = false;
@@ -41,7 +42,6 @@ namespace Scripts
 
         void Initialize()
         {
-            
             if (Initialized) return;
 
             Prefabs = new Dictionary<string, GameObject>();
@@ -50,8 +50,15 @@ namespace Scripts
                 Prefabs.Add(pref.name, pref.prefab);
             }
 
-            this.LoadMap(MapFile.text);
             Initialized = true;
+        }
+
+        public void LoadMapFile(string mapName)
+        {
+            var mapPath = Path.Combine("Maps", mapName);
+            var textAsset = Resources.Load<TextAsset>(mapPath);
+            if (textAsset != null)
+                LoadMap(textAsset.text);
         }
 
         void LoadMap(string mapString)
@@ -103,15 +110,15 @@ namespace Scripts
         {
             if (Blocks != null && Blocks.ContainsKey(loc))
                 return Blocks[loc];
-            
+
             return null;
         }
 
         GameObject AddObject(Vector2 location, GameObject prefab)
         {
             var position = PositionForLocation(location);
-			var instance = Instantiate(prefab, position, Quaternion.identity);
-			instance.transform.parent = MapObject.transform;
+            var instance = Instantiate(prefab, position, Quaternion.identity);
+            instance.transform.parent = MapObject.transform;
             instance.name = prefab.name + "_" + location.x + "x" + location.y;
 
             return instance;
@@ -122,7 +129,7 @@ namespace Scripts
             var mapBlock = GetBlockAtLocation(loc);
             if (mapBlock != null)
                 return mapBlock.IsWalkable;
-            
+
             return true;
         }
 

@@ -154,6 +154,15 @@ namespace Scripts.AI
 		}
 
 		#endregion
+
+		#region Coins
+
+		protected int GetNumberOfCollectedCoins()
+		{
+			return GUITexts.GetInstance().GetCoinsCount();
+		}
+
+		#endregion
 	}
     
 }

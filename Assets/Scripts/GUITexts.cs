@@ -58,4 +58,9 @@ public class GUITexts : MonoBehaviour {
 	{
 		CollectedCoins++;
 	}
+
+	public int GetCoinsCount()
+	{
+		return CollectedCoins;
+	}
 }

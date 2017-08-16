@@ -12,6 +12,7 @@ mapBlocks:
       actions:
        onActivate:
         - increment: ducatsCounter
+        - message: Zobral som mincu!
  - position: [6, 2]
    objects: *ducatPickup
  - position: [8, 2]

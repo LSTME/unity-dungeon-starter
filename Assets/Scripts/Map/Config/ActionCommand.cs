@@ -12,6 +12,7 @@ namespace Scripts.Map.Config
         public string SetFalse { get; set; }
         public string Increment { get; set; }
         public string Decrement { get; set; }
+		public string Message { get; set; }
 
         public void PerformAction()
         {
@@ -23,6 +24,7 @@ namespace Scripts.Map.Config
             PerformSetFalseAction();
             PerformIncrementAction();
             PerformDecrementAction();
+			PerformMessageAction();
         }
 
         private void PerformOpenAction()
@@ -109,7 +111,17 @@ namespace Scripts.Map.Config
             GameLogic.DecrementCounter(Decrement);
         }
 
-        private GameObject[] getAllControlledGameObjects()
+		private void PerformMessageAction()
+		{
+			if (Message == null || Message.Trim().Equals("")) return;
+
+			Debug.Log("Vypisujem spravu " + Message);
+
+			GUITexts.GetInstance().NewTextMessage(Message);
+		}
+
+
+		private GameObject[] getAllControlledGameObjects()
         {
             return Object.FindObjectsOfType<GameObject>();
         }

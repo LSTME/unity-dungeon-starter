@@ -173,6 +173,15 @@ namespace Scripts.AI
 		}
 
 		#endregion
+
+		#region Messages
+
+		public void ShowMessage(string Message)
+		{
+			GUITexts.GetInstance().NewTextMessage(Message);
+		}
+
+		#endregion
 	}
     
 }

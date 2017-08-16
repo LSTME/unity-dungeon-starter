@@ -6,9 +6,14 @@ public class GUITexts : MonoBehaviour {
 
 	private int CollectedCoins { get; set; }
 
+	public float MessageMaximumDisplayLength = 5.0f;
+
 	public Texture2D DucatIcon;
 	public float DucatIconPositionX = 1.0f;
 	public float DucatIconPositionY = 22.0f;
+
+	private string TextMessage = "";
+	private float MessageTime = 0;
 
 	public bool ShowHUDElements = true;
 
@@ -26,6 +31,8 @@ public class GUITexts : MonoBehaviour {
 	{
 		DrawDucatIcon();
 		DrawKeyboardInteractionInfo();
+		DrawTextMessage();
+		TextMessageTimeAdvance();
 	}
 
 	private void DrawDucatIcon()
@@ -80,6 +87,37 @@ public class GUITexts : MonoBehaviour {
 		GUI.Label(textShape, text, fontStyle);
 	} 
 
+	private void DrawTextMessage()
+	{
+		if (!ShowHUDElements) return;
+		if (TextMessage.Equals("")) return;
+		if (MessageTime > MessageMaximumDisplayLength) return;
+
+		var messageShape = new Rect(0, Screen.height - 80, Screen.width, 50);
+		var shadowShape = new Rect(messageShape);
+		shadowShape.x++;
+		shadowShape.y++;
+
+		var fontStyle = new GUIStyle();
+		fontStyle.normal.textColor = Color.white;
+		fontStyle.alignment = TextAnchor.MiddleCenter;
+		fontStyle.fontSize = 20;
+		fontStyle.wordWrap = true;
+		fontStyle.richText = true;
+
+		var fontStyleShadow = new GUIStyle(fontStyle);
+		fontStyleShadow.normal.textColor = Color.black;
+
+		GUI.Label(shadowShape, TextMessage, fontStyleShadow);
+		GUI.Label(messageShape, TextMessage, fontStyle);
+	}
+
+	private void TextMessageTimeAdvance()
+	{
+		if (MessageTime > MessageMaximumDisplayLength) return;
+		MessageTime += Time.deltaTime;
+	}
+
 	public void CollectCoin()
 	{
 		CollectedCoins++;
@@ -88,5 +126,11 @@ public class GUITexts : MonoBehaviour {
 	public int GetCoinsCount()
 	{
 		return CollectedCoins;
+	}
+
+	public void NewTextMessage(string Message)
+	{
+		TextMessage = Message;
+		MessageTime = 0.0f;
 	}
 }

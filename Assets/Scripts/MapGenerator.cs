@@ -46,7 +46,7 @@ namespace Scripts
             Initialize();
         }
 
-        void Initialize()
+        public void Initialize()
         {
             if (Initialized) return;
 

@@ -45,8 +45,9 @@ public class GUITexts : MonoBehaviour {
 		textShadowShape.y += 2;
 		textShadowShape.x += 2;
 
-		GUI.skin.box.normal.background = DucatIcon;
-		GUI.Box(iconShape, GUIContent.none);
+		//GUI.skin.box.normal.background = DucatIcon;
+		//GUI.Box(iconShape, GUIContent.none);
+		GUI.DrawTexture(iconShape, DucatIcon, ScaleMode.StretchToFill, true);
 
 		var fontStyle = new GUIStyle();
 		fontStyle.fontSize = 50;

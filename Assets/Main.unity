@@ -534,7 +534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessageMaximumDisplayLength: 5
-  DucatIcon: {fileID: 2800000, guid: fff90cd7b7c3c624fba3a0ea747c2266, type: 3}
+  DucatIcon: {fileID: 2800000, guid: 19bbd8a591ae3454c9fb2125fa53cb74, type: 3}
   DucatIconPositionX: 1
   DucatIconPositionY: 22
   ShowHUDElements: 1

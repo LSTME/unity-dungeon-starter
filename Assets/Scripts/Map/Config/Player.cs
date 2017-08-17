@@ -16,8 +16,8 @@
                 else
                 {
                     _startPosition = new int[2];
-                    _startPosition[0] = 1;
-                    _startPosition[1] = 1;
+                    _startPosition[0] = 2;
+                    _startPosition[1] = 2;
                 }
             }
         }

@@ -81,7 +81,7 @@ namespace Scripts
             GameLogic = YamlConfigParser.GameLogic;
             var mapBuilder = new MapBlockBuilder(Blocks, Prefabs, ref MapObject);
             mapBuilder.Build();
-            MovePlayer(YamlConfigParser.Player.Start[0], YamlConfigParser.Player.Start[1], YamlConfigParser.Player.Rotation);
+            MovePlayer(YamlConfigParser.Player.Start[0] - 1, YamlConfigParser.Player.Start[1] - 1, YamlConfigParser.Player.Rotation);
             
 
             var miniMapController = MiniMapController.getInstance();

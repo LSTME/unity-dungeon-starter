@@ -17,8 +17,8 @@ namespace Scripts.Map.Config
                 _player = new Player();
                 
                 int[] position = new int[2];
-                position[0] = 1;
-                position[1] = 1;
+                position[0] = 2;
+                position[1] = 2;
 
                 _player.Start = position;
                 _player.Rotation = "N";

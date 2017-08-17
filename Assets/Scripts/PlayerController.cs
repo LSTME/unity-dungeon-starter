@@ -98,14 +98,18 @@ namespace Scripts
             knownActions.Add("");
 
             RotateTo(m_CurrentDirection, false);
+            
+            MapGenerator.getInstance().Initialize();
 
             new Thread(o =>
             {
+                
                 var player = new Player();
                 player.Start();
                 while (true)
                 {
                     player.Tick();
+                    Thread.Sleep(1);
                 }
             }).Start();
         }

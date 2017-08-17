@@ -42,6 +42,8 @@ namespace Scripts.Map.Blocks
 
             switch (type)
             {
+                case "spider_web":
+                    return "decoration_spider_web";
                 case "broken_path":
                     return "decoration_broken_path";
                 case "pillar":
@@ -50,25 +52,8 @@ namespace Scripts.Map.Blocks
                     return "decoration_chair";
                 case "table":
                     return "decoration_table";
-                case "library":
                 default:
                     return "decoration_library";
-            }
-        }
-
-        protected Color selectDecorationColor(MapBlock mapBlock)
-        {
-            var type = getDecorationType(mapBlock);
-
-            switch (type)
-            {
-                case "broken_path":
-                    return new Color(0.545f, 0.271f, 0.075f);
-                case "table":
-                case "pillar":
-                    return new Color(0.595f, 0.331f, 0.135f);
-                default:
-                    return new Color(0.645f, 0.371f, 0.175f);
             }
         }
 

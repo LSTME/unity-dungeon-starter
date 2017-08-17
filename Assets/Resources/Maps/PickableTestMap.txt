@@ -1,5 +1,5 @@
 ﻿###########
-# t t t t #
+# tdtdtdt #
 #d b b b d#
 #t   P   t#
 #d c c c d#
@@ -7,9 +7,17 @@
 #####-#####
 #   # #
 ##### #####
-#    t    #
+#D D t D D#
 ###########
 mapBlocks:
+ - position: [4, 2]
+   objects: &spider_web_decoration
+    - type: decoration
+      model: spider_web
+ - position: [6, 2]
+   objects: *spider_web_decoration
+ - position: [8, 2]
+   objects: *spider_web_decoration
  - position: [6, 7]
    objects:
     - type: door

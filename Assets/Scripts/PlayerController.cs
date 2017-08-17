@@ -105,7 +105,7 @@ namespace Scripts
                 player.Start();
                 while (true)
                 {
-                    player.Act();
+                    player.Tick();
                 }
             }).Start();
         }

@@ -101,7 +101,12 @@ namespace Scripts
 
             new Thread(o =>
             {
-                new Player().Run();
+                var player = new Player();
+                player.Start();
+                while (true)
+                {
+                    player.Act();
+                }
             }).Start();
         }
 
@@ -419,6 +424,7 @@ namespace Scripts
             if (!Map.IsWalkable(m_TargetLocation))
             {
                 m_IsMoving = false;
+                InterpreterLock.Set();
                 return;
             }
 

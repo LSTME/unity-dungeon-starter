@@ -2,9 +2,14 @@
 {
     public class Player : PlayerBase
     {
-        public void Run()
+        public void Start()
         {
             StartMap("cvicenie1");
         }
+
+        public void Tick()
+        {
+        }
+        
     }
 }

@@ -1,8 +1,8 @@
 ###########
 #   d    d#
-######### #
-        #T#
-        ###
+######### ###########
+        #d    d    T#
+        #############
 mapBlocks:
  - position: [5, 2]
    objects: &ceiling_lamps_inactive
@@ -11,6 +11,10 @@ mapBlocks:
  - position: [10, 2]
    objects: *ceiling_lamps_inactive
  - position: [10, 4]
+   objects: *ceiling_lamps_inactive
+ - position: [15, 4]
+   objects: *ceiling_lamps_inactive
+ - position: [20, 4]
    objects:
     - type: teleport
       teleport:

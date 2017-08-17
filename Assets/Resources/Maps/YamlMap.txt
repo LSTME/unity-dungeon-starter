@@ -1,6 +1,6 @@
 #############################
 #t t# lt # d d d #T d d d dd#
-#  l#l  l#D ddd D#########-##
+# dl#l  l#D ddd D#########-##
 #tbt# lt #  tdt    ltltl t d#
 ##-##-######### #############
 #lt   T# # b|b  T#
@@ -12,9 +12,16 @@
 #ddtdl#dddd#
 ############
 player:
- start: [3, 3]
+ start: [3, 2]
  rotation: S
 mapBlocks:
+ - position: [3, 3]
+   objects:
+    - type: decoration
+      name: ceiling_lamp_1
+      model: ceiling_lamp
+      torch:
+       state: false
  - position: [4, 3]
    objects:
     - type: lever
@@ -35,8 +42,10 @@ mapBlocks:
       actions:
        onOpen:
         - switchOn: corridor1torch
+        - switchOn: ceiling_lamp_1
        onClose:
         - switchOff: corridor1torch
+        - switchOff: ceiling_lamp_1
  - position: [3, 6]
    objects:
     - type: torch

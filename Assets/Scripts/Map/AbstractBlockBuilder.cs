@@ -81,9 +81,12 @@ namespace Scripts.Map
         {
             mapBlock.Initialize();
 
-            var component = gameObject.GetComponent<AbstractGameObjectController>();
-            if (component == null) return;
-            component.ObjectConfig = mapBlock.getObjectConfigForType(type);
+            var components = gameObject.GetComponents<AbstractGameObjectController>();
+            foreach (var component in components)
+            {
+                if (component == null) continue;
+                component.ObjectConfig = mapBlock.getObjectConfigForType(type);
+            }
         }
     }
 }

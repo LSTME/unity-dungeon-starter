@@ -538,6 +538,48 @@ MonoBehaviour:
   DucatIconPositionX: 1
   DucatIconPositionY: 22
   ShowHUDElements: 1
+--- !u!1001 &553024567
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1324170935}
+    m_Modifications:
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+      propertyPath: m_RootOrder
+      value: 20
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1001 &563729709
 Prefab:
   m_ObjectHideFlags: 0
@@ -646,6 +688,8 @@ MonoBehaviour:
     prefab: {fileID: 1413534989952602, guid: 48e0adfc66ff85b4ea4e0fbccaa68119, type: 2}
   - name: decoration_spider_web
     prefab: {fileID: 1162058098528962, guid: e5f0fd34195a9bf408d8d57984bdf4ec, type: 2}
+  - name: decoration_ceiling_lamp
+    prefab: {fileID: 1758023523296906, guid: df118e7348a7428469c9066e9216eaaf, type: 2}
   MapObject: {fileID: 1324170934}
 --- !u!4 &656584862
 Transform:
@@ -1094,6 +1138,7 @@ Transform:
   - {fileID: 924392524}
   - {fileID: 1276121179}
   - {fileID: 1064464592}
+  - {fileID: 1958270655}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1352,6 +1397,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4513494564375802, guid: 25663c70f04ecbc44acb54970de8193d,
     type: 2}
   m_PrefabInternal: {fileID: 563729709}
+--- !u!4 &1958270655 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4736880412771440, guid: df118e7348a7428469c9066e9216eaaf,
+    type: 2}
+  m_PrefabInternal: {fileID: 553024567}
 --- !u!1001 &1991333663
 Prefab:
   m_ObjectHideFlags: 0

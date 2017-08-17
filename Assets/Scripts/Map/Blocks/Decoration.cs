@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Scripts.Map.Blocks
@@ -27,6 +28,8 @@ namespace Scripts.Map.Blocks
             {
                 AttachToWall(ref decoration);
             }
+            
+            AssignObjectConfigByType(decoration, "decoration", mapBlock);
 
             mapBlock.addGameObject(decoration);
         }
@@ -42,6 +45,8 @@ namespace Scripts.Map.Blocks
 
             switch (type)
             {
+                case "ceiling_lamp":
+                    return "decoration_ceiling_lamp";
                 case "spider_web":
                     return "decoration_spider_web";
                 case "broken_path":

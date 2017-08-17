@@ -1,6 +1,6 @@
 #############################
 #t t# lt # d d d #T d d d dd#
-# Pl#l  l#D ddd D#########-##
+#  l#l  l#D ddd D#########-##
 #tbt# lt #  tdt    ltltl t d#
 ##-##-######### #############
 #lt   T# # b|b  T#
@@ -11,6 +11,9 @@
 #t    | T t#
 #ddtdl#dddd#
 ############
+player:
+ start: [3, 3]
+ rotation: S
 mapBlocks:
  - position: [4, 3]
    objects:

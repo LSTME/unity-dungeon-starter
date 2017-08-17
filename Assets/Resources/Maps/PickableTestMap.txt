@@ -1,14 +1,17 @@
 ﻿###########
-# tdtdtdt #
-#d b b b d#
-#t   P   t#
+# tdtdtdt #  #####################
+#d b b b d#  #  D D D D D D D D T#
+#t       t#  #####################
 #d c c c d#
 # tlt t t #
 #####-#####
 #   # #
-##### #####
-#D D t D D#
-###########
+##### #########
+#D D t D D   T#
+###############
+player:
+ start: [6, 4]
+ rotation: S
 mapBlocks:
  - position: [4, 2]
    objects: &spider_web_decoration
@@ -45,6 +48,18 @@ mapBlocks:
       name: torchInCorridor
       torch:
        state: false
+ - position: [14, 10]
+   objects:
+    - type: teleport
+      teleport:
+       target: [15, 3]
+       rotation: E
+ - position: [33, 3]
+   objects:
+    - type: teleport
+      teleport:
+       target: [6, 4]
+       rotation: S
 gameLogic:
  counters:
   - name: doorCounter

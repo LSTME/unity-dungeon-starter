@@ -1,10 +1,13 @@
 ﻿###################
-#P D D D D D |   t#
+#  D D D D D |   t#
 ################# #
                 # #
                 # #
                 #T#
                 ###
+player:
+ start: [2,2]
+ rotation: E
 mapBlocks:
  - position: [4, 2]
    objects: &ducatPickup

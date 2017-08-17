@@ -127,15 +127,9 @@ namespace Scripts.Map
 
         private Vector2 findStartLocation()
         {
-            foreach (var mapBlock in MapBlocks.Values)
-            {
-                if (mapBlock.MapSymbol == 'P')
-                {
-                    return mapBlock.Location;
-                }
-            }
-
-            return new Vector2(-1,-1);
+            var start = YamlConfigParser.Player.Start;
+            
+            return new Vector2(start[0], start[1]);
         }
 
         private void markMapCorridors(Vector2 start, HashSet<Vector2> accessible)

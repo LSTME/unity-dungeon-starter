@@ -11,10 +11,12 @@ namespace Scripts.Map
         private static Config.Config Configuration;
         public static Config.GameLogic GameLogic
         {
-            get
-            {
-                return Configuration.GameLogic;
-            }
+            get { return Configuration.GameLogic; }
+        }
+
+        public static Config.Player Player
+        {
+            get { return Configuration.Player; }
         }
 
         public static void Parse(string config, Dictionary<Vector2, MapBlock> mapBlocks)

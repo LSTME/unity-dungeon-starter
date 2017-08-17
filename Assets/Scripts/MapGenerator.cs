@@ -81,6 +81,8 @@ namespace Scripts
             GameLogic = YamlConfigParser.GameLogic;
             var mapBuilder = new MapBlockBuilder(Blocks, Prefabs, ref MapObject);
             mapBuilder.Build();
+            MovePlayer(YamlConfigParser.Player.Start[0], YamlConfigParser.Player.Start[1], YamlConfigParser.Player.Rotation);
+            
 
             var miniMapController = MiniMapController.getInstance();
             miniMapController.Rows = mapLoader.Rows;
@@ -124,16 +126,6 @@ namespace Scripts
             return null;
         }
 
-        GameObject AddObject(Vector2 location, GameObject prefab)
-        {
-            var position = PositionForLocation(location);
-            var instance = Instantiate(prefab, position, Quaternion.identity);
-            instance.transform.parent = MapObject.transform;
-            instance.name = prefab.name + "_" + location.x + "x" + location.y;
-
-            return instance;
-        }
-
         public bool IsWalkable(Vector2 loc)
         {
             var mapBlock = GetBlockAtLocation(loc);
@@ -148,12 +140,12 @@ namespace Scripts
             return new Vector3(loc.x, 0, -loc.y);
         }
 
-        public void MovePlayer(int x, int y)
+        public void MovePlayer(int x, int y, string rotation = "East")
         {
             var player = GameObject.FindGameObjectWithTag("Player");
             PlayerController controller = player.GetComponent<PlayerController>();
 
-            controller.RotateTo(Direction.East, false);
+            controller.RotateTo(DirectionMethods.GetFromString(rotation), false);
             controller.MoveTo(new Vector2(x, y));
             startLocation = new Vector2(x, y);
         }

@@ -32,7 +32,9 @@ namespace Scripts.Controllers
 
             if (OnToggle != null) OnToggle(IsActive);
 
-            if (IsActive)
+			PlaySound();
+
+			if (IsActive)
             {
                 PerformActions(Map.Config.Action.ACTION_ACTIVATE);
             }
@@ -67,13 +69,13 @@ namespace Scripts.Controllers
 
         void PlaySound()
         {
-            /*var audioSource = transform.Find("wall_lever_audio_source").GetComponent<AudioSource>();
+            var audioSource = transform.Find("floor_button_audio_source").GetComponent<AudioSource>();
             audioSource.Stop();
             if (Clips.Count > 0)
             {
-                audioSource.clip = Clips[UnityEngine.Random.Range(0, Clips.Count)];
+                audioSource.clip = Clips[IsActive ? 0 : 1];
             }
-            audioSource.Play();*/
+            audioSource.Play();
         }
     }
 

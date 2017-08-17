@@ -9,7 +9,5 @@
 
         public void Tick()
         {
-        }
-        
     }
 }

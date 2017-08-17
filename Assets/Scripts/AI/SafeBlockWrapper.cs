@@ -34,6 +34,7 @@ namespace Scripts.AI
 			result.IsPressable = mapBlock.IsPressable;
 			result.IsOpenable = mapBlock.IsOpenable;
 			result.InteractiveObjectsDirections = mapBlock.InteractiveObjectsDirection;
+			result.Type = mapBlock.Type;
 
 			return result;
 		}

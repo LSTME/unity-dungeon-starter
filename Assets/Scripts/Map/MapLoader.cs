@@ -129,7 +129,7 @@ namespace Scripts.Map
         {
             var start = YamlConfigParser.Player.Start;
             
-            return new Vector2(start[0], start[1]);
+            return new Vector2(start[0] - 1, start[1] - 1);
         }
 
         private void markMapCorridors(Vector2 start, HashSet<Vector2> accessible)

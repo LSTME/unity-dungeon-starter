@@ -24,7 +24,6 @@ namespace Scripts.Controllers
     	
     	void Start()
     	{
-		    Debug.Log("MultiLightFlickerController start");
     		UpdateLight();
     		StartCoroutine(FlickerIntensity());
     	}

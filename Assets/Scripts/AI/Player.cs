@@ -4,7 +4,7 @@
     {
         public void Run()
         {
-            StartMap("YamlMap");
+            StartMap("cvicenie1");
         }
     }
 }

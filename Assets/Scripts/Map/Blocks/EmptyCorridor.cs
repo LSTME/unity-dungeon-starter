@@ -21,7 +21,7 @@ namespace Scripts.Map.Blocks
         {
             if (!GenerateCeiling) return MapObject;
 
-            GameObject templateCeiling = prefabList["ceiling"];
+            GameObject templateCeiling = prefabList["ceiling_03"];
 
             GameObject ceiling = AddObject(mapBlock.Location, templateCeiling, ref MapObject);
 
@@ -34,7 +34,7 @@ namespace Scripts.Map.Blocks
         {
             if (!GenerateFloor) return MapObject;
 
-            GameObject templateFloor = prefabList["floor"];
+            GameObject templateFloor = prefabList["floor_03"];
 
             GameObject floor = AddObject(mapBlock.Location, templateFloor, ref MapObject);
 

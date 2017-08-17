@@ -234,6 +234,6 @@ MonoBehaviour:
   MinimapColor: {r: 0.9117647, g: 0.88402337, b: 0.366, a: 0}
   TypePriority: 10
   Type: ducat
-  RotationSpeed: 350
+  RotationSpeed: 175
   BouncingSpeed: 150
   BouncingAmplitude: 0.05

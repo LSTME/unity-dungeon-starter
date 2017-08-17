@@ -1,0 +1,62 @@
+    #######
+    #DDDDD#
+    ###D###
+      #D#
+      #D#
+      #D#
+      #D#
+#######-#######
+#    t   t    #
+#t     b     t#
+#l     d     d#
+#t           t#
+#    t   t    #
+#######-#######
+      # #
+      # #
+     ## ##
+     #   #
+     #tct#
+     #ddd#
+     #####
+mapBlocks:
+ - position: [8, 8]
+   objects:
+    - type: door
+      name: northDoor
+ - position: [8, 11]
+   objects:
+    - type: decoration
+      model: ceiling_lamp
+ - position: [2, 11]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - open: southDoor
+       onDeactivate:
+        - close: southDoor
+ - position: [8, 14]
+   objects:
+    - type: door
+      name: southDoor
+ - position: [8, 10]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - open: northDoor
+       onDeactivate:
+        - close: northDoor
+ - position: [7, 20]
+   objects: &southBrokenWalls
+    - type: decoration
+      model: broken_path
+ - position: [8, 20]
+   objects: *southBrokenWalls
+ - position: [9, 20]
+   objects: *southBrokenWalls
+player:
+ start: [8, 11]
+ rotation: N
+gameLogic:

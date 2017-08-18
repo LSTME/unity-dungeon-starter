@@ -117,7 +117,12 @@ namespace Scripts.AI
 
 		protected SafeBlockWrapper CurrentBlock()
 		{
-			return SequentialSensor(() => BlockAt(PlayerController.getInstance().CurrentLocation));
+			return SequentialSensor(() =>
+			{
+				var mapBlock = MapGenerator.getInstance().GetBlockAtLocation(PlayerController.getInstance().CurrentLocation);
+
+				return SafeBlockWrapper.GetData(mapBlock);
+			});
 		}
         
         #endregion

@@ -84,6 +84,11 @@ namespace Scripts.Controllers
             Enabled = false;
             UpdateLight();
         }
+
+        public bool GetSwitchState()
+        {
+            return Enabled;
+        }
     }
 }
 

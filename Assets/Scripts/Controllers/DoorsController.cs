@@ -90,6 +90,11 @@ namespace Scripts.Controllers
             Close();
         }
 
+        public bool GetOpenState()
+        {
+            return IsOpen;
+        }
+
         public void SetDoorWalkable()
         {
             DoorWalkable = true;

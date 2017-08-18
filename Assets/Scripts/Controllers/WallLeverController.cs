@@ -83,7 +83,12 @@ namespace Scripts.Controllers
             IsActive = false;
         }
 
-		public bool IsReachable()
+        public bool GetSwitchState()
+        {
+            return IsActive;
+        }
+
+        public bool IsReachable()
 		{
 			return IsReachableToActivate();
 		}

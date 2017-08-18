@@ -4,5 +4,7 @@
     {
         void ActionSwitchOn(string target);
         void ActionSwitchOff(string target);
+        
+        bool GetSwitchState();
     }
 }

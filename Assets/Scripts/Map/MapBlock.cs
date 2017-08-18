@@ -194,6 +194,32 @@ namespace Scripts.Map
 			}
 		}
 
+	    public bool IsOpen
+	    {
+		    get
+		    {
+			    foreach (var gameObject in gameObjects)
+			    {
+				    var component = gameObject.GetComponent<Interfaces.IOpenable>();
+				    if (component != null && component.GetOpenState()) return true;
+			    }
+			    return false;
+		    }
+	    }
+
+	    public bool IsSwitched
+	    {
+		    get
+		    {
+			    foreach (var gameObject in gameObjects)
+			    {
+				    var component = gameObject.GetComponent<Interfaces.ISwitchable>();
+				    if (component != null && component.GetSwitchState()) return true;
+			    }
+			    return false;
+		    }
+	    }
+
         protected Dictionary<string, Config.ObjectConfig> NamedObjectsConfig;
 
         public MapBlock(char mapSymbol, int x, int y)

@@ -22,6 +22,10 @@ namespace Scripts.AI
 		public System.Collections.Generic.List<Direction> InteractiveObjectsDirections { get; set; }
 		// The most priorized object type (there are always more than one object on the same location)
 		public string Type { get; set; }
+		// If the openable object is open.
+		public bool IsOpen { get; set; }
+		// If the switchable object is switched on.
+		public bool IsSwitched { get; set; }
 
 		public static SafeBlockWrapper GetData(MapBlock mapBlock)
 		{
@@ -35,6 +39,8 @@ namespace Scripts.AI
 			result.IsOpenable = mapBlock.IsOpenable;
 			result.InteractiveObjectsDirections = mapBlock.InteractiveObjectsDirection;
 			result.Type = mapBlock.Type;
+			result.IsOpen = mapBlock.IsOpen;
+			result.IsSwitched = mapBlock.IsSwitched;
 
 			return result;
 		}

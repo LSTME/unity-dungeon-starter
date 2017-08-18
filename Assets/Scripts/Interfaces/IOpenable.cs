@@ -4,5 +4,7 @@
     {
         void ActionOpen(string target);
         void ActionClose(string target);
+
+        bool GetOpenState();
     }
 }

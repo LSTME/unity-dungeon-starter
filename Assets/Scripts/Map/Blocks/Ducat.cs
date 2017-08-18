@@ -11,19 +11,39 @@ namespace Scripts.Map.Blocks
 
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
-            GameObject template = prefabList["ducat"];
+            string prefab = getDucatType(mapBlock);
+
+            GameObject template = prefabList[prefab];
 
             GameObject ducat = AddObject(mapBlock.Location, template, ref MapObject);
-            ducat.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-			AssignObjectConfigByType(ducat, "ducat", mapBlock);
+            if (prefab == "ducat")
+            {
+                ducat.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);                
+            }
 
-			mapBlock.addGameObject(ducat);
+            AssignObjectConfigByType(ducat, "ducat", mapBlock);
+
+            mapBlock.addGameObject(ducat);
         }
 
         public override char forMapChar()
         {
             return 'D';
+        }        
+
+        protected string getDucatType(MapBlock mapBlock)
+        {
+            var ducatConfig = mapBlock.getObjectConfigForType("ducat");
+
+            var type = "";
+
+            if (ducatConfig != null && ducatConfig.Model != null)
+            {
+                type = ducatConfig.Model;
+            }
+
+            return type;
         }
     }
 }

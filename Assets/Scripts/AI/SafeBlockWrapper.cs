@@ -26,6 +26,8 @@ namespace Scripts.AI
 		public bool IsOpen { get; set; }
 		// If the switchable object is switched on.
 		public bool IsSwitched { get; set; }
+		// If the interactive block is looted
+		public bool IsLooted { get; set; }
 
 		public static SafeBlockWrapper GetData(MapBlock mapBlock)
 		{
@@ -41,6 +43,7 @@ namespace Scripts.AI
 			result.Type = mapBlock.Type;
 			result.IsOpen = mapBlock.IsOpen;
 			result.IsSwitched = mapBlock.IsSwitched;
+			result.IsLooted = mapBlock.IsLooted;
 
 			return result;
 		}

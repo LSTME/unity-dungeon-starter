@@ -119,9 +119,11 @@ public class GUITexts : MonoBehaviour {
 		MessageTime += Time.deltaTime;
 	}
 
-	public void CollectCoin()
+	public void CollectCoin(int value = 1)
 	{
-		CollectedCoins++;
+		if (value < 1)
+			return;
+		CollectedCoins += value;
 	}
 
 	public int GetCoinsCount()

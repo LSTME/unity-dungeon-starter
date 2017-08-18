@@ -194,6 +194,20 @@ namespace Scripts.Map
 			}
 		}
 
+		public bool IsLooted
+		{
+			get
+			{
+				foreach (var gameObject in gameObjects)
+				{
+					var component = gameObject.GetComponent<Interfaces.IVault>();
+					if (component != null && component.IsLooted()) return true;
+				}
+
+				return false;
+			}
+		}
+
 	    public bool IsOpen
 	    {
 		    get

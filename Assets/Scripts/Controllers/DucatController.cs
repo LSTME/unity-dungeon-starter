@@ -12,6 +12,10 @@ namespace Scripts.Controllers
 
         private float _angle = 0.0f;
 
+		void Start() {
+			gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+		}
+
 		public bool Activate()
 		{
 			PlayerController.InterpreterLock.Set();

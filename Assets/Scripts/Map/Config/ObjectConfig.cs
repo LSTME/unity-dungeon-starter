@@ -40,5 +40,6 @@
         public Teleport Teleport { get; set; }
         public Door Door { get; set; }
         public Torch Torch { get; set; }
+		public Chest Chest { get; set; }
     }
 }

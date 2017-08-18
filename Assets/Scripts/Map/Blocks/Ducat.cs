@@ -11,10 +11,9 @@ namespace Scripts.Map.Blocks
 
             base.createGameObject(mapBlock, prefabList, ref MapObject);
 
-            GameObject template = prefabList["ducat"];
+			GameObject template = prefabList[GetModel(mapBlock)];
 
             GameObject ducat = AddObject(mapBlock.Location, template, ref MapObject);
-            ducat.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
 			AssignObjectConfigByType(ducat, "ducat", mapBlock);
 
@@ -25,5 +24,30 @@ namespace Scripts.Map.Blocks
         {
             return 'D';
         }
+
+		protected string GetModel(MapBlock mapBlock) 
+		{
+			switch (GetDucatType (mapBlock))
+			{
+				case "chest":
+					return "chest";
+				default:
+					return "ducat";
+			}
+		}
+
+		protected string GetDucatType(MapBlock mapBlock)
+		{
+			var decorationConfig = mapBlock.getObjectConfigForType("ducat");
+
+			var type = "";
+
+			if (decorationConfig != null && decorationConfig.Model != null)
+			{
+				type = decorationConfig.Model;
+			}
+
+			return type;
+		}
     }
 }

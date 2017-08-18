@@ -4,7 +4,7 @@
     {
         public void Start()
         {
-            StartMap("cvicenie2");
+            StartMap("TestChest");
         }
 
         public void Tick()

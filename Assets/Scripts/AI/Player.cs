@@ -5,6 +5,8 @@
         public void Start()
         {
             StartMap("cvicenie1");
+
+			ShowMessage ("Toto je test!", UnityEngine.Color.red);
         }
 
         public void Tick()

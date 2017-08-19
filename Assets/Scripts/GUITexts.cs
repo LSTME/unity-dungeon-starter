@@ -14,6 +14,7 @@ public class GUITexts : MonoBehaviour {
 
 	private string TextMessage = "";
 	private float MessageTime = 0;
+	private Color TextColor = Color.white;
 
 	public bool ShowHUDElements = true;
 
@@ -100,7 +101,7 @@ public class GUITexts : MonoBehaviour {
 		shadowShape.y++;
 
 		var fontStyle = new GUIStyle();
-		fontStyle.normal.textColor = Color.white;
+		fontStyle.normal.textColor = TextColor;
 		fontStyle.alignment = TextAnchor.MiddleCenter;
 		fontStyle.fontSize = 20;
 		fontStyle.wordWrap = true;
@@ -135,5 +136,13 @@ public class GUITexts : MonoBehaviour {
 	{
 		TextMessage = Message;
 		MessageTime = 0.0f;
+		TextColor = Color.white;
+	}
+
+	public void NewTextMessage(string Message, Color TColor)
+	{
+		TextMessage = Message;
+		MessageTime = 0.0f;
+		TextColor = TColor;
 	}
 }

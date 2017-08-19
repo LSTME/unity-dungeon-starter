@@ -228,6 +228,11 @@ namespace Scripts.AI
 			SequentialProcedure(() => GUITexts.GetInstance().NewTextMessage(Message));
 		}
 
+		public void ShowMessage(string Message, Color TColor)
+		{
+			SequentialProcedure(() => GUITexts.GetInstance().NewTextMessage(Message, TColor));
+		}
+
 		#endregion
 	    
         private T SequentialSensor<T>(Func<T> action)

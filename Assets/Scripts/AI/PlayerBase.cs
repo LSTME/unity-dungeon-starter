@@ -245,17 +245,41 @@ namespace Scripts.AI
 
 		#region Messages
 
-		public void ShowMessage(string Message)
+	    protected void ShowMessage(string Message)
 		{
 			SequentialProcedure(() => GUITexts.GetInstance().NewTextMessage(Message));
 		}
 
-		public void ShowMessage(string Message, Color TColor)
+	    protected void ShowMessage(string Message, Color TColor)
 		{
 			SequentialProcedure(() => GUITexts.GetInstance().NewTextMessage(Message, TColor));
 		}
 
 		#endregion
+
+	    #region Painting
+
+	    protected void PaintColorAt(int X, int Y, UnityEngine.Color PointColor)
+	    {
+		    SequentialProcedure(() =>
+		    {
+			    Vector2 PointPosition = new Vector2(X, Y);
+			    
+			    GUIPainter.getInstance().PaintPointAt(PointPosition, PointColor);
+		    });
+	    }
+
+	    protected void RemoveColorAt(int X, int Y)
+	    {
+		    SequentialProcedure(() =>
+		    {
+			    Vector2 PointPosition = new Vector2(X, Y);
+			    
+			    GUIPainter.getInstance().RemovePointAt(PointPosition);
+		    });
+	    }
+
+	    #endregion
 	    
         private T SequentialSensor<T>(Func<T> action)
         {

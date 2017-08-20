@@ -516,6 +516,7 @@ GameObject:
   - component: {fileID: 527218282}
   - component: {fileID: 527218281}
   - component: {fileID: 527218283}
+  - component: {fileID: 527218285}
   - component: {fileID: 527218284}
   m_Layer: 0
   m_Name: GUI
@@ -580,6 +581,19 @@ MonoBehaviour:
   DucatIconPositionX: 1
   DucatIconPositionY: 22
   ShowHUDElements: 1
+--- !u!114 &527218285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 527218280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae71691836acca746abea3e3c6f3df79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Columns: 192
+  Rows: 108
 --- !u!1001 &553024567
 Prefab:
   m_ObjectHideFlags: 0

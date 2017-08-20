@@ -25,7 +25,29 @@ namespace Scripts.AI
         {
             return SequentialSensor(() => PlayerController.getInstance().CurrentLocation);
         }
-        
+
+	    protected Vector2 PlayerFrontLocation()
+	    {
+		    return SequentialSensor(() => MapUtils.GetFrontLocation(PlayerController.getInstance().CurrentLocation,
+			    PlayerController.getInstance().CurrentDirection));
+	    }
+
+	    protected Vector2 PlayerBackLocation()
+	    {
+		    return SequentialSensor(() => MapUtils.GetBackLocation(PlayerController.getInstance().CurrentLocation,
+			    PlayerController.getInstance().CurrentDirection));
+	    }
+
+	    protected Vector2 PlayerLeftLocation()
+	    {
+		    return SequentialSensor(() => MapUtils.GetLeftLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection));
+	    }
+
+	    protected Vector2 PlayerRightLocation()
+	    {
+		    return SequentialSensor(() => MapUtils.GetRightLocation(PlayerController.getInstance().CurrentLocation, PlayerController.getInstance().CurrentDirection));
+	    }
+	    
         protected Direction PlayerDirection()
         {
             return SequentialSensor(() => PlayerController.getInstance().CurrentDirection);

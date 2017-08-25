@@ -28,10 +28,17 @@ namespace Scripts.AI
 		public bool IsSwitched { get; set; }
 		// If the interactive block is looted
 		public bool IsLooted { get; set; }
+		// If block exists in game
+		public bool Exists { get; set; }
 
 		public static SafeBlockWrapper GetData(MapBlock mapBlock)
 		{
-			var result = new SafeBlockWrapper();
+			var result = GetDefault();
+
+			if (mapBlock == null)
+			{
+				return result;
+			}
 			result.IsWalkable = mapBlock.IsWalkable;
 			result.IsInteractive = mapBlock.IsInteractive;
 			result.IsReachable = mapBlock.IsReachable;
@@ -44,7 +51,29 @@ namespace Scripts.AI
 			result.IsOpen = mapBlock.IsOpen;
 			result.IsSwitched = mapBlock.IsSwitched;
 			result.IsLooted = mapBlock.IsLooted;
+			result.Exists = true;
+			
+			return result;
+		}
 
+		private static SafeBlockWrapper GetDefault()
+		{
+			var result = new SafeBlockWrapper();
+
+			var directions = new System.Collections.Generic.List<Direction>();
+			result.IsWalkable = false;
+			result.IsInteractive = false;
+			result.IsReachable = false;
+			result.IsDropable = false;
+			result.IsPickable = false;
+			result.IsPressable = false;
+			result.IsOpenable = false;
+			result.InteractiveObjectsDirections = directions;
+			result.Type = "";
+			result.IsOpen = false;
+			result.IsSwitched = false;
+			result.IsLooted = false;
+			result.Exists = false;
 			return result;
 		}
 	}

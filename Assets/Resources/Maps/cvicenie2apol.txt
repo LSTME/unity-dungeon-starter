@@ -1,0 +1,55 @@
+######
+# tt # #####
+#    ###tct#
+#t   |    d#
+#b  b###tct#
+#t  t# #####
+##--##
+ #DD#
+ #DD#
+ #DD#
+ #DD#
+ #DD#
+ ####
+mapBlocks:
+ - position: [6, 4]
+   objects:
+    - type: door
+      door:
+       manual: true
+ - position: [3, 7]
+   objects: &southdoortemplate
+    - type: door
+      name: southdoor
+ - position: [4, 7]
+   objects: *southdoortemplate
+ - position: [2, 5]
+   objects: &floorbuttontemplate
+    - type: floor_button
+      actions:
+       onActivate:
+        - increment: doorcounter
+       onDeactivate:
+        - decrement: doorcounter
+ - position: [5, 5]
+   objects: *floorbuttontemplate
+player:
+ start: [3, 3]
+ rotation: S
+gameLogic: 
+ counters:
+  - name: doorcounter
+    min: 0
+    max: 2
+    start: 0
+    fireAlways: false
+    actions:
+     onMax:
+      - open: southdoor
+      - message: Otvorene!
+     onElse:
+      - close: southdoor
+      - message: Este jednu!
+     onMin:
+      - close: southdoor
+      - message: Musis tam dat dve debne!

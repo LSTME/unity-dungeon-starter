@@ -14,7 +14,8 @@ public class GUIPainter : MonoBehaviour {
 	public int Rows = 1080;
 
 	private Dictionary<Vector2, Color> _colorMap;
-	private bool _Initialized = false;
+	private Dictionary<Vector2, Texture2D> _textures;
+	private bool _initialized = false;
 
 	private void OnGUI()
 	{
@@ -23,58 +24,62 @@ public class GUIPainter : MonoBehaviour {
 
 	private void Initialize()
 	{
-		if (_Initialized) return;
+		if (_initialized) return;
 		
 		_colorMap = new Dictionary<Vector2, Color>();
+		_textures = new Dictionary<Vector2, Texture2D>();
 
-		_Initialized = true;
+		_initialized = true;
 	}
 	
-	public static GUIPainter getInstance()
+	public static GUIPainter GetInstance()
 	{
 		return GameObject.FindWithTag("GUI").GetComponent<GUIPainter>();
 	}
 
 	private void PaintPoints()
 	{
-		foreach (var Position in _colorMap.Keys)
+		foreach (var position in _colorMap.Keys)
 		{
-			var PointColor = _colorMap[Position];
-			
-			if (PointColor == null) continue;
+			var pointColor = _colorMap[position];
 
-			var PointTexture = new Texture2D(1, 1);
-			PointTexture.SetPixel(0, 0, PointColor);
-			PointTexture.Apply();
+			if (!_textures.ContainsKey(position))
+			{
+				var newTexture = new Texture2D(1, 1);
+				_textures.Add(position, newTexture);
+			}
+			var pointTexture = _textures[position];
+			pointTexture.SetPixel(0, 0, pointColor);
+			pointTexture.Apply();
 			
-			var Area = new Rect(Position.x / Columns * Screen.width, Position.y / Rows * Screen.height, Screen.width / Columns, Screen.height / Rows);
+			var area = new Rect(position.x / Columns * Screen.width, position.y / Rows * Screen.height, Screen.width / Columns, Screen.height / Rows);
 			
-			GUI.skin.box.normal.background = PointTexture;
-			GUI.Box(Area, GUIContent.none);
+			GUI.skin.box.normal.background = pointTexture;
+			GUI.Box(area, GUIContent.none);
 		}
 	}
 
-	public void PaintPointAt(Vector2 PointPosition, Color PointColor)
+	public void PaintPointAt(Vector2 pointPosition, Color pointColor)
 	{
-		var NewPointPosition = new Vector2((int)PointPosition.x, (int)PointPosition.y);
+		var newPointPosition = new Vector2((int)pointPosition.x, (int)pointPosition.y);
 		
-		if (NewPointPosition.x < 0 || NewPointPosition.x >= Columns) return;
-		if (NewPointPosition.y < 0 || NewPointPosition.y >= Rows) return;
+		if (newPointPosition.x < 0 || newPointPosition.x >= Columns) return;
+		if (newPointPosition.y < 0 || newPointPosition.y >= Rows) return;
 
-		if (_colorMap.ContainsKey(NewPointPosition))
+		if (_colorMap.ContainsKey(newPointPosition))
 		{
-			_colorMap.Remove(NewPointPosition);
+			_colorMap.Remove(newPointPosition);
 		}
-		_colorMap.Add(NewPointPosition, PointColor);
+		_colorMap.Add(newPointPosition, pointColor);
 	}
 
-	public void RemovePointAt(Vector2 PointPosition)
+	public void RemovePointAt(Vector2 pointPosition)
 	{
-		var NewPointPosition = new Vector2((int)PointPosition.x, (int)PointPosition.y);
+		var newPointPosition = new Vector2((int)pointPosition.x, (int)pointPosition.y);
 		
-		if (_colorMap.ContainsKey(NewPointPosition))
+		if (_colorMap.ContainsKey(newPointPosition))
 		{
-			_colorMap.Remove(NewPointPosition);
+			_colorMap.Remove(newPointPosition);
 		}
 	}
 }

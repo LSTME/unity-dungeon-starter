@@ -301,7 +301,7 @@ namespace Scripts.AI
             PlayerController.InterpreterLock.Reset();
             PlayerController.ActionQueue.Enqueue(action);
             PlayerController.InterpreterLock.WaitOne();
-            Thread.Sleep(100);
+            Thread.Sleep(1);
         }
 	    
         private void SequentialProcedure(Action action)

@@ -265,7 +265,7 @@ namespace Scripts.AI
 		    {
 			    Vector2 PointPosition = new Vector2(X, Y);
 			    
-			    GUIPainter.getInstance().PaintPointAt(PointPosition, PointColor);
+			    GUIPainter.GetInstance().PaintPointAt(PointPosition, PointColor);
 		    });
 	    }
 
@@ -275,7 +275,7 @@ namespace Scripts.AI
 		    {
 			    Vector2 PointPosition = new Vector2(X, Y);
 			    
-			    GUIPainter.getInstance().RemovePointAt(PointPosition);
+			    GUIPainter.GetInstance().RemovePointAt(PointPosition);
 		    });
 	    }
 

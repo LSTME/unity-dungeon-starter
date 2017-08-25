@@ -83,7 +83,7 @@ public class GUITexts : MonoBehaviour {
 		var fontStyleShadow = new GUIStyle(fontStyle);
 		fontStyleShadow.normal.textColor = Color.gray;
 
-		string text = "Interackie vypnuté ...";
+		string text = "Interakcie vypnuté ...";
 
 		GUI.Label(textShapeShadow, text, fontStyleShadow);
 		GUI.Label(textShape, text, fontStyle);

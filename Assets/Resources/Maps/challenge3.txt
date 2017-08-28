@@ -1,0 +1,194 @@
+########### #################
+#  t  #t t# #t  #t    #l#   #
+#t###-# # # # # # ### # # # #
+# #t  # #T# # # # #  t#c# # #
+# # ### ### # # # # ###-# # #
+#t#t l#t t# # #t  #  l#t t# #
+# ####### # # ############# #
+# #t l t# # #t  #dt      t  #
+#t### #-# # ### ### ####### #
+#  t  #  t# #T   t  #T |tl| #
+########### #################
+#############################
+#t   T# t #t   t#t  #   # t #
+# ##### # # ### # # # # # # #
+#   #  t# # #   # # t # t # #
+# # # ### # #t### ######### #
+# # #  t#t t#  l#t  #D#t  # #
+# # ### ########### #D# # # #
+# #t    #b t c#t   t#D# # t #
+# #########-# ### ###D# #####
+#t         t#     #DDt|t   b#
+#############################
+player:
+ start: [4, 8]
+ rotation: E
+mapBlocks:
+ - position: [8, 9]
+   objects:
+    - type: door
+      name: room1SouthDoor
+ - position: [6, 3]
+   objects:
+    - type: door
+      name: room1NorthDoor
+ - position: [6, 8]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - open: room1NorthDoor
+        - setTrue: room2doorLever1
+       onDeactivate:
+        - close: room1NorthDoor
+        - setFalse: room2doorLever1
+ - position: [6, 6]
+   objects:
+    - type: lever
+      rotation: E
+      actions:
+       onActivate:
+        - open: room1SouthDoor
+       onDeactivate:
+        - close: room1SouthDoor
+ - position: [10, 4]
+   objects:
+    - type: teleport
+      teleport:
+       target: [15, 10]
+       rotation: E
+ - position: [14, 10]
+   objects:
+    - type: teleport
+      teleport:
+       target: [10, 3]
+       rotation: N
+ - position: [18, 8]
+   objects:
+    - type: decoration
+      model: broken_path
+      rotation: W
+ - position: [22, 6]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - setTrue: room2doorLever2
+       onDeactivate:
+        - setFalse: room2doorLever2
+ - position: [24, 2]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - open: room2FinalDoor
+       onDeactivate:
+        - close: room2FinalDoor
+ - position: [27, 10]
+   objects:
+    - type: door
+      name: room2Door
+ - position: [24, 5]
+   objects:
+    - type: door
+      name: room2TopDoor
+ - position: [24, 10]
+   objects:
+    - type: door
+      name: room2FinalDoor
+ - position: [26, 10]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - open: room2TopDoor
+       onDeactivate:
+        - close: room2TopDoor
+ - position: [22, 10]
+   objects:
+    - type: teleport
+      teleport:
+       target: [5, 13]
+       rotation: W
+ - position: [6, 13]
+   objects:
+    - type: teleport
+      teleport:
+       target: [23, 10]
+       rotation: E
+ - position: [23, 21]
+   objects:
+    - type: door
+      name: room3TreasureDoor
+ - position: [20, 21]
+   objects:
+    - type: ducat
+      model: chest
+      rotation: W
+      chest:
+       value: 12
+ - position: [22, 17]
+   objects:
+    - type: ducat
+      model: chest
+      rotation: N
+      chest:
+       value: 4
+ - position: [10, 19]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - setTrue: room3doorButton1
+       onDeactivate:
+        - setFalse: room3doorButton1
+ - position: [28, 21]
+   objects:
+    - type: floor_button
+      actions:
+       onActivate:
+        - setTrue: room3doorButton2
+       onDeactivate:
+        - setFalse: room3doorButton2
+ - position: [12, 20]
+   objects:
+    - type: door
+      name: room3door1
+ - position: [16, 17]
+   objects:
+    - type: lever
+      actions:
+       onActivate:
+        - open: room3door1
+       onDeactivate:
+        - close: room3door1
+gameLogic:
+ variables:
+  - name: room2doorLever1
+    state: false
+  - name: room2doorLever2
+    state: false
+  - name: room3doorButton1
+    state: false
+  - name: room3doorButton2
+    state: false
+ logic:
+  - variables:
+     - name: room2doorLever1
+       negate: true
+     - name: room2doorLever2
+    andLogic: true
+    actions:
+     onTrue:
+      - open: room2Door
+     onFalse:
+      - close: room2Door
+  - variables:
+     - name: room3doorButton1
+     - name: room3doorButton2
+    andLogic: true
+    actions:
+     onTrue:
+      - open: room3TreasureDoor
+     onFalse:
+      - close: room3TreasureDoor

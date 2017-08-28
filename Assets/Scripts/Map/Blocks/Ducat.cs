@@ -15,6 +15,20 @@ namespace Scripts.Map.Blocks
 
             GameObject ducat = AddObject(mapBlock.Location, template, ref MapObject);
 
+	        if (EnableRotation(mapBlock))
+	        {
+		        var ducatConfig = mapBlock.getObjectConfigForType("ducat");
+		        if (ducatConfig != null && ducatConfig.Rotation != null && ducatConfig.Rotation.Length == 1)
+		        {
+			        var direction = (Direction)"NESW".IndexOf(ducatConfig.Rotation[0]);
+			        ducat.transform.rotation = direction.GetRotation();
+		        }
+		        else
+		        {
+			        AttachToWall(ref ducat);
+		        }    
+	        }
+
 			AssignObjectConfigByType(ducat, "ducat", mapBlock);
 
 			mapBlock.addGameObject(ducat);
@@ -35,6 +49,17 @@ namespace Scripts.Map.Blocks
 					return "ducat";
 			}
 		}
+
+	    protected bool EnableRotation(MapBlock mapBlock)
+	    {
+		    switch (GetDucatType(mapBlock))
+		    {
+				case "chest":
+					return true;
+				default:
+					return false;
+		    }
+	    }
 
 		protected string GetDucatType(MapBlock mapBlock)
 		{

@@ -243,6 +243,15 @@ namespace Scripts.AI
 
 		#endregion
 
+	    #region Environment
+
+	    protected void SetTimeScale(float scale)
+	    {
+		    SequentialProcedure(() => Time.timeScale = scale);
+	    }
+
+	    #endregion
+
 		#region Messages
 
 	    protected void ShowMessage(string Message)

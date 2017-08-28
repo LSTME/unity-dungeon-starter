@@ -370,6 +370,11 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d05845d1d09764ad9bf5d0cd9be8e0ee, type: 2}
   m_IsPrefabParent: 0
+--- !u!20 &388846589 stripped
+Camera:
+  m_PrefabParentObject: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 1228316828}
 --- !u!1001 &411808436
 Prefab:
   m_ObjectHideFlags: 0
@@ -767,6 +772,111 @@ Transform:
   m_PrefabParentObject: {fileID: 4361686805082368, guid: 1a85a7f96b3cc418aa082cf6e75dc6a8,
     type: 2}
   m_PrefabInternal: {fileID: 103172706}
+--- !u!1 &709882448
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 1571444693304138, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 709882449}
+  - component: {fileID: 709882453}
+  - component: {fileID: 709882452}
+  - component: {fileID: 709882451}
+  - component: {fileID: 709882450}
+  m_Layer: 0
+  m_Name: TopCamera
+  m_TagString: MainCamera
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &709882449
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 4513937400371532, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709882448}
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 3, z: -3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1228316829}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!95 &709882450
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 95834841465721764, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709882448}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1ab4e6bb555f04728a985b27877be0da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!124 &709882451
+Behaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 124977865311968208, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709882448}
+  m_Enabled: 1
+--- !u!81 &709882452
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 81957861446324576, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709882448}
+  m_Enabled: 1
+--- !u!20 &709882453
+Camera:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 20609265309038734, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 709882448}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0.019607844}
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.01
+  far clip plane: 10
+  field of view: 85
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 0
+  m_AllowMSAA: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+  m_StereoMirrorMode: 0
 --- !u!4 &785444922 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4232895722307036, guid: c7151ba19be9f43579e61c4b6ac6d9e9,
@@ -1026,15 +1136,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4222624543993078, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -0.72
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4222624543993078, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4222624543993078, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 4.13
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4222624543993078, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
       propertyPath: m_LocalRotation.x
@@ -1111,9 +1221,40 @@ Prefab:
       propertyPath: m_AllowMSAA
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4513937400371532, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4513937400371532, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1571444693304138, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
+      propertyPath: m_Name
+      value: HeadCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483883615762704, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114856092583193406, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: HeadCamera
+      value: 
+      objectReference: {fileID: 388846589}
+    - target: {fileID: 114856092583193406, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+        type: 2}
+      propertyPath: TopCamera
+      value: 
+      objectReference: {fileID: 709882453}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 5c4bdedf6a1994ef6940e675f4eee229, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &1228316829 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4222624543993078, guid: 5c4bdedf6a1994ef6940e675f4eee229,
+    type: 2}
+  m_PrefabInternal: {fileID: 1228316828}
 --- !u!1001 &1276121178
 Prefab:
   m_ObjectHideFlags: 0

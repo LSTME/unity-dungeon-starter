@@ -40,6 +40,9 @@ namespace Scripts
 
         private GameObject PickedUpObject = null;
 
+        public Camera HeadCamera;
+        public Camera TopCamera;
+
         public static PlayerController getInstance()
         {
             return GameObject.FindWithTag("Player").GetComponent<PlayerController>();
@@ -91,6 +94,12 @@ namespace Scripts
 
         private void Start()
         {
+            if (HeadCamera != null && TopCamera != null)
+            {
+                HeadCamera.enabled = true;
+                TopCamera.enabled = false;
+            }
+
             knownActions.Add("Strafe");
             knownActions.Add("Vertical");
             knownActions.Add("Horizontal");
@@ -98,12 +107,11 @@ namespace Scripts
             knownActions.Add("");
 
             RotateTo(m_CurrentDirection, false);
-            
+
             MapGenerator.getInstance().Initialize();
 
             new Thread(o =>
             {
-                
                 var player = new Player();
                 player.Start();
                 while (true)
@@ -118,6 +126,15 @@ namespace Scripts
         {
             MiniMapController.getInstance().PlayerLocation = m_CurrentLocation;
             visitCurrentLocationOnMinimap();
+
+            if (HeadCamera != null && TopCamera != null)
+            {
+                if (Input.GetButtonDown("MapOverview"))
+                {
+                    HeadCamera.enabled = !HeadCamera.enabled;
+                    TopCamera.enabled = !TopCamera.enabled;
+                }
+            }
 
             var action = GetAction();
             if (action != null)
@@ -173,7 +190,7 @@ namespace Scripts
             {
                 MiniMapController.getInstance().SwitchLarge();
             }
-            
+
             if (_actionQueue.Count > 0)
                 return _actionQueue.Dequeue();
 
@@ -488,7 +505,7 @@ namespace Scripts
             sound.pitch = UnityEngine.Random.Range(0.8f, 1.2f);
             sound.Play();
 
-            var anim = transform.Find("Camera").gameObject.GetComponent<Animator>();
+            var anim = transform.Find("HeadCamera").gameObject.GetComponent<Animator>();
             anim.Play("head_bob");
         }
 

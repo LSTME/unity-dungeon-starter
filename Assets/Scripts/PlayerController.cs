@@ -110,6 +110,16 @@ namespace Scripts
 
             MapGenerator.getInstance().Initialize();
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+            // Showcase build: WebGL has no threads, so load the map directly and drive the player by keyboard.
+            var mapName = "cvicenie2";
+            var url = Application.absoluteURL;
+            var i = url.IndexOf("map=");
+            if (i >= 0) mapName = url.Substring(i + 4).Split(new[] { '&', '#' })[0];
+            MapGenerator.getInstance().LoadMapFile(mapName);
+            enableKeyboardInteraction = true;
+            return;
+#endif
             new Thread(o =>
             {
                 var player = new Player();
